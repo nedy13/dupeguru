@@ -63,6 +63,8 @@ jobs:
           python -m pip install --upgrade pip
           # PySide6 is only a dependency outside of Linux, the UI tests need it everywhere
           pip install -e ".[dev]" PySide6
+      - name: Build Qt resources
+        run: pyside6-rcc qt/dg.qrc -o qt/dg_rc.py
       - name: Run tests
         env:
           QT_QPA_PLATFORM: offscreen
