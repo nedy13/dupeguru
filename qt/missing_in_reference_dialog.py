@@ -3,7 +3,7 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QAction, QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
@@ -47,6 +47,9 @@ class MissingInReferenceDialog(QDialog):
         super().__init__(parent, Qt.WindowType.Window)
         self.app = app
         self.files = []
+        # Checked files are the ones the actions work on, kept across refreshes
+        self.checked = set()
+        self.no_reference = True
         self.preview_window = None
         self.setWindowTitle(tr("Files Missing in Reference"))
         self.resize(950, 550)
@@ -78,16 +81,32 @@ class MissingInReferenceDialog(QDialog):
         self.table.setSortingEnabled(True)
         self.table.doubleClicked.connect(self.activate_selected)
         self.table.itemSelectionChanged.connect(self.selection_changed)
+        self.table.itemChanged.connect(self.item_changed)
+        # Space checks the current file, like in the preview window
+        space = QShortcut(QKeySequence(Qt.Key.Key_Space), self.table, context=Qt.ShortcutContext.WidgetShortcut)
+        space.activated.connect(self.toggle_current)
         layout.addWidget(self.table)
 
         buttons = QHBoxLayout()
+        self.check_button = QPushButton(tr("Check"))
+        check_menu = QMenu(self.check_button)
+        for text, func in (
+            (tr("Check All Shown"), lambda: self.set_checked(self.visible_files(), True)),
+            (tr("Uncheck All"), lambda: self.set_checked(self.files, False)),
+            (tr("Invert Checks of Shown"), self.invert_checks),
+        ):
+            action = QAction(text, check_menu)
+            action.triggered.connect(func)
+            check_menu.addAction(action)
+        self.check_button.setMenu(check_menu)
         self.transfer_button = QPushButton(tr("Copy / Move"))
+        self.transfer_button.setToolTip(tr("Works on the checked files, or the selected ones if none is checked"))
         transfer_menu = QMenu(self.transfer_button)
         for text, copy, to_reference in (
-            (tr("Copy Selected to Reference..."), True, True),
-            (tr("Move Selected to Reference..."), False, True),
-            (tr("Copy Selected to Folder..."), True, False),
-            (tr("Move Selected to Folder..."), False, False),
+            (tr("Copy to Reference..."), True, True),
+            (tr("Move to Reference..."), False, True),
+            (tr("Copy to Folder..."), True, False),
+            (tr("Move to Folder..."), False, False),
         ):
             action = QAction(text, transfer_menu)
             action.triggered.connect(lambda checked=False, c=copy, r=to_reference: self.transfer_selected(c, r))
@@ -101,7 +120,13 @@ class MissingInReferenceDialog(QDialog):
         self.reveal_button.clicked.connect(self.reveal_selected)
         close_button = QPushButton(tr("Close"))
         close_button.clicked.connect(self.close)
-        self.file_buttons = (self.transfer_button, self.export_button, self.open_button, self.reveal_button)
+        self.file_buttons = (
+            self.check_button,
+            self.transfer_button,
+            self.export_button,
+            self.open_button,
+            self.reveal_button,
+        )
         for button in self.file_buttons:
             buttons.addWidget(button)
         buttons.addStretch(1)
@@ -113,6 +138,8 @@ class MissingInReferenceDialog(QDialog):
         files = self.app.model.missing_in_reference
         self.files = list(files or [])
         self.no_reference = files is None
+        self.checked &= set(self.files)
+        self.table.blockSignals(True)
         self.table.setSortingEnabled(False)
         self.table.clearContents()
         self.table.setRowCount(len(self.files))
@@ -124,9 +151,13 @@ class MissingInReferenceDialog(QDialog):
                 item.setData(SORT_ROLE, raw)
                 # Keeps the link to the file whatever the sorting is
                 item.setData(INDEX_ROLE, row)
+                if column == 0:
+                    item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                    item.setCheckState(Qt.CheckState.Checked if f in self.checked else Qt.CheckState.Unchecked)
                 if column == 2:
                     item.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
                 self.table.setItem(row, column, item)
+        self.table.blockSignals(False)
         self.table.setSortingEnabled(True)
         self.table.sortByColumn(1, Qt.SortOrder.AscendingOrder)
         for column in (0, 2, 3):
@@ -159,6 +190,8 @@ class MissingInReferenceDialog(QDialog):
         text = tr("%d files of the normal folders have no duplicate in the reference folders.") % len(self.files)
         if shown != len(self.files):
             text += " " + tr("%d shown.") % shown
+        if self.checked:
+            text += " " + tr("%d checked.") % len(self.checked)
         self.summary_label.setText(text)
 
     def show(self):
@@ -167,14 +200,71 @@ class MissingInReferenceDialog(QDialog):
         self.raise_()
         self.activateWindow()
 
+    def _file_at(self, row):
+        return self.files[self.table.item(row, 0).data(INDEX_ROLE)]
+
+    def visible_rows(self):
+        return [row for row in range(self.table.rowCount()) if not self.table.isRowHidden(row)]
+
     def visible_files(self):
-        rows = [row for row in range(self.table.rowCount()) if not self.table.isRowHidden(row)]
-        return [self.files[self.table.item(row, 0).data(INDEX_ROLE)] for row in rows]
+        return [self._file_at(row) for row in self.visible_rows()]
 
     def selected_files(self):
         rows = {index.row() for index in self.table.selectionModel().selectedRows()}
-        rows = [row for row in sorted(rows) if not self.table.isRowHidden(row)]
-        return [self.files[self.table.item(row, 0).data(INDEX_ROLE)] for row in rows]
+        return [self._file_at(row) for row in sorted(rows) if not self.table.isRowHidden(row)]
+
+    def checked_files(self):
+        """Checked files among the shown ones, in the displayed order."""
+        return [f for f in self.visible_files() if f in self.checked]
+
+    def target_files(self):
+        """Files the actions work on: the checked ones or, if none is checked, the selected ones."""
+        return self.checked_files() or self.selected_files()
+
+    # --- Checks
+    def item_changed(self, item):
+        if item.column() != 0:
+            return
+        f = self.files[item.data(INDEX_ROLE)]
+        if item.checkState() == Qt.CheckState.Checked:
+            self.checked.add(f)
+        else:
+            self.checked.discard(f)
+        self._update_summary(len(self.visible_rows()))
+        self._update_preview_state()
+
+    def set_checked(self, files, checked):
+        files = set(files)
+        state = Qt.CheckState.Checked if checked else Qt.CheckState.Unchecked
+        for row in range(self.table.rowCount()):
+            if self._file_at(row) in files:
+                self.table.item(row, 0).setCheckState(state)
+
+    def invert_checks(self):
+        for row in self.visible_rows():
+            item = self.table.item(row, 0)
+            checked = item.checkState() == Qt.CheckState.Checked
+            item.setCheckState(Qt.CheckState.Unchecked if checked else Qt.CheckState.Checked)
+
+    def toggle_current(self):
+        """Check or uncheck the current file, and the other selected ones the same way."""
+        row = self.table.currentRow()
+        if row < 0 or self.table.isRowHidden(row):
+            return
+        current = self._file_at(row)
+        files = set(self.selected_files()) | {current}
+        self.set_checked(files, current not in self.checked)
+
+    def move_current(self, delta):
+        """Select the shown file ``delta`` rows after the current one, the preview follows."""
+        rows = self.visible_rows()
+        if not rows:
+            return
+        row = self.table.currentRow()
+        index = rows.index(row) + delta if row in rows else 0
+        index = max(0, min(len(rows) - 1, index))
+        self.table.selectRow(rows[index])
+        self.table.scrollToItem(self.table.item(rows[index], 0))
 
     # --- Preview
     def preview_toggled(self, checked):
@@ -186,21 +276,35 @@ class MissingInReferenceDialog(QDialog):
     def selection_changed(self):
         if not self.preview_checkbox.isChecked():
             return
-        selected = self.selected_files()
-        if selected:
+        row = self.table.currentRow()
+        if row >= 0 and not self.table.isRowHidden(row):
+            self.show_preview(self._file_at(row))
+        elif selected := self.selected_files():
+            # Selecting all doesn't set a current row
             self.show_preview(selected[0])
 
     def show_preview(self, f):
         if self.preview_window is None:
             self.preview_window = FilePreviewWindow(self)
+            self.preview_window.navigate.connect(self.move_current)
+            self.preview_window.toggle_requested.connect(self.toggle_current)
         self.preview_window.show_file(f.path)
+        self._update_preview_state()
+
+    def _update_preview_state(self):
+        if self.preview_window is None or not self.preview_window.isVisible():
+            return
+        row = self.table.currentRow()
+        rows = self.visible_rows()
+        if row not in rows:
+            return
+        position = f"{rows.index(row) + 1}/{len(rows)}"
+        self.preview_window.set_state(self._file_at(row) in self.checked, position)
 
     # --- Actions
     def activate_selected(self):
         if self.preview_checkbox.isChecked():
-            selected = self.selected_files()
-            if selected:
-                self.show_preview(selected[0])
+            self.selection_changed()
         else:
             self.open_selected()
 
@@ -219,8 +323,8 @@ class MissingInReferenceDialog(QDialog):
         if not destination:
             return
         try:
-            # Exports what is shown, the filter applies
-            missing.export_to_csv(self.visible_files(), destination)
+            # The checked files, or what is shown when none is checked
+            missing.export_to_csv(self.checked_files() or self.visible_files(), destination)
         except OSError as e:
             QMessageBox.warning(self, tr("Export to CSV"), str(e))
 
@@ -236,9 +340,9 @@ class MissingInReferenceDialog(QDialog):
         return folders[names.index(name)] if ok else None
 
     def transfer_selected(self, copy, to_reference):
-        files = self.selected_files()
+        files = self.target_files()
         if not files:
-            QMessageBox.information(self, self.windowTitle(), tr("Select the files first (Ctrl+A selects all)."))
+            QMessageBox.information(self, self.windowTitle(), tr("Check or select the files first."))
             return
         if to_reference:
             destination = self._choose_reference_folder()

@@ -292,6 +292,67 @@ def test_no_duplicates_offers_missing_files(dgapp, tmp_path, monkeypatch):
     assert not errors, errors
 
 
+def activate(window, timeout=5):
+    """Activate ``window`` like a click of the user, the offscreen platform ignores activateWindow()."""
+    window.windowHandle().requestActivate()
+    end = time.time() + timeout
+    while not window.isActiveWindow() and time.time() < end:
+        process_events(0.05)
+    assert window.isActiveWindow()
+    process_events(0.05)
+
+
+def test_missing_in_reference_keyboard_checks(dgapp, tmp_path, monkeypatch):
+    from pathlib import Path
+
+    from PySide6.QtTest import QTest
+    from PySide6.QtWidgets import QFileDialog, QLabel
+
+    from core import fs
+
+    app, errors = dgapp
+    files = []
+    for name in ("a.txt", "b.txt", "c.txt"):
+        (tmp_path / name).write_text(name)
+        files.append(fs.File(Path(tmp_path / name)))
+    app.model.missing_in_reference = files
+    dialog = app.missingInReferenceDialog
+    dialog.show()
+    activate(dialog)
+    dialog.table.setCurrentCell(0, 1)
+    dialog.table.setFocus()
+    QTest.keyClick(dialog.table, Qt.Key.Key_Space)
+    assert dialog.checked_files() == [files[0]]
+
+    dialog.preview_checkbox.setChecked(True)
+    preview = dialog.preview_window
+    # Like clicking into the preview: the window takes the keyboard focus from the list
+    activate(preview)
+    QTest.keyClick(preview, Qt.Key.Key_Down)
+    assert dialog.table.currentRow() == 1
+    assert preview.windowTitle().endswith("(2/3)")
+    # Space checks the current file even when a label of the preview has the focus
+    label = preview.findChildren(QLabel)[-1]
+    label.setFocus()
+    QTest.keyClick(label, Qt.Key.Key_Space)
+    assert dialog.checked_files() == files[:2]
+    assert preview.checked_box.isChecked()
+    QTest.keyClick(preview, Qt.Key.Key_Space)
+    assert dialog.checked_files() == [files[0]]
+    assert not preview.checked_box.isChecked()
+    QTest.keyClick(preview, Qt.Key.Key_Down)
+    QTest.keyClick(preview, Qt.Key.Key_Space)
+
+    # Copy works on the checked files only
+    dest = tmp_path / "dest"
+    dest.mkdir()
+    monkeypatch.setattr(QFileDialog, "getExistingDirectory", staticmethod(lambda *a, **k: str(dest)))
+    dialog.table.selectAll()
+    wait_for_job(app, lambda: dialog.transfer_selected(copy=True, to_reference=False))
+    assert sorted(p.name for p in dest.iterdir()) == ["a.txt", "c.txt"]
+    assert not errors, errors
+
+
 QUIT_DRIVER = """
 import sys
 from xml.etree import ElementTree as ET
