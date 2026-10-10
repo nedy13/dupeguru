@@ -58,7 +58,7 @@ class ErrorReportDialog(QDialog):
         main_layout.addWidget(self.error_text_edit)
 
         msg = tr(
-            "Error reports should be reported as Github issues. You can copy the error traceback "
+            "Error reports should be reported as GitHub issues. You can copy the error traceback "
             "above and paste it in a new issue.\n\nPlease make sure to run a search for any already "
             "existing issues beforehand. Also make sure to test the very latest version available from the repository, "
             "since the bug you are experiencing might have already been patched.\n\n"
@@ -80,17 +80,17 @@ class ErrorReportDialog(QDialog):
         button_layout.addWidget(close_button)
 
         report_button = QPushButton(self)
-        report_button.setText(tr("Go to Github"))
+        report_button.setText(tr("Go to GitHub"))
         report_button.setMinimumSize(QSize(110, 0))
         report_button.setDefault(True)
         button_layout.addWidget(report_button)
 
         main_layout.addLayout(button_layout)
 
-        report_button.clicked.connect(self.goToGithub)
+        report_button.clicked.connect(self.goToGitHub)
         close_button.clicked.connect(self.reject)
 
-    def goToGithub(self):
+    def goToGitHub(self):
         open_url(self.github_url)
 
 

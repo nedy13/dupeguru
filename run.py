@@ -8,6 +8,7 @@
 import sys
 import os.path as op
 import gc
+import multiprocessing
 
 from PySide6.QtCore import QDir
 from PySide6.QtGui import QIcon
@@ -48,6 +49,7 @@ def setup_signals():
 
 def main():
     app = QApplication(sys.argv)
+    app.setDesktopFileName("dupeguru")
     QApplication.setOrganizationName("Hardcoded Software")
     QApplication.setApplicationName(__appname__)
     QApplication.setApplicationVersion(__version__)
@@ -86,4 +88,6 @@ def main():
 
 
 if __name__ == "__main__":
+    # Needed by the picture scan worker processes in PyInstaller builds, has to run before anything else
+    multiprocessing.freeze_support()
     sys.exit(main())
