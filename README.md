@@ -7,8 +7,8 @@ This is a fork of [arsenetar/dupeguru](https://github.com/arsenetar/dupeguru) th
 [PySide6][pyside6] instead of PyQt.
 
 ## Download
-Prebuilt packages for Windows (installer), macOS (app bundle) and Arch Linux are attached to the
-[GitHub releases](https://github.com/nedy13/dupeguru/releases).
+Prebuilt packages for Windows (installer), macOS (app bundle), Debian/Ubuntu (`.deb`) and Arch Linux
+are attached to the [GitHub releases](https://github.com/nedy13/dupeguru/releases).
 
 ## Current status
 Still looking for additional help especially with regards to:
@@ -50,9 +50,6 @@ When running in a linux based environment the following system packages or equiv
 
 On Windows and macOS PySide6 is installed from PyPI together with the other dependencies.
 
-To create Debian packages the following are also needed:
-* python3-setuptools
-* debhelper
 
 ### Building with Make
 dupeGuru comes with a makefile that can be used to build and run:
@@ -71,13 +68,17 @@ extension modules in place:
     $ python run.py
 
 ### Generating Debian/Ubuntu package
+The package is built from the distribution packages, no virtual environment is needed. It is
+tested on Debian 13 (trixie), which ships PySide6:
 
+    $ sudo apt install build-essential debhelper dpkg-dev python3-dev python3-setuptools \
+        python3-sphinx python3-polib python3-distro python3-send2trash python3-mutagen \
+        python3-semantic-version python3-xxhash python3-pyside6.qtwidgets qt6-base-dev-tools
     $ cd <dupeGuru directory>
-    $ python3 -m venv --system-site-packages ./env
-    $ source ./env/bin/activate
-    $ pip install -e ".[build]"
-    $ python builder.py --clean
-    $ python package.py
+    $ python3 builder.py --clean
+    $ python3 package.py
+
+The package ends up in `build/dupeguru_<version>_amd64.deb`.
 
 ### Generating Arch Linux package
 A `PKGBUILD` building the `master` branch of this fork lives in `pkg/arch`. Build it from that
@@ -88,7 +89,7 @@ directory so makepkg's `src/` and `pkg/` folders stay out of the source tree:
 
 ## Releases
 Pushing a tag like `v4.4.0` runs the CI workflow, which builds the Windows installer, the macOS
-app and the Arch Linux package and publishes them as a GitHub release. The tag has to match
+app and the Debian and Arch Linux packages and publishes them as a GitHub release. The tag has to match
 `__version__` in `core/__init__.py`.
 
 ## Running tests

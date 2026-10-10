@@ -129,7 +129,10 @@ def build_qt_resources():
         from PySide6.QtCore import QLibraryInfo
 
         qt_libexec = QLibraryInfo.path(QLibraryInfo.LibraryPath.LibraryExecutablesPath)
-        rcc_cmd = [str(Path(qt_libexec, "rcc")), "-g", "python"]
+        rcc = Path(qt_libexec, "rcc")
+        if not rcc.exists():
+            sys.exit(f"Qt resource compiler not found at {rcc}, install it (Debian/Ubuntu: qt6-base-dev-tools)")
+        rcc_cmd = [str(rcc), "-g", "python"]
     else:
         rcc_cmd = [rcc]
     subprocess.check_call(rcc_cmd + [str(Path("qt", "dg.qrc")), "-o", str(rc_path)])

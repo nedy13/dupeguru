@@ -60,8 +60,7 @@ def copy_files_to_package(destpath, packages, with_so):
     # include locale files if they are built otherwise exit as it will break
     # the localization
     if not check_loc_doc():
-        print("Exiting...")
-        return
+        sys.exit("Exiting, build the help and locale files first")
     shutil.copytree(op.join("build", "help"), op.join(destpath, "help"))
     shutil.copytree(op.join("build", "locale"), op.join(destpath, "locale"))
     compileall.compile_dir(destpath)
@@ -72,7 +71,7 @@ def package_debian_distribution(distribution):
     version = "{}~{}".format(app_version, distribution)
     destpath = op.join("build", "dupeguru-{}".format(version))
     srcpath = op.join(destpath, "src")
-    packages = ["hscommon", "core", "qt", "send2trash"]
+    packages = ["hscommon", "core", "qt"]
     copy_files_to_package(srcpath, packages, with_so=False)
     os.mkdir(op.join(destpath, "modules"))
     copy_all(op.join("core", "pe", "modules", "*.*"), op.join(destpath, "modules"))
@@ -88,10 +87,9 @@ def package_debian_distribution(distribution):
     debskel = op.join("pkg", "debian")
     os.makedirs(debdest)
     debopts = json.load(open(op.join(debskel, "dupeguru.json")))
-    for fn in ["compat", "copyright", "dirs", "rules", "source"]:
+    for fn in ["copyright", "rules", "source"]:
         copy(op.join(debskel, fn), op.join(debdest, fn))
     filereplace(op.join(debskel, "control"), op.join(debdest, "control"), **debopts)
-    filereplace(op.join(debskel, "Makefile"), op.join(destpath, "Makefile"), **debopts)
     filereplace(op.join(debskel, "dupeguru.desktop"), op.join(debdest, "dupeguru.desktop"), **debopts)
     changelogpath = op.join("help", "changelog")
     changelog_dest = op.join(debdest, "changelog")
@@ -104,11 +102,8 @@ def package_debian_distribution(distribution):
         from_version=from_version,
         distribution=distribution,
     )
-    shutil.copy(op.join("images", "dgse_logo_128.png"), srcpath)
-    os.chdir(destpath)
-    cmd = "dpkg-buildpackage -F -us -uc"
-    os.system(cmd)
-    os.chdir("../..")
+    shutil.copytree("images", op.join(srcpath, "images"), ignore=shutil.ignore_patterns("*.xcf", "*.ico", "*.icns"))
+    subprocess.check_call(["dpkg-buildpackage", "-F", "-us", "-uc"], cwd=destpath)
 
 
 def package_debian():
@@ -143,8 +138,7 @@ def package_windows():
     # include locale files if they are built otherwise exit as it will break
     # the localization
     if not check_loc_doc():
-        print("Exiting...")
-        return
+        sys.exit("Exiting, build the help and locale files first")
     # create version information file from template
     try:
         version_template = open("win_version_info.temp", "r")
@@ -198,8 +192,7 @@ def package_macos():
     # include locale files if they are built otherwise exit as it will break
     # the localization
     if not check_loc_doc():
-        print("Exiting")
-        return
+        sys.exit("Exiting, build the help and locale files first")
     # run pyinstaller from here:
     import PyInstaller.__main__
 

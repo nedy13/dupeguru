@@ -1,22 +1,23 @@
 Source: {pkgname}
-Section: devel
-Priority: extra
-Maintainer: Virgil Dupras <hsoft@hardcoded.net>, Eugene San (eugenesan) <eugenesan@gmail.com>
-Build-Depends: debhelper (>= 7), python3-dev, python3-setuptools
-Standards-Version: 3.9.2
-Homepage: https://dupeguru.voltaicideas.net
+Section: utils
+Priority: optional
+Maintainer: Rene Hahne <rehahne@gmail.com>
+Build-Depends: debhelper-compat (= 13), python3-dev (>= 3.12), python3-setuptools
+Standards-Version: 4.7.0
+Homepage: https://github.com/nedy13/dupeguru
 Vcs-Browser: https://github.com/nedy13/dupeguru
 Vcs-Git: https://github.com/nedy13/dupeguru.git
 
 Package: {pkgname}
 Architecture: {arch}
-Depends: ${shlibs:Depends}, python3 (>=3.7), python3-pyside6.qtcore, python3-pyside6.qtgui, python3-pyside6.qtwidgets, python3-mutagen, python3-semantic-version
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3 (>= 3.12), python3-pyside6.qtcore, python3-pyside6.qtgui,
+ python3-pyside6.qtwidgets, python3-mutagen, python3-semantic-version, python3-send2trash, python3-xxhash
 Provides: dupeguru-se, dupeguru-me, dupeguru-pe
 Replaces: dupeguru-se, dupeguru-me, dupeguru-pe
 Conflicts: dupeguru-se, dupeguru-me, dupeguru-pe
-Description: {longname}
- dupeGuru is a cross-platform (Linux and OS X) GUI tool to find duplicate files in a system.
- It's written mostly in Python 3 and has the peculiarity of using multiple GUI toolkits,
- all using the same core Python code.
- On OS X, the UI layer is written in Objective-C and uses Cocoa.
- On Linux, it's written in Python and uses Qt5.
+Description: Find duplicate files with various contents
+ dupeGuru is a cross-platform GUI tool to find duplicate files in a system. It
+ can scan filenames or contents, has a special mode for music files with tag
+ comparison and one for pictures that finds similar, not only identical images.
+ .
+ This build uses PySide6 (Qt 6) for its user interface.
