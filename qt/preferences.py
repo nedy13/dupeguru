@@ -5,9 +5,9 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from typing import Any, Tuple
-from PyQt6.QtWidgets import QApplication, QDockWidget
-from PyQt6.QtCore import Qt, QRect, QObject, pyqtSignal
-from PyQt6.QtGui import QColor
+from PySide6.QtWidgets import QApplication, QDockWidget
+from PySide6.QtCore import Qt, QRect, QObject, Signal
+from PySide6.QtGui import QColor
 
 from hscommon import trans
 from hscommon.plat import ISLINUX
@@ -70,7 +70,7 @@ def _adjust_after_deserialization(v):
 
 
 class PreferencesBase(QObject):
-    prefsChanged = pyqtSignal()
+    prefsChanged = Signal()
 
     def __init__(self):
         QObject.__init__(self)

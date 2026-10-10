@@ -5,8 +5,8 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from typing import Callable
-from PyQt6.QtWidgets import QFormLayout, QCheckBox
-from PyQt6.QtCore import Qt
+from PySide6.QtWidgets import QFormLayout, QCheckBox
+from PySide6.QtCore import Qt
 from hscommon.trans import trget
 from hscommon.plat import ISLINUX
 from qt.preferences import Preferences

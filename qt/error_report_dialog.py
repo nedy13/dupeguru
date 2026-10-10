@@ -11,8 +11,8 @@ import sys
 import os
 import platform
 
-from PyQt6.QtCore import Qt, QCoreApplication, QSize
-from PyQt6.QtWidgets import (
+from PySide6.QtCore import Qt, QCoreApplication, QSize
+from PySide6.QtWidgets import (
     QDialog,
     QVBoxLayout,
     QHBoxLayout,

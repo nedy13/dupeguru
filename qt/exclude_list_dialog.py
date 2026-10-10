@@ -3,8 +3,8 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 import re
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtWidgets import (
+from PySide6.QtCore import Qt, Slot
+from PySide6.QtWidgets import (
     QPushButton,
     QLineEdit,
     QVBoxLayout,
@@ -97,7 +97,7 @@ class ExcludeListDialog(QDialog):
         super().show()
         self.inputLine.setFocus()
 
-    @pyqtSlot()
+    @Slot()
     def addStringFromLineEdit(self):
         text = self.inputLine.text()
         if not text:

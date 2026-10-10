@@ -6,9 +6,9 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PyQt6.QtCore import Qt, QCoreApplication, QTimer
-from PyQt6.QtGui import QPixmap, QFont, QShowEvent
-from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QSizePolicy, QHBoxLayout, QVBoxLayout, QLabel, QWidget
+from PySide6.QtCore import Qt, QCoreApplication, QTimer
+from PySide6.QtGui import QPixmap, QFont, QShowEvent
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QSizePolicy, QHBoxLayout, QVBoxLayout, QLabel, QWidget
 
 from core.util import check_for_update
 from qt.util import move_to_screen_center
@@ -48,7 +48,7 @@ class AboutBox(QDialog):
 
         name_label = QLabel()
         font = QFont()
-        font.setWeight(75)
+        font.setWeight(QFont.DemiBold)
         font.setBold(True)
         name_label.setFont(font)
         name_label.setText(QCoreApplication.instance().applicationName())

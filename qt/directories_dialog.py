@@ -4,8 +4,8 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PyQt5.QtCore import QRect, Qt
-from PyQt5.QtWidgets import (
+from PySide6.QtCore import QRect, Qt
+from PySide6.QtWidgets import (
     QListView,
     QWidget,
     QFileDialog,
@@ -23,7 +23,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QComboBox,
 )
-from PyQt5.QtGui import QPixmap, QIcon
+from PySide6.QtGui import QPixmap, QIcon
 
 from hscommon.trans import trget
 from core.app import AppMode
@@ -258,7 +258,7 @@ class DirectoriesDialog(QMainWindow):
 
     def _updateScanTypeList(self):
         try:
-            self.scanTypeComboBox.currentIndexChanged[int].disconnect(self.scanTypeChanged)
+            self.scanTypeComboBox.currentIndexChanged[int].disconnect(self)
         except TypeError:
             # Not connected, ignore
             pass

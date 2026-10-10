@@ -5,8 +5,8 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from typing import Callable
-from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy, QSpacerItem, QWidget, QCheckBox
+from PySide6.QtCore import QSize
+from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy, QSpacerItem, QWidget, QCheckBox
 
 from hscommon.trans import trget
 from core.app import AppMode

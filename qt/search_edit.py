@@ -6,9 +6,9 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QIcon, QPixmap, QPainter, QPalette
-from PyQt5.QtWidgets import QToolButton, QLineEdit, QStyle, QStyleOptionFrame
+from PySide6.QtCore import Signal, Qt
+from PySide6.QtGui import QIcon, QPixmap, QPainter, QPalette
+from PySide6.QtWidgets import QToolButton, QLineEdit, QStyle, QStyleOptionFrame
 
 from hscommon.trans import trget
 
@@ -117,4 +117,4 @@ class SearchEdit(ClearableEdit):
             self.searchChanged.emit()
 
     # --- Signals
-    searchChanged = pyqtSignal()  # Emitted when return is pressed or when the test is cleared
+    searchChanged = Signal()  # Emitted when return is pressed or when the test is cleared

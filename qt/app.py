@@ -8,9 +8,9 @@ import sys
 import os.path as op
 from typing import Type
 
-from PyQt6.QtCore import QTimer, QObject, QUrl, pyqtSignal, Qt
-from PyQt6.QtGui import QColor, QDesktopServices, QPalette
-from PyQt6.QtWidgets import QApplication, QFileDialog, QDialog, QMessageBox, QStyleFactory, QToolTip
+from PySide6.QtCore import QTimer, QObject, QUrl, Signal, Qt
+from PySide6.QtGui import QColor, QDesktopServices, QPalette
+from PySide6.QtWidgets import QApplication, QFileDialog, QDialog, QMessageBox, QStyleFactory, QToolTip
 
 from hscommon.trans import trget
 from hscommon import desktop, plat
@@ -307,8 +307,8 @@ class DupeGuru(QObject):
         QApplication.quit()
 
     # --- Signals
-    willSavePrefs = pyqtSignal()
-    SIGTERM = pyqtSignal()
+    willSavePrefs = Signal()
+    SIGTERM = Signal()
 
     # --- Events
     def finishedLaunching(self) -> None:

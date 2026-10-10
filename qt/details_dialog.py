@@ -6,8 +6,8 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDockWidget, QWidget
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QDockWidget, QWidget
 
 from qt.util import move_to_screen_center
 from qt.details_table import DetailsModel

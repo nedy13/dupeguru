@@ -17,9 +17,9 @@ from core.util import executable_folder
 from hscommon.util import first
 from hscommon.plat import ISWINDOWS
 
-from PyQt6.QtCore import QStandardPaths, QSettings
-from PyQt6.QtGui import QPixmap, QIcon, QGuiApplication, QAction
-from PyQt6.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QWidget
+from PySide6.QtCore import QStandardPaths, QSettings
+from PySide6.QtGui import QPixmap, QIcon, QGuiApplication, QAction
+from PySide6.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QWidget
 
 
 def move_to_screen_center(widget: QWidget) -> None:

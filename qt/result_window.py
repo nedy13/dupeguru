@@ -6,8 +6,8 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PyQt5.QtCore import Qt, QRect
-from PyQt5.QtWidgets import (
+from PySide6.QtCore import Qt, QRect
+from PySide6.QtWidgets import (
     QMainWindow,
     QMenu,
     QLabel,
@@ -20,8 +20,8 @@ from PyQt5.QtWidgets import (
     QDialog,
     QPushButton,
     QCheckBox,
-    QDesktopWidget,
 )
+from PySide6.QtGui import QScreen
 
 from hscommon.trans import trget
 from qt.util import move_to_screen_center, horizontal_wrap, create_actions
@@ -378,10 +378,14 @@ class ResultWindow(QMainWindow):
                 # if not on any screen move to center of default screen
                 # moves to center of closest screen if partially off screen
                 frame = self.frameGeometry()
-                if QDesktopWidget().screenNumber(self) == -1:
+                app = QApplication.instance()
+                if app is None:
+                    app = QApplication([])
+                screen = app.primaryScreen()
+                if screen is None:
                     move_to_screen_center(self)
-                elif QDesktopWidget().availableGeometry(self).contains(frame) is False:
-                    frame.moveCenter(QDesktopWidget().availableGeometry(self).center())
+                elif screen.availableGeometry().contains(frame) is False:
+                    frame.moveCenter(screen.availableGeometry().center())
                     self.move(frame.topLeft())
             else:
                 move_to_screen_center(self)

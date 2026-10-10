@@ -9,14 +9,14 @@ import sys
 import os.path as op
 import gc
 
-from PyQt6.QtCore import QDir
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication
+from PySide6.QtCore import QDir
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QApplication
 
 from hscommon.trans import install_gettext_trans_under_qt
 from qt.error_report_dialog import install_excepthook
 from qt.util import setup_qt_logging, create_qsettings
-from qt import dg_rc  # noqa: F401
+#from qt import dg_rc  # noqa: F401
 from qt.platform import BASE_PATH
 from core import __version__, __appname__
 
@@ -62,7 +62,7 @@ def main():
     # Let the Python interpreter runs every 500ms to handle signals.  This is
     # required because Python cannot handle signals while the Qt event loop is
     # running.
-    from PyQt6.QtCore import QTimer
+    from PySide6.QtCore import QTimer
 
     timer = QTimer()
     timer.start(500)

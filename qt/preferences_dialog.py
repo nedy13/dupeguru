@@ -5,8 +5,8 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from typing import Union
-from PyQt6.QtCore import Qt, QSize, pyqtSlot
-from PyQt6.QtWidgets import (
+from PySide6.QtCore import Qt, QSize, Slot
+from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QVBoxLayout,
@@ -29,7 +29,7 @@ from PyQt6.QtWidgets import (
     QGroupBox,
     QFormLayout,
 )
-from PyQt6.QtGui import QPixmap, QIcon, QShowEvent
+from PySide6.QtGui import QPixmap, QIcon, QShowEvent
 from hscommon import desktop, plat
 
 from hscommon.trans import trget
@@ -400,7 +400,7 @@ class ColorPickerButton(QPushButton):
         self.color = None
         self.clicked.connect(self.onClicked)
 
-    @pyqtSlot()
+    @Slot()
     def onClicked(self) -> None:
         color = QColorDialog.getColor(
             self.color if self.color is not None else Qt.GlobalColor.white, self.parentWidget()
