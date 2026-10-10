@@ -1,0 +1,71 @@
+# Maintainer: Rene Hahne <rehahne@gmail.com>
+# Contributor: fuan_k <rrkay at posteo dot net>
+# Contributor: Bijaya Dangol <dangoldbj23@gmail.com>
+# Contributor: Virgil Dupras <hsoft@hardcoded.net>
+
+# Build from the pkg/arch directory: makepkg -si
+pkgname=dupeguru-git
+_pkgname=dupeguru
+pkgver=4.3.1.r0.g0000000
+pkgrel=1
+pkgdesc="Find duplicate files with various contents, using perceptual diff for pictures (PySide6 fork)"
+arch=('x86_64')
+url="https://github.com/nedy13/dupeguru"
+license=('GPL-3.0-only')
+depends=('python' 'pyside6' 'python-send2trash' 'python-mutagen'
+         'python-semantic-version' 'python-xxhash' 'glibc' 'hicolor-icon-theme')
+makedepends=('git' 'python-setuptools' 'python-sphinx' 'python-polib')
+provides=('dupeguru')
+conflicts=('dupeguru' 'dupeguru-se' 'dupeguru-pe' 'dupeguru-me')
+# Override with DUPEGURU_REPO=git+file:///path/to/checkout to build local commits without pushing
+source=("${_pkgname}::${DUPEGURU_REPO:-git+https://github.com/nedy13/dupeguru.git}#branch=nedy")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${_pkgname}"
+  # Fallback version from core/__init__.py, upstream tags are not available in every fork clone
+  local _ver
+  _ver=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' core/__init__.py)
+  printf "%s.r%s.g%s" "${_ver}" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+build() {
+  cd "${_pkgname}"
+  python build.py --clean
+}
+
+check() {
+  cd "${_pkgname}"
+  python -c "import core.pe._block, core.pe._cache, qt.pe._block_qt"
+}
+
+package() {
+  cd "${_pkgname}"
+  local _dest="${pkgdir}/usr/lib/${_pkgname}"
+
+  install -dm755 "${_dest}"
+  install -m755 run.py "${_dest}/run.py"
+  cp -a --no-preserve=ownership hscommon core qt "${_dest}/"
+  cp -a --no-preserve=ownership build/locale build/help "${_dest}/"
+  install -dm755 "${_dest}/images"
+  install -m644 images/*.png "${_dest}/images/"
+
+  # Strip sources and test suites not needed at runtime
+  find "${_dest}" -depth \( -name tests -o -name __pycache__ -o -name modules -o -name .doctrees \) -type d -exec rm -rf {} +
+  find "${_dest}/help" -name .buildinfo -delete
+  find "${_dest}" \( -name '*.c' -o -name '*.h' -o -name '*.pyi' -o -name '*.qrc' \) -delete
+  rm "${_dest}"/hscommon/{build,loc,pygettext,sphinxgen,testutil}.py
+
+  python -m compileall -q -d "/usr/lib/${_pkgname}" "${_dest}"
+  python -O -m compileall -q -d "/usr/lib/${_pkgname}" "${_dest}"
+
+  install -dm755 "${pkgdir}/usr/bin"
+  cat > "${pkgdir}/usr/bin/${_pkgname}" <<EOF
+#!/bin/sh
+exec /usr/bin/python3 /usr/lib/${_pkgname}/run.py "\$@"
+EOF
+  chmod 755 "${pkgdir}/usr/bin/${_pkgname}"
+
+  install -Dm644 pkg/dupeguru.desktop "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+  install -Dm644 images/dgse_logo_128.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/${_pkgname}.png"
+}

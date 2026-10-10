@@ -39,7 +39,7 @@ jobs:
         name: Build Cpp
         run: |
           sudo apt-get update
-          sudo apt-get install python3-pyqt6
+          sudo apt-get install python3-pyside6.qtwidgets
           make modules
       - if: matrix.language == 'python'
         name: Autobuild

@@ -1,6 +1,6 @@
 PYTHON ?= python3
 PYTHON_VERSION_MINOR := $(shell ${PYTHON} -c "import sys; print(sys.version_info.minor)")
-PYRCC5 ?= pyside6-rcc
+PYRCC ?= pyside6-rcc
 REQ_MINOR_VERSION = 7
 PREFIX ?= /usr/local
 
@@ -60,8 +60,8 @@ ifndef NO_VENV
 	@${PYTHON} -m venv -h > /dev/null || \
 		echo "Creation of our virtualenv failed. If you're on Ubuntu, you probably need python3-venv."
 endif
-	@${PYTHON} -c 'import PyQt6' >/dev/null 2>&1 || \
-		{ echo "PyQt 6.3+ required. Install it and try again. Aborting"; exit 1; }
+	@${PYTHON} -c 'import PySide6' >/dev/null 2>&1 || \
+		{ echo "PySide6 6.3+ required. Install it and try again. Aborting"; exit 1; }
 
 env: | reqs
 ifndef NO_VENV
@@ -77,7 +77,7 @@ build/help: | env
 	$(VENV_PYTHON) build.py --doc
 
 qt/dg_rc.py: qt/dg.qrc
-	$(PYRCC5) qt/dg.qrc > qt/dg_rc.py
+	$(PYRCC) qt/dg.qrc > qt/dg_rc.py
 
 i18n: $(mofiles)
 

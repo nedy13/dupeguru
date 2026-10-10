@@ -16,7 +16,7 @@ This folder contains the source for dupeGuru. Its documentation is in `help`, bu
 [available online][documentation] in its built form. Here's how this source tree is organized:
 
 * core: Contains the core logic code for dupeGuru. It's Python code.
-* qt: UI code for the Qt toolkit. It's written in Python and uses PyQt.
+* qt: UI code for the Qt toolkit. It's written in Python and uses PySide6.
 * images: Images used by the different UI codebases.
 * pkg: Skeleton files required to create different packages
 * help: Help document, written for Sphinx.
@@ -32,11 +32,11 @@ For macos instructions (qt version) see the [macOS Instructions](macos.md).
 
 ### Prerequisites
 * [Python 3.7+][python]
-* PyQt6
+* PySide6
 
 ### System Setup
 When running in a linux based environment the following system packages or equivalents are needed to build:
-* python3-pyqt6
+* python3-pyside6.qtwidgets (Arch: pyside6)
 * python3-venv (only if using a virtual environment)
 * python3-dev
 * build-essential
@@ -74,6 +74,13 @@ This can be made a one-liner (once in the directory) as:
 
     $ bash -c "python3 -m venv --system-site-packages env && source env/bin/activate && pip install -r requirements.txt -r requirements-extra.txt && python build.py --clean && python package.py"
 
+### Generating Arch Linux package
+A `PKGBUILD` building the `nedy` branch of this fork lives in `pkg/arch`. Build it from that
+directory so makepkg's `src/` and `pkg/` folders stay out of the source tree:
+
+    $ cd pkg/arch
+    $ makepkg -si
+
 ## Running tests
 
 The complete test suite is run with [Tox 1.7+][tox]. If you have it installed system-wide, you
@@ -90,5 +97,5 @@ virtualenv and then `py.test core hscommon`
 [cross-toolkit]: http://www.hardcoded.net/articles/cross-toolkit-software
 [documentation]: http://dupeguru.voltaicideas.net/help/en/
 [python]: http://www.python.org/
-[pyqt]: http://www.riverbankcomputing.com
+[pyside6]: https://doc.qt.io/qtforpython-6/
 [tox]: https://tox.readthedocs.org/en/latest/

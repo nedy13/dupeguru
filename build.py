@@ -13,7 +13,6 @@ from multiprocessing import Pool
 from hscommon import sphinxgen
 from hscommon.build import (
     add_to_pythonpath,
-    print_and_do,
     fix_qt_resource_file,
 )
 from hscommon import loc
@@ -121,6 +120,22 @@ def build_pe_modules():
     subprocess.check_call([sys.executable, "setup.py", "build_ext", "--inplace"])
 
 
+def build_qt_resources():
+    rc_path = Path("qt", "dg_rc.py")
+    rc_path.unlink(missing_ok=True)
+    rcc = shutil.which("pyside6-rcc")
+    if rcc is None:
+        # Distributions such as Arch ship PySide6 without the pyside6-rcc wrapper, use Qt's rcc directly
+        from PySide6.QtCore import QLibraryInfo
+
+        qt_libexec = QLibraryInfo.path(QLibraryInfo.LibraryPath.LibraryExecutablesPath)
+        rcc_cmd = [str(Path(qt_libexec, "rcc")), "-g", "python"]
+    else:
+        rcc_cmd = [rcc]
+    subprocess.check_call(rcc_cmd + [str(Path("qt", "dg.qrc")), "-o", str(rc_path)])
+    fix_qt_resource_file(rc_path)
+
+
 def build_normal():
     print("Building dupeGuru with UI qt")
     add_to_pythonpath(".")
@@ -129,9 +144,7 @@ def build_normal():
     print("Building localizations")
     build_localizations()
     print("Building Qt stuff")
-    Path("qt", "dg_rc.py").unlink(missing_ok=True)
-    print_and_do("pyside6-rcc {} > {}".format(Path("qt", "dg.qrc"), Path("qt", "dg_rc.py")))
-    fix_qt_resource_file(Path("qt", "dg_rc.py"))
+    build_qt_resources()
     build_help()
 
 
