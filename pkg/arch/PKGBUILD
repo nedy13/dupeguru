@@ -17,6 +17,7 @@ depends=('python' 'pyside6' 'python-send2trash' 'python-mutagen'
 makedepends=('git' 'python-setuptools' 'python-sphinx' 'python-polib')
 provides=('dupeguru')
 conflicts=('dupeguru' 'dupeguru-se' 'dupeguru-pe' 'dupeguru-me')
+options=('!debug')
 # Override with DUPEGURU_REPO=git+file:///path/to/checkout to build local commits without pushing,
 # DUPEGURU_REF=commit=<sha> or tag=<tag> selects another revision (used by CI)
 source=("${_pkgname}::${DUPEGURU_REPO:-git+https://github.com/nedy13/dupeguru.git}#${DUPEGURU_REF:-branch=nedy}")

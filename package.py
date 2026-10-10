@@ -9,6 +9,7 @@ import os
 import os.path as op
 import compileall
 import shutil
+import subprocess
 import json
 from argparse import ArgumentParser
 import platform
@@ -175,10 +176,22 @@ def package_windows():
     )
     # remove version info file
     os.remove("win_version_info.txt")
-    # Call NSIS (uses makensis from PATH, falls back to the default install location)
-    makensis = shutil.which("makensis") or "C:\\Program Files (x86)\\NSIS\\Bin\\makensis.exe"
-    cmd = '"{0}" /DVERSIONMAJOR={1} /DVERSIONMINOR={2} /DVERSIONPATCH={3} /DBITS={4} setup.nsi'
-    print_and_do(cmd.format(makensis, version_array[0], version_array[1], version_array[2], bits))
+    # Call NSIS (uses makensis from PATH, falls back to the default install locations)
+    nsis_dir = op.join(os.environ.get("ProgramFiles(x86)", "C:\\Program Files (x86)"), "NSIS")
+    candidates = [shutil.which("makensis"), op.join(nsis_dir, "makensis.exe"), op.join(nsis_dir, "Bin", "makensis.exe")]
+    makensis = next((c for c in candidates if c and op.exists(c)), None)
+    if makensis is None:
+        sys.exit("makensis not found, install NSIS to build the installer")
+    cmd = [
+        makensis,
+        "/DVERSIONMAJOR={0}".format(version_array[0]),
+        "/DVERSIONMINOR={0}".format(version_array[1]),
+        "/DVERSIONPATCH={0}".format(version_array[2]),
+        "/DBITS={0}".format(bits),
+        "setup.nsi",
+    ]
+    print(" ".join(cmd))
+    subprocess.check_call(cmd)
 
 
 def package_macos():
