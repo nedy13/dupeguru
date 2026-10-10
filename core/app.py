@@ -26,7 +26,7 @@ from hscommon import desktop
 from core import se, me, pe
 from core.pe.photo import get_delta_dimensions
 from core.util import cmp_value, fix_surrogate_encoding
-from core import directories, results, export, fs, prioritize
+from core import directories, results, export, fs, prioritize, workers
 from core.ignore import IgnoreList
 from core.exclude import ExcludeDict as ExcludeList
 from core.scanner import ScanType
@@ -153,6 +153,7 @@ class DupeGuru(Broadcaster):
             "copymove_dest_type": DestType.RELATIVE,
             "include_exists_check": True,
             "rehash_ignore_mtime": False,
+            "scan_workers": 0,
         }
         self.selected_dupes = []
         self.details_panel = DetailsPanel(self)
@@ -793,6 +794,7 @@ class DupeGuru(Broadcaster):
         """
         scanner = self.SCANNER_CLASS()
         fs.filesdb.ignore_mtime = self.options["rehash_ignore_mtime"] is True
+        workers.set_setting(self.options["scan_workers"])
         if not self.directories.has_any_file():
             self.view.show_message(tr("The selected directories contain no scannable file."))
             return

@@ -234,6 +234,21 @@ most users should not have to modify these."
         self.advanced_vlayout.addWidget(self.include_exists_check_box)
         self._setupAddCheckbox("rehash_ignore_mtime_box", tr("Ignore difference in mtime when loading cached digests"))
         self.advanced_vlayout.addWidget(self.rehash_ignore_mtime_box)
+        workers_layout = QHBoxLayout()
+        workers_layout.addWidget(QLabel(tr("Parallel scan workers:")))
+        self.scan_workers_spinbox = QSpinBox()
+        self.scan_workers_spinbox.setRange(0, 256)
+        # 0 is shown as "Automatic", which scans single-threaded on computers with two CPUs or less
+        self.scan_workers_spinbox.setSpecialValueText(tr("Automatic"))
+        self.scan_workers_spinbox.setToolTip(
+            tr(
+                "Number of files hashed and pictures analyzed at the same time. Automatic uses all CPUs, "
+                "except on computers with two CPUs or less. 1 scans single-threaded."
+            )
+        )
+        workers_layout.addWidget(self.scan_workers_spinbox)
+        workers_layout.addStretch(1)
+        self.advanced_vlayout.addLayout(workers_layout)
 
     def _setupDebugPage(self) -> None:
         self._setupAddCheckbox("debugModeBox", tr("Debug mode (restart required)"))
@@ -351,6 +366,7 @@ most users should not have to modify these."
         if section & Sections.ADVANCED:
             setchecked(self.rehash_ignore_mtime_box, prefs.rehash_ignore_mtime)
             setchecked(self.include_exists_check_box, prefs.include_exists_check)
+            self.scan_workers_spinbox.setValue(prefs.scan_workers)
         if section & Sections.DEBUG:
             setchecked(self.debugModeBox, prefs.debug_mode)
             setchecked(self.profile_scan_box, prefs.profile_scan)
@@ -369,6 +385,7 @@ most users should not have to modify these."
         prefs.ignore_hardlink_matches = ischecked(self.ignoreHardlinkMatches)
         prefs.rehash_ignore_mtime = ischecked(self.rehash_ignore_mtime_box)
         prefs.include_exists_check = ischecked(self.include_exists_check_box)
+        prefs.scan_workers = self.scan_workers_spinbox.value()
         prefs.debug_mode = ischecked(self.debugModeBox)
         prefs.profile_scan = ischecked(self.profile_scan_box)
         prefs.reference_bold_font = ischecked(self.reference_bold_font)

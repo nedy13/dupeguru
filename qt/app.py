@@ -198,6 +198,7 @@ class DupeGuru(QObject):
         self.model.options["match_rotated"] = self.prefs.match_rotated
         self.model.options["include_exists_check"] = self.prefs.include_exists_check
         self.model.options["rehash_ignore_mtime"] = self.prefs.rehash_ignore_mtime
+        self.model.options["scan_workers"] = self.prefs.scan_workers
 
         if self.details_dialog:
             self.details_dialog.update_options()

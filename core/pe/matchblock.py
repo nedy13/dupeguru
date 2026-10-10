@@ -9,11 +9,13 @@
 import logging
 import multiprocessing
 from itertools import combinations
+from pathlib import Path
 
 from hscommon.util import extract, iterconsume
 from hscommon.trans import tr
 from hscommon.jobprogress import job
 
+from core import workers
 from core.engine import Match
 from core.pe.block import avgdiff, DifferentBlockCountError, NoBlocksError
 from core.pe.cache_sqlite import SqliteCache
@@ -54,7 +56,77 @@ def get_cache(cache_path, readonly=False):
     return SqliteCache(cache_path, readonly=readonly)
 
 
-def prepare_pictures(pictures, cache_path, with_dimensions, match_rotated, j=job.nulljob):
+# Below this amount of pictures, starting worker processes costs more than it saves
+PARALLEL_MIN_PICTURES = 50
+# MemoryError marker passed back from the worker processes
+_MEMORY_ERROR = "MemoryError"
+
+
+def _analyze_picture(picture, with_dimensions, match_rotated, need_blocks):
+    """Read what the scan needs from ``picture``: its dimensions and, if ``need_blocks``, its blocks.
+
+    Decoding pictures is CPU bound, so this runs in worker processes when there are many pictures.
+    """
+    dimensions = picture.dimensions if with_dimensions else None
+    blocks = None
+    if need_blocks:
+        if match_rotated:
+            blocks = [picture.get_blocks(BLOCK_COUNT_PER_SIDE, orientation) for orientation in range(1, 9)]
+        else:
+            blocks = [[]] * 8
+            blocks[max(picture.get_orientation() - 1, 0)] = picture.get_blocks(BLOCK_COUNT_PER_SIDE)
+    return dimensions, blocks
+
+
+def _analyze_picture_in_worker(args):
+    picture_class, path, with_dimensions, match_rotated, need_blocks = args
+    try:
+        return _analyze_picture(picture_class(Path(path)), with_dimensions, match_rotated, need_blocks), None
+    except (OSError, ValueError) as e:
+        return None, str(e)
+    except MemoryError:
+        return None, _MEMORY_ERROR
+
+
+def _needs_blocks(cache, picture, match_rotated):
+    return picture.unicode_path not in cache or (
+        match_rotated and any(block == [] for block in cache[picture.unicode_path])
+    )
+
+
+def _analyzed_pictures(pictures, cache, with_dimensions, match_rotated, parallel):
+    """Yield ``(picture, need_blocks, result, error)`` for each picture, in order.
+
+    ``result`` is ``(dimensions, blocks)``. Pictures are analyzed in worker processes if ``parallel``.
+    """
+    work = [(picture, _needs_blocks(cache, picture, match_rotated)) for picture in pictures]
+    if parallel:
+        args = [
+            (type(picture), str(picture.path), with_dimensions, match_rotated, need_blocks)
+            for picture, need_blocks in work
+        ]
+        # Leaving the with block terminates the workers, which also stops them on cancel
+        with multiprocessing.Pool(workers.cpu_workers()) as pool:
+            for (picture, need_blocks), (result, error) in zip(
+                work, pool.imap(_analyze_picture_in_worker, args, chunksize=4)
+            ):
+                yield picture, need_blocks, result, error
+        return
+    for picture, need_blocks in work:
+        try:
+            yield picture, need_blocks, _analyze_picture(picture, with_dimensions, match_rotated, need_blocks), None
+        except (OSError, ValueError) as e:
+            yield picture, need_blocks, None, str(e)
+        except MemoryError:
+            yield picture, need_blocks, None, _MEMORY_ERROR
+
+
+def prepare_pictures(pictures, cache_path, with_dimensions, match_rotated, j=job.nulljob, parallel=None):
+    """Compute the blocks of ``pictures`` missing from the cache and return the usable pictures.
+
+    ``parallel`` decodes the pictures in worker processes. By default that happens when there are
+    enough pictures and more than one worker is configured (see :mod:`core.workers`).
+    """
     # The MemoryError handlers in there use logging without first caring about whether or not
     # there is enough memory left to carry on the operation because it is assumed that the
     # MemoryError happens when trying to read an image file, which is freed from memory by the
@@ -62,48 +134,53 @@ def prepare_pictures(pictures, cache_path, with_dimensions, match_rotated, j=job
     cache = get_cache(cache_path)
     cache.purge_outdated()
     prepared = []  # only pictures for which there was no error getting blocks
+    valid_pictures = []
+    for picture in pictures:
+        if not picture.path:
+            # XXX Find the root cause of this. I've received reports of crashes where we had
+            # "Analyzing picture at " (without a path) in the debug log. It was an iPhoto scan.
+            # For now, I'm simply working around the crash by ignoring those, but it would be
+            # interesting to know exactly why this happens. I'm suspecting a malformed
+            # entry in iPhoto library.
+            logging.warning("We have a picture with a null path here")
+            continue
+        valid_pictures.append(picture)
+    if parallel is None:
+        parallel = workers.cpu_workers() > 1 and len(valid_pictures) >= PARALLEL_MIN_PICTURES
+    analyzed = _analyzed_pictures(valid_pictures, cache, with_dimensions, match_rotated, parallel)
     try:
-        for picture in j.iter_with_progress(pictures, tr("Analyzed %d/%d pictures")):
-            if not picture.path:
-                # XXX Find the root cause of this. I've received reports of crashes where we had
-                # "Analyzing picture at " (without a path) in the debug log. It was an iPhoto scan.
-                # For now, I'm simply working around the crash by ignoring those, but it would be
-                # interesting to know exactly why this happens. I'm suspecting a malformed
-                # entry in iPhoto library.
-                logging.warning("We have a picture with a null path here")
-                continue
-            logging.debug("Analyzing picture at %s", picture.unicode_path)
-            if with_dimensions:
-                picture.dimensions  # pre-read dimensions
-            try:
-                if picture.unicode_path not in cache or (
-                    match_rotated and any(block == [] for block in cache[picture.unicode_path])
-                ):
-                    if match_rotated:
-                        blocks = [picture.get_blocks(BLOCK_COUNT_PER_SIDE, orientation) for orientation in range(1, 9)]
-                    else:
-                        blocks = [[]] * 8
-                        blocks[max(picture.get_orientation() - 1, 0)] = picture.get_blocks(BLOCK_COUNT_PER_SIDE)
-                    cache[picture.unicode_path] = blocks
-                prepared.append(picture)
-            except (OSError, ValueError) as e:
-                logging.warning(str(e))
-            except MemoryError:
+        for picture, need_blocks, result, error in j.iter_with_progress(
+            analyzed, tr("Analyzed %d/%d pictures"), count=len(valid_pictures)
+        ):
+            logging.debug("Analyzed picture at %s", picture.unicode_path)
+            if error == _MEMORY_ERROR:
                 logging.warning(
                     "Ran out of memory while reading %s of size %d",
                     picture.unicode_path,
                     picture.size,
                 )
                 if picture.size < 10 * 1024 * 1024:  # We're really running out of memory
-                    raise
+                    raise MemoryError()
+                continue
+            if error is not None:
+                logging.warning(error)
+                continue
+            dimensions, blocks = result
+            if with_dimensions:
+                picture.dimensions = dimensions
+            if need_blocks:
+                cache[picture.unicode_path] = blocks
+            prepared.append(picture)
     except MemoryError:
         logging.warning("Ran out of memory while preparing pictures")
-    cache.close()
+    finally:
+        analyzed.close()
+        cache.close()
     return prepared
 
 
 def get_chunks(pictures):
-    min_chunk_count = multiprocessing.cpu_count() * 2  # have enough chunks to feed all subprocesses
+    min_chunk_count = workers.cpu_workers() * 2  # have enough chunks to feed all subprocesses
     chunk_count = len(pictures) // DEFAULT_CHUNK_SIZE
     chunk_count = max(min_chunk_count, chunk_count)
     chunk_size = (len(pictures) // chunk_count) + 1
@@ -205,7 +282,7 @@ def getmatches(pictures, cache_path, threshold, match_scaled=False, match_rotate
             pass
     cache.close()
     pictures = [p for p in pictures if hasattr(p, "cache_id")]
-    pool = multiprocessing.Pool()
+    pool = multiprocessing.Pool(workers.cpu_workers())
     async_results = []
     matches = []
     chunks = get_chunks(pictures)

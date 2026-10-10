@@ -11,11 +11,14 @@ import itertools
 import logging
 import string
 from collections import defaultdict, namedtuple
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from unicodedata import normalize
 
 from hscommon.util import flatten, multi_replace
 from hscommon.trans import tr
 from hscommon.jobprogress import job
+
+from core import workers
 
 (
     WEIGHT_WORDS,
@@ -25,6 +28,7 @@ from hscommon.jobprogress import job
 
 JOB_REFRESH_RATE = 100
 PROGRESS_MESSAGE = tr("%d matches found from %d groups")
+HASH_PROGRESS_MESSAGE = tr("Hashed %d/%d files")
 
 
 def getwords(s):
@@ -279,6 +283,46 @@ def getmatches(
     return result
 
 
+def _read_in_parallel(files, attrname, j, threads):
+    """Read the lazily computed ``attrname`` (a digest) of ``files`` on several threads.
+
+    Reading files is IO bound and xxhash releases the GIL, so fast drives (NVMe) profit from several
+    reads in flight.
+    """
+    executor = ThreadPoolExecutor(threads)
+    futures = [executor.submit(getattr, f, attrname) for f in files]
+    try:
+        for _ in j.iter_with_progress(as_completed(futures), HASH_PROGRESS_MESSAGE, every=10, count=len(futures)):
+            pass
+    finally:
+        # On cancel, drop the files not hashed yet
+        executor.shutdown(wait=True, cancel_futures=True)
+
+
+def _prefetch_digests(possible_matches, bigsize, j, threads):
+    """Compute the digests the comparison in getmatches_by_contents() needs, in parallel.
+
+    First the partial digest of all files that could match, then the full digest (or the samples for
+    big files) of the files whose partial digests collide.
+    """
+    j = j.start_subjob([1, 1, 3])  # partial digests, samples, full digests
+    groups = [[f for f in group if f.size > 0] for group in possible_matches if not all(f.is_ref for f in group)]
+    _read_in_parallel([f for group in groups for f in group], "digest_partial", j, threads)
+    full_digest_files = []
+    samples_files = []
+    for group in groups:
+        partial2files = defaultdict(list)
+        for f in group:
+            if f.digest_partial is not None:
+                partial2files[f.digest_partial].append(f)
+        for same_partial in partial2files.values():
+            if len(same_partial) > 1 and not all(f.is_ref for f in same_partial):
+                for f in same_partial:
+                    (samples_files if bigsize > 0 and f.size > bigsize else full_digest_files).append(f)
+    _read_in_parallel(samples_files, "digest_samples", j, threads)
+    _read_in_parallel(full_digest_files, "digest", j, threads)
+
+
 def getmatches_by_contents(files, bigsize=0, j=job.nulljob):
     """Returns a list of :class:`Match` within ``files`` if their contents is the same.
 
@@ -293,6 +337,11 @@ def getmatches_by_contents(files, bigsize=0, j=job.nulljob):
     possible_matches = [files for files in size2files.values() if len(files) > 1]
     del size2files
     result = []
+    threads = workers.io_workers()
+    if threads > 1:
+        j = j.start_subjob([8, 1])
+        _prefetch_digests(possible_matches, bigsize, j, threads)
+    # With a single worker, digests are computed lazily by the comparison below, as they always were
     j.start_job(len(possible_matches), PROGRESS_MESSAGE % (0, 0))
     group_count = 0
     for group in possible_matches:
