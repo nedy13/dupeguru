@@ -50,7 +50,7 @@ SetCompressor /SOLID lzma
 !define APPLICENSE "LICENSE"           ; License is not in build directory
 !define APPICON "images\dgse_logo.ico" ; nor is the icon
 !define DISTDIR "dist"
-!define HELPURL "https://github.com/arsenetar/dupeguru/issues"
+!define HELPURL "https://github.com/nedy13/dupeguru/issues"
 !define UPDATEURL "https://dupeguru.voltaicideas.net/"
 !define ABOUTURL "https://dupeguru.voltaicideas.net/"
 
@@ -246,6 +246,8 @@ Section "Uninstall"
   RMDir /r "$INSTDIR\core"
   RMDir /r "$INSTDIR\help"
   RMDir /r "$INSTDIR\PyQt6"
+  RMDir /r "$INSTDIR\PySide6"
+  RMDir /r "$INSTDIR\_internal"
   RMDir /r "$INSTDIR\qt"
   RMDir /r "$INSTDIR\locale"
   Delete "$INSTDIR\*.exe"

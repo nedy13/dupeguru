@@ -21,7 +21,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QCheckBox,
 )
-from PySide6.QtGui import QScreen
+from PySide6.QtGui import QGuiApplication
 
 from hscommon.trans import trget
 from qt.util import move_to_screen_center, horizontal_wrap, create_actions
@@ -378,10 +378,7 @@ class ResultWindow(QMainWindow):
                 # if not on any screen move to center of default screen
                 # moves to center of closest screen if partially off screen
                 frame = self.frameGeometry()
-                app = QApplication.instance()
-                if app is None:
-                    app = QApplication([])
-                screen = app.primaryScreen()
+                screen = QGuiApplication.screenAt(frame.center())
                 if screen is None:
                     move_to_screen_center(self)
                 elif screen.availableGeometry().contains(frame) is False:

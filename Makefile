@@ -1,6 +1,5 @@
 PYTHON ?= python3
 PYTHON_VERSION_MINOR := $(shell ${PYTHON} -c "import sys; print(sys.version_info.minor)")
-PYRCC ?= pyside6-rcc
 REQ_MINOR_VERSION = 7
 PREFIX ?= /usr/local
 
@@ -67,17 +66,17 @@ env: | reqs
 ifndef NO_VENV
 	@echo "Creating our virtualenv"
 	${PYTHON} -m venv env
-	$(VENV_PYTHON) -m pip install -r requirements.txt
+	$(VENV_PYTHON) -m pip install -e ".[build]"
 # We can't use the "--system-site-packages" flag on creation because otherwise we end up with
 # the system's pip and that messes up things in some cases (notably in Gentoo).
 	${PYTHON} -m venv --upgrade ${VENV_OPTIONS} env
 endif
 
 build/help: | env
-	$(VENV_PYTHON) build.py --doc
+	$(VENV_PYTHON) builder.py --doc
 
-qt/dg_rc.py: qt/dg.qrc
-	$(PYRCC) qt/dg.qrc > qt/dg_rc.py
+qt/dg_rc.py: qt/dg.qrc | env
+	$(VENV_PYTHON) -c "import builder; builder.build_qt_resources()"
 
 i18n: $(mofiles)
 
@@ -85,13 +84,13 @@ i18n: $(mofiles)
 	msgfmt -o $@ $<
 
 modules: | env
-	$(VENV_PYTHON) build.py --modules
+	$(VENV_PYTHON) builder.py --modules
 
 mergepot: | env
-	$(VENV_PYTHON) build.py --mergepot
+	$(VENV_PYTHON) builder.py --mergepot
 
 normpo: | env
-	$(VENV_PYTHON) build.py --normpo
+	$(VENV_PYTHON) builder.py --normpo
 
 install: all pyc
 	mkdir -p ${DESTDIR}${PREFIX}/share/dupeguru

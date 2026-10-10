@@ -1,9 +1,87 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools >= 75.3.1"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "dupeGuru"
+description = "dupeGuru is a tool to find duplicate files on your computer."
+authors = [
+    {name = "Andrew Senetar", email = "arsenetar@voltaicideas.net"}
+]
+maintainers = [
+    {name = "Rene Hahne", email = "rehahne@gmail.com"}
+]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+keywords = ["deduplication"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Desktop Environment :: File Managers",
+]
+requires-python = ">=3.10"
+
+dynamic = ["version"]
+
+dependencies = [
+    "distro>=1.8.0,<2.0.0",
+    "mutagen>=1.46.0,<2.0.0",
+    "polib>=1.1.0,<2.0.0",
+    # On Linux PySide6 is expected to come from the distribution packages
+    "PySide6>=6.5.0,<7.0; sys_platform != 'linux'",
+    "pywin32>=304; sys_platform == 'win32'",
+    "semantic-version>=2.0.0,<3.0.0",
+    "Send2Trash>=1.8.2",
+    "xxhash>=3.0.0,<5.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "flake8",
+    "black",
+]
+build = [
+    "dupeGuru[dev]",
+    "sphinx>=5.3.0",
+    "pyinstaller>=6.10; sys_platform != 'linux'",
+]
+
+[project.urls]
+Homepage = "https://github.com/nedy13/dupeguru"
+Documentation = "https://dupeguru.voltaicideas.net/help/en/"
+Repository = "https://github.com/nedy13/dupeguru.git"
+Issues = "https://github.com/nedy13/dupeguru/issues"
+Releases = "https://github.com/nedy13/dupeguru/releases"
+Upstream = "https://github.com/arsenetar/dupeguru"
+
 [tool.black]
 line-length = 120
+
 [tool.isort]
 # make it compatible with black
 profile = "black"
 skip_gitignore = true
+
+[tool.setuptools.packages.find]
+include = ["core", "hscommon", "qt"]
+
+[tool.setuptools.dynamic]
+version = {attr = "core.__version__"}
+
+[tool.setuptools]
+ext-modules = [
+    {name = "core.pe._block", sources = ["core/pe/modules/block.c", "core/pe/modules/common.c"], include-dirs = ["core/pe/modules"]},
+    {name = "core.pe._cache", sources = ["core/pe/modules/cache.c", "core/pe/modules/common.c"], include-dirs = ["core/pe/modules"]},
+    {name = "qt.pe._block_qt", sources = ["qt/pe/modules/block.c"]},
+]

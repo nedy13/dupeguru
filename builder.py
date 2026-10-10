@@ -116,8 +116,8 @@ def build_normpo():
 
 def build_pe_modules():
     print("Building PE Modules")
-    # Leverage setup.py to build modules
-    subprocess.check_call([sys.executable, "setup.py", "build_ext", "--inplace"])
+    # The extension modules are declared in pyproject.toml, setuptools picks them up without a setup.py
+    subprocess.check_call([sys.executable, "-c", "from setuptools import setup; setup()", "build_ext", "--inplace"])
 
 
 def build_qt_resources():
