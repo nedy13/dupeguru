@@ -80,7 +80,7 @@ extension modules in place:
     $ python package.py
 
 ### Generating Arch Linux package
-A `PKGBUILD` building the `nedy` branch of this fork lives in `pkg/arch`. Build it from that
+A `PKGBUILD` building the `master` branch of this fork lives in `pkg/arch`. Build it from that
 directory so makepkg's `src/` and `pkg/` folders stay out of the source tree:
 
     $ cd pkg/arch

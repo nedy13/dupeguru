@@ -1,3 +1,12 @@
+=== 4.4.0 (2026-10-10)
+* Migrate the UI from PyQt6 to PySide6
+* Fix corrupted icons caused by stripping lines from the generated Qt resource file
+* Fix result window crash when restoring its geometry
+* Fix locating translations and help in PyInstaller 6 bundles
+* Move project configuration to pyproject.toml
+* Add Arch Linux PKGBUILD and build Windows, macOS and Arch Linux packages in CI
+* Check for updates against the releases of this fork
+
 === 4.3.1 (2022-07-08)
 * Fix issue where cache db exceptions could prevent files being hashed (#1015)
 * Add extra guard for non-zero length files without digests to prevent false duplicates

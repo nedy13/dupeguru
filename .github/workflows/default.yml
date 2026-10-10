@@ -1,6 +1,7 @@
 # Workflow lints, and checks format in parallel then runs tests on all platforms. Afterwards the
 # Windows installer, the macOS app and the Arch Linux package are built. Pushing a tag "vX.Y.Z"
-# additionally publishes these packages as a GitHub release.
+# additionally publishes these packages as a GitHub release. The release title has to be the bare
+# version number, the update check in core/util.py parses it.
 
 name: Default CI/CD
 
@@ -151,4 +152,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" dist/* --repo "${GITHUB_REPOSITORY}" \
-            --title "dupeGuru ${GITHUB_REF_NAME#v}" --generate-notes
+            --title "${GITHUB_REF_NAME#v}" --generate-notes
