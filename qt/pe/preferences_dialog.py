@@ -4,25 +4,27 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-
+from typing import Callable
+from PyQt6.QtWidgets import QFormLayout, QCheckBox
+from PyQt6.QtCore import Qt
 from hscommon.trans import trget
 from hscommon.plat import ISLINUX
+from qt.preferences import Preferences
+from qt.radio_box import RadioBox
 from core.scanner import ScanType
 from core.app import AppMode
 
-from qt.preferences_dialog import PreferencesDialogBase
+from qt.preferences_dialog import PreferencesDialogBase, Sections
 
 tr = trget("ui")
 
 
 class PreferencesDialog(PreferencesDialogBase):
-    def _setupPreferenceWidgets(self):
+    def _setupPreferenceWidgets(self) -> None:
         self._setupFilterHardnessBox()
         self.widgetsVLayout.addLayout(self.filterHardnessHLayout)
         self._setupAddCheckbox("matchScaledBox", tr("Match pictures of different dimensions"))
         self.widgetsVLayout.addWidget(self.matchScaledBox)
-        self._setupAddCheckbox("matchRotatedBox", tr("Match pictures of different rotations"))
-        self.widgetsVLayout.addWidget(self.matchRotatedBox)
         self._setupAddCheckbox("mixFileKindBox", tr("Can mix file kind"))
         self.widgetsVLayout.addWidget(self.mixFileKindBox)
         self._setupAddCheckbox("useRegexpBox", tr("Use regular expressions when filtering"))
@@ -35,9 +37,14 @@ class PreferencesDialog(PreferencesDialogBase):
         )
         self.widgetsVLayout.addWidget(self.ignoreHardlinkMatches)
 
+        self.cacheTypeRadio = RadioBox(self, items=["Sqlite", "Shelve"], spread=False)
+        cache_form = QFormLayout()
+        cache_form.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        cache_form.addRow(tr("Picture cache mode:"), self.cacheTypeRadio)
+        self.widgetsVLayout.addLayout(cache_form)
         self._setupBottomPart()
 
-    def _setupDisplayPage(self):
+    def _setupDisplayPage(self) -> None:
         super()._setupDisplayPage()
         self._setupAddCheckbox("details_dialog_override_theme_icons", tr("Override theme icons in viewer toolbar"))
         self.details_dialog_override_theme_icons.setToolTip(
@@ -57,9 +64,9 @@ show scrollbars to span the view around"
         )
         self.details_groupbox_layout.insertWidget(index + 2, self.details_dialog_viewers_show_scrollbars)
 
-    def _load(self, prefs, setchecked, section):
+    def _load(self, prefs: Preferences, setchecked: Callable[[QCheckBox, bool], None], section: Sections) -> None:
         setchecked(self.matchScaledBox, prefs.match_scaled)
-        setchecked(self.matchRotatedBox, prefs.match_rotated)
+        self.cacheTypeRadio.selected_index = 1 if prefs.picture_cache_type == "shelve" else 0
 
         # Update UI state based on selected scan type
         scan_type = prefs.get_scan_type(AppMode.PICTURE)
@@ -68,8 +75,8 @@ show scrollbars to span the view around"
         setchecked(self.details_dialog_override_theme_icons, prefs.details_dialog_override_theme_icons)
         setchecked(self.details_dialog_viewers_show_scrollbars, prefs.details_dialog_viewers_show_scrollbars)
 
-    def _save(self, prefs, ischecked):
+    def _save(self, prefs: Preferences, ischecked: Callable[[QCheckBox], bool]) -> None:
         prefs.match_scaled = ischecked(self.matchScaledBox)
-        prefs.match_rotated = ischecked(self.matchRotatedBox)
+        prefs.picture_cache_type = "shelve" if self.cacheTypeRadio.selected_index == 1 else "sqlite"
         prefs.details_dialog_override_theme_icons = ischecked(self.details_dialog_override_theme_icons)
         prefs.details_dialog_viewers_show_scrollbars = ischecked(self.details_dialog_viewers_show_scrollbars)
