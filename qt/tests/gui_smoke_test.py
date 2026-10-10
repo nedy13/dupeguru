@@ -132,6 +132,19 @@ def test_dialogs(dgapp):
     assert not errors, errors
 
 
+def test_scan_type_signal_connected_once(dgapp):
+    # Switching the app mode refills the scan type list, which used to add one more connection each time
+    from PySide6.QtCore import SIGNAL
+
+    app, errors = dgapp
+    combo = app.directories_dialog.scanTypeComboBox
+    for index in (1, 2, 0, 2, 1):
+        app.directories_dialog.appModeButtonSelected(index)
+    assert combo.receivers(SIGNAL("currentIndexChanged(int)")) == 1
+    combo.setCurrentIndex(combo.count() - 1)
+    assert not errors, errors
+
+
 QUIT_DRIVER = """
 import sys
 from xml.etree import ElementTree as ET

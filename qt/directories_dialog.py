@@ -4,7 +4,7 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
-from PySide6.QtCore import QRect, Qt
+from PySide6.QtCore import QRect, QSignalBlocker, Qt
 from PySide6.QtWidgets import (
     QListView,
     QWidget,
@@ -61,6 +61,7 @@ class DirectoriesDialog(QMainWindow):
 
     def _setupBindings(self):
         self.appModeRadioBox.itemSelected.connect(self.appModeButtonSelected)
+        self.scanTypeComboBox.currentIndexChanged[int].connect(self.scanTypeChanged)
         self.showPreferencesButton.clicked.connect(self.app.actionPreferences.trigger)
         self.scanButton.clicked.connect(self.scanButtonClicked)
         self.loadResultsButton.clicked.connect(self.actionLoadResults.trigger)
@@ -257,20 +258,16 @@ class DirectoriesDialog(QMainWindow):
             self.loadResultsButton.setMenu(self.menuRecentResults)
 
     def _updateScanTypeList(self):
-        try:
-            self.scanTypeComboBox.currentIndexChanged[int].disconnect(self)
-        except TypeError:
-            # Not connected, ignore
-            pass
-        self.scanTypeComboBox.clear()
-        scan_options = self.app.model.SCANNER_CLASS.get_scan_options()
-        for scan_option in scan_options:
-            self.scanTypeComboBox.addItem(scan_option.label)
-        SCAN_TYPE_ORDER = [so.scan_type for so in scan_options]
-        selected_scan_type = self.app.prefs.get_scan_type(self.app.model.app_mode)
-        scan_type_index = SCAN_TYPE_ORDER.index(selected_scan_type)
-        self.scanTypeComboBox.setCurrentIndex(scan_type_index)
-        self.scanTypeComboBox.currentIndexChanged[int].connect(self.scanTypeChanged)
+        # Refilling the combo box must not be taken as a scan type selected by the user
+        with QSignalBlocker(self.scanTypeComboBox):
+            self.scanTypeComboBox.clear()
+            scan_options = self.app.model.SCANNER_CLASS.get_scan_options()
+            for scan_option in scan_options:
+                self.scanTypeComboBox.addItem(scan_option.label)
+            SCAN_TYPE_ORDER = [so.scan_type for so in scan_options]
+            selected_scan_type = self.app.prefs.get_scan_type(self.app.model.app_mode)
+            scan_type_index = SCAN_TYPE_ORDER.index(selected_scan_type)
+            self.scanTypeComboBox.setCurrentIndex(scan_type_index)
         self.app._update_options()
 
     # --- QWidget overrides
