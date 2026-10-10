@@ -22,14 +22,13 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Desktop Environment :: File Managers",
 ]
-requires-python = ">=3.10"
+# PySide6 6.12 corrupts the reference count of None on Python < 3.12, which crashes the app
+requires-python = ">=3.12"
 
 dynamic = ["version"]
 

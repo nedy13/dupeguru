@@ -38,7 +38,7 @@ For windows instructions see the [Windows Instructions](Windows.md).
 For macos instructions (qt version) see the [macOS Instructions](macos.md).
 
 ### Prerequisites
-* [Python 3.10+][python]
+* [Python 3.12+][python]
 * [PySide6][pyside6] 6.5+
 
 ### System Setup

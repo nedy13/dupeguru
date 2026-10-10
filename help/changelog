@@ -2,6 +2,11 @@
 * Migrate the UI from PyQt6 to PySide6
 * Fix corrupted icons caused by stripping lines from the generated Qt resource file
 * Fix result window crash when restoring its geometry
+* Fix crash when adding a folder (QFileDialog.DirectoryOnly no longer exists in Qt6)
+* Fix crash when opening the preferences in picture mode
+* Fix segfault in every picture scan, read image data through the buffer protocol
+* Restore "Match pictures of different rotations" and the Advanced preferences tab
+* Require Python 3.12+, PySide6 corrupts the reference count of None on older versions
 * Fix locating translations and help in PyInstaller 6 bundles
 * Move project configuration to pyproject.toml
 * Add Arch Linux PKGBUILD and build Windows, macOS and Arch Linux packages in CI
