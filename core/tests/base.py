@@ -44,6 +44,12 @@ class DupeGuruView:
     def create_results_window(self):
         pass
 
+    def missing_in_reference_changed(self):
+        pass
+
+    def show_missing_in_reference(self):
+        pass
+
 
 class ResultTable(ResultTableBase):
     COLUMNS = [

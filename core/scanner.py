@@ -89,10 +89,7 @@ class Scanner:
             }
         ):
             j = j.start_subjob([2, 8])
-            if self.size_threshold:
-                files = [f for f in files if f.size >= self.size_threshold]
-            if self.large_size_threshold:
-                files = [f for f in files if f.size <= self.large_size_threshold]
+            files = self._files_to_compare(files)
         if self.scan_type in {ScanType.CONTENTS, ScanType.FOLDERS}:
             return engine.getmatches_by_contents(files, bigsize=self.big_file_size_threshold, j=j)
         else:
@@ -144,6 +141,14 @@ class Scanner:
         """
         raise NotImplementedError()
 
+    def _files_to_compare(self, files):
+        """Files the scan compares, the size thresholds leave the others out."""
+        if self.size_threshold:
+            files = [f for f in files if f.size >= self.size_threshold]
+        if self.large_size_threshold:
+            files = [f for f in files if f.size <= self.large_size_threshold]
+        return files
+
     def get_dupe_groups(self, files, ignore_list=None, j=job.nulljob):
         for f in (f for f in files if not hasattr(f, "is_ref")):
             f.is_ref = False
@@ -178,7 +183,10 @@ class Scanner:
             matches = [m for m in matches if not (m.first.is_ref and m.second.is_ref)]
         if ignore_list:
             matches = [m for m in matches if not ignore_list.are_ignored(str(m.first.path), str(m.second.path))]
-        self.missing_in_reference = missing.get_missing_in_reference(files, matches)
+        # Files left out by the size thresholds weren't compared, they can't be told missing
+        self.missing_in_reference = missing.get_missing_in_reference(
+            self._files_to_compare(files), matches, has_reference=any(f.is_ref for f in files)
+        )
         logging.info("Grouping matches")
         groups = engine.get_groups(matches)
         if self.scan_type in {

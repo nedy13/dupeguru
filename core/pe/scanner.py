@@ -23,6 +23,10 @@ class ScannerPE(Scanner):
             ScanOption(ScanType.EXIFTIMESTAMP, tr("EXIF Timestamp")),
         ]
 
+    def _files_to_compare(self, files):
+        # Picture scans don't use the size thresholds
+        return files
+
     def _getmatches(self, files, j):
         if self.scan_type == ScanType.FUZZYBLOCK:
             return matchblock.getmatches(

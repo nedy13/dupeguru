@@ -53,11 +53,13 @@ class ResultWindow(QMainWindow):
         self.resultsModel = MODEL_CLASS(self.app, self.resultsView)
         self.stats = StatsLabel(app.model.stats_label, self.statusLabel)
         self._update_column_actions_status()
+        self.update_missing_button()
 
         self.menuColumns.triggered.connect(self.columnToggled)
         self.resultsView.doubleClicked.connect(self.resultsDoubleClicked)
         self.resultsView.spacePressed.connect(self.resultsSpacePressed)
         self.detailsButton.clicked.connect(self.actionDetails.triggered)
+        self.missingButton.clicked.connect(self.app.actionMissingInReference.trigger)
         self.dupesOnlyCheckBox.stateChanged.connect(self.powerMarkerTriggered)
         self.deltaValuesCheckBox.stateChanged.connect(self.deltaTriggered)
         self.searchEdit.searchChanged.connect(self.searchChanged)
@@ -324,6 +326,15 @@ class ResultWindow(QMainWindow):
         self.actionActions.setMenu(action_menu)
         self.actionsButton.setMenu(self.actionActions.menu())
 
+    def update_missing_button(self):
+        files = self.app.model.missing_in_reference
+        self.missingButton.setText(tr("Missing in Reference") + ("" if files is None else f" ({len(files)})"))
+        self.missingButton.setEnabled(files is not None)
+        if files is None:
+            self.missingButton.setToolTip(tr("Scan with at least one folder in the Reference state"))
+        else:
+            self.missingButton.setToolTip(tr("Files of the normal folders without duplicate in the reference folders"))
+
     def _setupUi(self):
         self.setWindowTitle(tr("{} Results").format(self.app.NAME))
         self.resize(630, 514)
@@ -333,6 +344,7 @@ class ResultWindow(QMainWindow):
         self.verticalLayout.setSpacing(0)
         self.actionsButton = QPushButton(tr("Actions"))
         self.detailsButton = QPushButton(tr("Details"))
+        self.missingButton = QPushButton()
         self.dupesOnlyCheckBox = QCheckBox(tr("Dupes Only"))
         self.deltaValuesCheckBox = QCheckBox(tr("Delta Values"))
         self.searchEdit = SearchEdit()
@@ -341,6 +353,7 @@ class ResultWindow(QMainWindow):
             [
                 self.actionsButton,
                 self.detailsButton,
+                self.missingButton,
                 self.dupesOnlyCheckBox,
                 self.deltaValuesCheckBox,
                 None,

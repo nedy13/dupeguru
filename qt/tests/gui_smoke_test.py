@@ -188,6 +188,110 @@ def test_missing_in_reference_dialog(dgapp, tmp_path, monkeypatch):
     assert not errors, errors
 
 
+def wait_for_job(app, start, timeout=60):
+    """Run ``start`` launching a job of ``app`` and wait until the job finished."""
+    progress_window = app.model.progress_window
+    finished = []
+    finish_func = progress_window._finish_func
+
+    def on_finished(jobid):
+        finish_func(jobid)
+        finished.append(jobid)
+
+    progress_window._finish_func = on_finished
+    try:
+        start()
+        end = time.time() + timeout
+        while not finished and time.time() < end:
+            process_events(0.1)
+    finally:
+        progress_window._finish_func = finish_func
+    assert finished, "job did not finish"
+    process_events(0.2)
+
+
+def test_missing_in_reference_actions(dgapp, tmp_path):
+    from pathlib import Path
+
+    from core.directories import DirectoryState
+
+    app, errors = dgapp
+    ref, normal = tmp_path / "ref", tmp_path / "normal"
+    ref.mkdir()
+    (normal / "2020").mkdir(parents=True)
+    (ref / "same.txt").write_text("same\n" * 5000)
+    (normal / "same_copy.txt").write_text("same\n" * 5000)
+    (normal / "2020" / "notes.txt").write_text("notes\n" * 3000)
+    rng = random.Random(2)
+    image = QImage(160, 120, QImage.Format.Format_RGB32)
+    for y in range(120):
+        for x in range(160):
+            image.setPixelColor(x, y, QColor(rng.randrange(256), rng.randrange(256), rng.randrange(256)))
+    image.save(str(normal / "2020" / "photo.png"))
+    app.model.add_directory(str(ref))
+    app.model.add_directory(str(normal))
+    app.model.directories.set_state(Path(ref), DirectoryState.REFERENCE)
+    run_scan(app)
+    app.showResultsWindow()
+    assert app.resultWindow.missingButton.isEnabled()
+    assert app.resultWindow.missingButton.text().endswith("(2)")
+
+    app.resultWindow.missingButton.click()
+    dialog = app.missingInReferenceDialog
+    dialog.search_edit.setText("PHOTO")
+    assert [f.name for f in dialog.visible_files()] == ["photo.png"]
+
+    dialog.preview_checkbox.setChecked(True)
+    dialog.table.selectAll()
+    preview = dialog.preview_window
+    assert preview is not None and preview.isVisible()
+    labels = [
+        preview.form.itemAt(row, preview.form.ItemRole.LabelRole).widget().text()
+        for row in range(preview.form.rowCount())
+    ]
+    assert "Dimensions:" in labels
+    assert preview.pixmap is not None
+
+    dialog.search_edit.clear()
+    dialog.table.selectAll()
+    wait_for_job(app, lambda: dialog.transfer_selected(copy=True, to_reference=True))
+    assert (ref / "2020" / "photo.png").exists()
+    assert (ref / "2020" / "notes.txt").exists()
+    assert (normal / "2020" / "photo.png").exists()
+    # Copied into the reference, nothing is missing anymore
+    assert dialog.table.rowCount() == 0
+    assert app.resultWindow.missingButton.text().endswith("(0)")
+    assert not errors, errors
+
+
+def test_no_duplicates_offers_missing_files(dgapp, tmp_path, monkeypatch):
+    from pathlib import Path
+
+    from core.directories import DirectoryState
+
+    app, errors = dgapp
+    questions = []
+    monkeypatch.setattr(
+        QMessageBox,
+        "question",
+        staticmethod(lambda parent, title, msg, *a, **k: questions.append(msg) or QMessageBox.StandardButton.Yes),
+    )
+    ref, normal = tmp_path / "ref", tmp_path / "normal"
+    ref.mkdir()
+    normal.mkdir()
+    (ref / "kept.txt").write_text("kept\n" * 5000)
+    (normal / "new.txt").write_text("new\n" * 6000)
+    app.model.add_directory(str(ref))
+    app.model.add_directory(str(normal))
+    app.model.directories.set_state(Path(ref), DirectoryState.REFERENCE)
+    run_scan(app)
+    assert not app.model.results.groups
+    assert any("1 files of the normal folders are missing" in q for q in questions)
+    assert app.missingInReferenceDialog.isVisible()
+    assert app.missingInReferenceDialog.table.rowCount() == 1
+    assert not errors, errors
+
+
 QUIT_DRIVER = """
 import sys
 from xml.etree import ElementTree as ET

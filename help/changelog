@@ -2,7 +2,8 @@
 * Analyze pictures in parallel worker processes, about 10x faster on a 24 core CPU
 * Hash files on several threads in contents scans, about 6x faster on NVMe drives
 * Add "Parallel scan workers" to the Advanced preferences (automatic, 1 = single-threaded, or a maximum)
-* Add "Files Missing in Reference" (View menu): files of the normal folders without duplicate in the reference folders
+* Add "Files Missing in Reference": files of the normal folders without duplicate in the reference folders, with
+  search, preview, CSV export and copy or move to the reference or another folder keeping the subfolders
 * Migrate the UI from PyQt6 to PySide6
 * Fix corrupted icons caused by stripping lines from the generated Qt resource file
 * Fix result window crash when restoring its geometry

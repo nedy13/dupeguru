@@ -420,6 +420,15 @@ class DupeGuru(QObject):
     def set_default(self, key, value):
         self.prefs.set_value(key, value)
 
+    def missing_in_reference_changed(self) -> None:
+        if self.resultWindow is not None:
+            self.resultWindow.update_missing_button()
+        if self.missingInReferenceDialog.isVisible():
+            self.missingInReferenceDialog.refresh()
+
+    def show_missing_in_reference(self) -> None:
+        self.missingInReferenceDialog.show()
+
     def show_message(self, msg: str) -> None:
         window = QApplication.activeWindow()
         QMessageBox.information(window, "", msg)

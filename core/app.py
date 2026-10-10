@@ -26,9 +26,10 @@ from hscommon import desktop
 from core import se, me, pe
 from core.pe.photo import get_delta_dimensions
 from core.util import cmp_value, fix_surrogate_encoding
-from core import directories, results, export, fs, prioritize, workers
+from core import directories, results, export, fs, missing, prioritize, workers
 from core.ignore import IgnoreList
 from core.exclude import ExcludeDict as ExcludeList
+from core.directories import DirectoryState
 from core.scanner import ScanType
 from core.gui.deletion_options import DeletionOptions
 from core.gui.details_panel import DetailsPanel
@@ -61,6 +62,8 @@ class JobType:
     MOVE = "job_move"
     COPY = "job_copy"
     DELETE = "job_delete"
+    COPY_MISSING = "job_copy_missing"
+    MOVE_MISSING = "job_move_missing"
 
 
 class AppMode:
@@ -75,6 +78,8 @@ JOBID2TITLE = {
     JobType.MOVE: tr("Moving"),
     JobType.COPY: tr("Copying"),
     JobType.DELETE: tr("Sending to Trash"),
+    JobType.COPY_MISSING: tr("Copying"),
+    JobType.MOVE_MISSING: tr("Moving"),
 }
 
 
@@ -299,19 +304,24 @@ class DupeGuru(Broadcaster):
         if jobid == JobType.SCAN:
             self._results_changed()
             fs.filesdb.commit()
+            self.view.missing_in_reference_changed()
             if not self.results.groups:
                 if self.missing_in_reference:
                     msg = tr(
-                        "No duplicates found. %d files of the normal folders are missing in the reference folders, "
-                        'see "Files Missing in Reference" in the View menu.'
+                        "No duplicates found. %d files of the normal folders are missing in the reference folders. "
+                        "Do you want to see them?"
                     ) % len(self.missing_in_reference)
-                    self.view.show_message(msg)
+                    if self.view.ask_yes_no(msg):
+                        self.view.show_missing_in_reference()
                 else:
                     self.view.show_message(tr("No duplicates found."))
             else:
                 self.view.show_results_window()
         if jobid in {JobType.MOVE, JobType.DELETE}:
             self._results_changed()
+        if jobid in {JobType.COPY_MISSING, JobType.MOVE_MISSING}:
+            self.view.show_message(self._missing_transfer_message())
+            self.view.missing_in_reference_changed()
         if jobid == JobType.LOAD:
             self._recreate_result_table()
             self._results_changed()
@@ -457,6 +467,46 @@ class DupeGuru(Broadcaster):
         else:
             smart_move(source_path, dest_path)
             self.clean_empty_dirs(source_path.parent)
+
+    def copy_or_move_missing(self, files, copy: bool, destination) -> None:
+        """Start an async job copying or moving ``files`` missing in the reference to ``destination``.
+
+        Subfolders below the scanned folder are kept. Files copied into a reference folder or moved
+        away are no longer missing and leave the list.
+        """
+        roots = list(self.directories)
+        destination = Path(destination)
+
+        def do(j):
+            done, problems = [], []
+            progress_msg = tr("Copied %d/%d files") if copy else tr("Moved %d/%d files")
+            try:
+                for f in j.iter_with_progress(files, progress_msg):
+                    try:
+                        missing.transfer(f.path, missing.destination_for(f, roots, destination), copy)
+                        if not copy:
+                            self.clean_empty_dirs(f.path.parent)
+                        done.append(f)
+                    except OSError as e:
+                        problems.append((f, str(e)))
+            finally:
+                self._missing_transfer = (copy, done, problems)
+                now_in_reference = self.directories.get_state(destination) == DirectoryState.REFERENCE
+                if (not copy or now_in_reference) and self.missing_in_reference:
+                    handled = set(done)
+                    self.missing_in_reference = [f for f in self.missing_in_reference if f not in handled]
+
+        self._start_job(JobType.COPY_MISSING if copy else JobType.MOVE_MISSING, do)
+
+    def _missing_transfer_message(self) -> str:
+        copy, done, problems = self._missing_transfer
+        msg = (tr("%d files were copied.") if copy else tr("%d files were moved.")) % len(done)
+        if problems:
+            msg += "\n\n" + tr("%d files could not be processed:") % len(problems)
+            msg += "".join(f"\n{f.path}: {error}" for f, error in problems[:10])
+            if len(problems) > 10:
+                msg += "\n…"
+        return msg
 
     def copy_or_move_marked(self, copy):
         """Start an async move (or copy) job on marked duplicates.
