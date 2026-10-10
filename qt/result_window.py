@@ -491,7 +491,7 @@ class ResultWindow(QMainWindow):
             action.setChecked(visible)
 
     def contextMenuEvent(self, event):
-        self.actionActions.menu().exec_(event.globalPos())
+        self.actionActions.menu().exec(event.globalPos())
 
     def resultsDoubleClicked(self, model_index):
         self.app.model.open_selected()

@@ -67,7 +67,7 @@ class ProgressWindow:
                 self._window,
             )
             confirm_dialog.setDefaultButton(QMessageBox.StandardButton.No)
-            result = confirm_dialog.exec_()
+            result = confirm_dialog.exec()
             if result != QMessageBox.StandardButton.Yes:
                 return
         self.close()

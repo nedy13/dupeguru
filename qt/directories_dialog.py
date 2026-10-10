@@ -289,8 +289,9 @@ class DirectoriesDialog(QMainWindow):
         no_native = not self.app.prefs.use_native_dialogs
         title = tr("Select a folder to add to the scanning list")
         file_dialog = QFileDialog(self, title, self.lastAddedFolder)
-        file_dialog.setFileMode(QFileDialog.DirectoryOnly)
-        file_dialog.setOption(QFileDialog.DontUseNativeDialog, no_native)
+        file_dialog.setFileMode(QFileDialog.FileMode.Directory)
+        file_dialog.setOption(QFileDialog.Option.ShowDirsOnly, True)
+        file_dialog.setOption(QFileDialog.Option.DontUseNativeDialog, no_native)
         if no_native:
             file_view = file_dialog.findChild(QListView, "listView")
             if file_view:

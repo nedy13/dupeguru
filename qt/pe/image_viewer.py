@@ -754,7 +754,7 @@ class QWidgetImageViewer(QWidget):
         if self.bestFit or not self.isEnabled():
             event.ignore()
             return
-        if event.button() & (Qt.LeftButton | Qt.MidButton | Qt.RightButton):
+        if event.button() & (Qt.LeftButton | Qt.MiddleButton | Qt.RightButton):
             self._drag = True
         else:
             self._drag = False
@@ -956,7 +956,7 @@ class ScrollAreaImageViewer(QScrollArea):
         if self.bestFit:
             event.ignore()
             return
-        if event.button() & (Qt.LeftButton | Qt.MidButton | Qt.RightButton):
+        if event.button() & (Qt.LeftButton | Qt.MiddleButton | Qt.RightButton):
             self._drag = True
         else:
             self._drag = False
@@ -1189,7 +1189,7 @@ class GraphicsViewViewer(QGraphicsView):
         if self.bestFit:
             event.ignore()
             return
-        if event.button() & (Qt.LeftButton | Qt.MidButton | Qt.RightButton):
+        if event.button() & (Qt.LeftButton | Qt.MiddleButton | Qt.RightButton):
             self._drag = True
         else:
             self._drag = False
