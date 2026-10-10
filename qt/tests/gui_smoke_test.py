@@ -52,6 +52,9 @@ def dgapp(qapp, tmp_path, monkeypatch):
     from qt.app import DupeGuru
 
     app = DupeGuru()
+    # On macOS the data folder isn't moved by the environment, start without the folders of other tests
+    app.model.directories.__init__()
+    app.model.notify("directories_changed")
     yield app, errors
     # Let Qt delete the widgets in order, garbage collecting them later crashes PySide6
     for widget in QApplication.topLevelWidgets():
