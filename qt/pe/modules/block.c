@@ -25,19 +25,38 @@ static PyObject *getblock(PyObject *image, int width, int height) {
   red = green = blue = 0;
   pixel_count = width * height;
   if (pixel_count) {
-    PyObject *sipptr, *bits_capsule, *pi;
-    char *s;
+    PyObject *bits, *pi;
+    Py_buffer view;
+    unsigned char *s;
     int i;
 
     pi = PyObject_CallMethod(image, "bytesPerLine", NULL);
+    if (pi == NULL) {
+      return NULL;
+    }
     bytes_per_line = PyLong_AsLong(pi);
     Py_DECREF(pi);
+    if (bytes_per_line == -1 && PyErr_Occurred()) {
+      return NULL;
+    }
 
-    sipptr = PyObject_CallMethod(image, "bits", NULL);
-    bits_capsule = PyObject_CallMethod(sipptr, "ascapsule", NULL);
-    Py_DECREF(sipptr);
-    s = (char *)PyCapsule_GetPointer(bits_capsule, NULL);
-    Py_DECREF(bits_capsule);
+    /* PySide6 returns the image data as a memoryview, read it through the
+     * buffer protocol */
+    bits = PyObject_CallMethod(image, "constBits", NULL);
+    if (bits == NULL) {
+      return NULL;
+    }
+    if (PyObject_GetBuffer(bits, &view, PyBUF_SIMPLE) < 0) {
+      Py_DECREF(bits);
+      return NULL;
+    }
+    if (view.len < (Py_ssize_t)(height - 1) * bytes_per_line + width * 3) {
+      PyBuffer_Release(&view);
+      Py_DECREF(bits);
+      PyErr_SetString(PyExc_ValueError, "image data is smaller than expected, is it in RGB888 format?");
+      return NULL;
+    }
+    s = (unsigned char *)view.buf;
     /* Qt aligns all its lines on 32bit, which means that if the number of bytes
      *per line for image is not divisible by 4, there's going to be crap
      *inserted in "s" We have to take this into account when calculating offsets
@@ -57,6 +76,8 @@ static PyObject *getblock(PyObject *image, int width, int height) {
         blue += b;
       }
     }
+    PyBuffer_Release(&view);
+    Py_DECREF(bits);
 
     red /= pixel_count;
     green /= pixel_count;
@@ -96,9 +117,15 @@ static PyObject *block_getblocks(PyObject *self, PyObject *args) {
   }
 
   pi = PyObject_CallMethod(image, "width", NULL);
+  if (pi == NULL) {
+    return NULL;
+  }
   width = PyLong_AsLong(pi);
   Py_DECREF(pi);
   pi = PyObject_CallMethod(image, "height", NULL);
+  if (pi == NULL) {
+    return NULL;
+  }
   height = PyLong_AsLong(pi);
   Py_DECREF(pi);
 
