@@ -266,6 +266,7 @@ class ResultWindow(QMainWindow):
         self.menuView.addAction(self.actionPowerMarker)
         self.menuView.addAction(self.actionDelta)
         self.menuView.addSeparator()
+        self.menuView.addAction(self.app.actionMissingInReference)
         if not self.app.use_tabs:
             self.menuView.addAction(self.app.actionIgnoreList)
         # This also pushes back the options entry to the bottom of the menu

@@ -14,7 +14,7 @@ import pytest
 pytest.importorskip("PySide6")
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtCore import QCoreApplication, QEvent  # noqa: E402
+from PySide6.QtCore import QCoreApplication, QEvent, Qt  # noqa: E402
 from PySide6.QtGui import QColor, QImage  # noqa: E402
 from PySide6.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox  # noqa: E402
 
@@ -142,6 +142,46 @@ def test_scan_type_signal_connected_once(dgapp):
         app.directories_dialog.appModeButtonSelected(index)
     assert combo.receivers(SIGNAL("currentIndexChanged(int)")) == 1
     combo.setCurrentIndex(combo.count() - 1)
+    assert not errors, errors
+
+
+def test_missing_in_reference_dialog(dgapp, tmp_path, monkeypatch):
+    from pathlib import Path
+
+    from core.directories import DirectoryState
+    from hscommon import desktop
+
+    app, errors = dgapp
+    ref, normal = tmp_path / "ref", tmp_path / "normal"
+    ref.mkdir()
+    normal.mkdir()
+    # Above the default 10 KB size threshold
+    (ref / "same.txt").write_text("same\n" * 5000)
+    (normal / "same_copy.txt").write_text("same\n" * 5000)
+    (normal / "small_missing.txt").write_text("small\n" * 3000)
+    (normal / "big_missing.txt").write_text("big\n" * 9000)
+    app.model.add_directory(str(ref))
+    app.model.add_directory(str(normal))
+    app.model.directories.set_state(Path(ref), DirectoryState.REFERENCE)
+    run_scan(app)
+    assert sorted(f.name for f in app.model.missing_in_reference) == ["big_missing.txt", "small_missing.txt"]
+
+    app.actionMissingInReference.trigger()
+    dialog = app.missingInReferenceDialog
+    assert dialog.table.rowCount() == 2
+    # Selection must follow the files when the table is sorted
+    dialog.table.sortByColumn(2, Qt.SortOrder.DescendingOrder)
+    dialog.table.selectRow(0)
+    opened = []
+    monkeypatch.setattr(desktop, "open_path", lambda path: opened.append(Path(path).name))
+    dialog.open_selected()
+    assert opened == ["big_missing.txt"]
+
+    # Without reference folder there is nothing to show
+    app.model.missing_in_reference = None
+    dialog.refresh()
+    assert dialog.table.rowCount() == 0
+    assert not dialog.export_button.isEnabled()
     assert not errors, errors
 
 

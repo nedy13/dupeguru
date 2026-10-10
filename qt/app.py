@@ -30,6 +30,7 @@ from qt.result_window import ResultWindow
 from qt.directories_dialog import DirectoriesDialog
 from qt.problem_dialog import ProblemDialog
 from qt.ignore_list_dialog import IgnoreListDialog
+from qt.missing_in_reference_dialog import MissingInReferenceDialog
 from qt.exclude_list_dialog import ExcludeListDialog
 from qt.deletion_options import DeletionOptions
 from qt.se.details_dialog import DetailsDialog as DetailsDialogStandard
@@ -98,6 +99,7 @@ class DupeGuru(QObject):
             self.excludeDialog = ExcludeListDialog(app=self, parent=parent_window, model=self.model.exclude_list_dialog)
 
         self.deletionOptions = DeletionOptions(parent=parent_window, model=self.model.deletion_options)
+        self.missingInReferenceDialog = MissingInReferenceDialog(self, parent=parent_window)
         self.about_box = AboutBox(parent_window, self)
 
         parent_window.show()
@@ -124,6 +126,13 @@ class DupeGuru(QObject):
                 self.preferencesTriggered,
             ),
             ("actionIgnoreList", "", "", tr("Ignore List"), self.ignoreListTriggered),
+            (
+                "actionMissingInReference",
+                "",
+                "",
+                tr("Files Missing in Reference"),
+                self.missingInReferenceTriggered,
+            ),
             (
                 "actionDirectoriesWindow",
                 "",
@@ -340,6 +349,9 @@ class DupeGuru(QObject):
             self.model.clear_hash_cache()
             active = QApplication.activeWindow()
             QMessageBox.information(active, title, tr("Cache cleared."))
+
+    def missingInReferenceTriggered(self) -> None:
+        self.missingInReferenceDialog.show()
 
     def ignoreListTriggered(self) -> None:
         if self.use_tabs:

@@ -13,7 +13,7 @@ from hscommon.jobprogress import job
 from hscommon.util import dedupe, rem_file_ext, get_file_ext
 from hscommon.trans import tr
 
-from core import engine
+from core import engine, missing
 
 # It's quite ugly to have scan types from all editions all put in the same class, but because there's
 # there will be some nasty bugs popping up (ScanType is used in core when in should exclusively be
@@ -75,6 +75,8 @@ def remove_dupe_paths(files):
 class Scanner:
     def __init__(self):
         self.discarded_file_count = 0
+        # Files of normal folders without duplicate in the reference folders, None without reference
+        self.missing_in_reference = None
 
     def _getmatches(self, files, j):
         if (
@@ -176,6 +178,7 @@ class Scanner:
             matches = [m for m in matches if not (m.first.is_ref and m.second.is_ref)]
         if ignore_list:
             matches = [m for m in matches if not ignore_list.are_ignored(str(m.first.path), str(m.second.path))]
+        self.missing_in_reference = missing.get_missing_in_reference(files, matches)
         logging.info("Grouping matches")
         groups = engine.get_groups(matches)
         if self.scan_type in {

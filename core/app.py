@@ -156,6 +156,8 @@ class DupeGuru(Broadcaster):
             "scan_workers": 0,
         }
         self.selected_dupes = []
+        # Result of the last scan, see core.missing. None when no reference folder was scanned.
+        self.missing_in_reference = None
         self.details_panel = DetailsPanel(self)
         self.directory_tree = DirectoryTree(self)
         self.problem_dialog = ProblemDialog(self)
@@ -298,7 +300,14 @@ class DupeGuru(Broadcaster):
             self._results_changed()
             fs.filesdb.commit()
             if not self.results.groups:
-                self.view.show_message(tr("No duplicates found."))
+                if self.missing_in_reference:
+                    msg = tr(
+                        "No duplicates found. %d files of the normal folders are missing in the reference folders, "
+                        'see "Files Missing in Reference" in the View menu.'
+                    ) % len(self.missing_in_reference)
+                    self.view.show_message(msg)
+                else:
+                    self.view.show_message(tr("No duplicates found."))
             else:
                 self.view.show_results_window()
         if jobid in {JobType.MOVE, JobType.DELETE}:
@@ -593,6 +602,8 @@ class DupeGuru(Broadcaster):
         """
 
         def do(j):
+            # Saved results only contain the duplicates
+            self.missing_in_reference = None
             self.results.load_from_xml(filename, self._get_file, j)
 
         self._start_job(JobType.LOAD, do)
@@ -805,6 +816,7 @@ class DupeGuru(Broadcaster):
         if self.app_mode == AppMode.PICTURE:
             scanner.cache_path = self._get_picture_cache_path()
         self.results.groups = []
+        self.missing_in_reference = None
         self._recreate_result_table()
         self._results_changed()
 
@@ -822,6 +834,7 @@ class DupeGuru(Broadcaster):
             logging.info("Scanning %d files" % len(files))
             self.results.groups = scanner.get_dupe_groups(files, self.ignore_list, j)
             self.discarded_file_count = scanner.discarded_file_count
+            self.missing_in_reference = scanner.missing_in_reference
             if profile_scan:
                 pr.disable()
                 pr.dump_stats(op.join(self.appdata, f"{datetime.datetime.now():%Y-%m-%d_%H-%M-%S}.profile"))
