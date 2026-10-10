@@ -109,3 +109,12 @@ cocoa/autogen
 *.waf*
 .lock-waf*
 /tags
+
+# IDEs
+.idea/
+
+# makepkg output (pkg/arch/PKGBUILD)
+/pkg/arch/src/
+/pkg/arch/pkg/
+/pkg/arch/dupeguru/
+*.pkg.tar.*

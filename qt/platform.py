@@ -4,10 +4,14 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
+import sys
 import os.path as op
 from hscommon.plat import ISWINDOWS, ISOSX, ISLINUX
 
-if op.exists(__file__):
+if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+    # PyInstaller bundle, data files (help, locale, images) are placed next to the bundled modules
+    BASE_PATH = sys._MEIPASS
+elif op.exists(__file__):
     # We want to get the absolute path or our root folder. We know that in that folder we're
     # inside qt/, so we just go back one level.
     BASE_PATH = op.abspath(op.join(op.dirname(__file__), ".."))

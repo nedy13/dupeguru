@@ -10,14 +10,13 @@ from optparse import OptionParser
 import shutil
 from multiprocessing import Pool
 
-from setuptools import sandbox
 from hscommon import sphinxgen
 from hscommon.build import (
     add_to_pythonpath,
-    print_and_do,
     fix_qt_resource_file,
 )
 from hscommon import loc
+import subprocess
 
 
 def parse_args():
@@ -117,8 +116,24 @@ def build_normpo():
 
 def build_pe_modules():
     print("Building PE Modules")
-    # Leverage setup.py to build modules
-    sandbox.run_setup("setup.py", ["build_ext", "--inplace"])
+    # The extension modules are declared in pyproject.toml, setuptools picks them up without a setup.py
+    subprocess.check_call([sys.executable, "-c", "from setuptools import setup; setup()", "build_ext", "--inplace"])
+
+
+def build_qt_resources():
+    rc_path = Path("qt", "dg_rc.py")
+    rc_path.unlink(missing_ok=True)
+    rcc = shutil.which("pyside6-rcc")
+    if rcc is None:
+        # Distributions such as Arch ship PySide6 without the pyside6-rcc wrapper, use Qt's rcc directly
+        from PySide6.QtCore import QLibraryInfo
+
+        qt_libexec = QLibraryInfo.path(QLibraryInfo.LibraryPath.LibraryExecutablesPath)
+        rcc_cmd = [str(Path(qt_libexec, "rcc")), "-g", "python"]
+    else:
+        rcc_cmd = [rcc]
+    subprocess.check_call(rcc_cmd + [str(Path("qt", "dg.qrc")), "-o", str(rc_path)])
+    fix_qt_resource_file(rc_path)
 
 
 def build_normal():
@@ -129,9 +144,7 @@ def build_normal():
     print("Building localizations")
     build_localizations()
     print("Building Qt stuff")
-    Path("qt", "dg_rc.py").unlink(missing_ok=True)
-    print_and_do("pyrcc5 {} > {}".format(Path("qt", "dg.qrc"), Path("qt", "dg_rc.py")))
-    fix_qt_resource_file(Path("qt", "dg_rc.py"))
+    build_qt_resources()
     build_help()
 
 

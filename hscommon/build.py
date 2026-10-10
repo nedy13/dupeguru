@@ -312,10 +312,12 @@ def fix_qt_resource_file(path: os.PathLike) -> None:
     # pyrcc5 under Windows, if the locale is non-english, can produce a source file with a date
     # containing accented characters. If it does, the encoding is wrong and it prevents the file
     # from being correctly frozen by cx_freeze. To work around that, we open the file, strip all
-    # comments, and save.
+    # comments, and save. Only the leading comment header is stripped: lines inside the resource data
+    # literal can also start with "#" and removing them corrupts the embedded files.
     with open(path, "rb") as fp:
         contents = fp.read()
     lines = contents.split(b"\n")
-    lines = [line for line in lines if not line.startswith(b"#")]
+    while lines and lines[0].startswith(b"#"):
+        del lines[0]
     with open(path, "wb") as fp:
         fp.write(b"\n".join(lines))

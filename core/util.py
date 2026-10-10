@@ -74,7 +74,7 @@ def executable_folder():
 
 def check_for_update(current_version: str, include_prerelease: bool = False) -> Union[None, dict]:
     request = urllib.request.Request(
-        "https://api.github.com/repos/arsenetar/dupeguru/releases",
+        "https://api.github.com/repos/nedy13/dupeguru/releases",
         headers={"Accept": "application/vnd.github.v3+json"},
     )
     try:
@@ -93,7 +93,11 @@ def check_for_update(current_version: str, include_prerelease: bool = False) -> 
     new_version = semantic_version.Version(current_version)
     new_url = None
     for release in response_json:
-        release_version = semantic_version.Version(release["name"])
+        try:
+            release_version = semantic_version.Version(release["name"].lstrip("v"))
+        except ValueError:
+            logging.warning(f"Ignoring release with invalid version name: {release['name']}")
+            continue
         if new_version < release_version and (include_prerelease or not release_version.prerelease):
             new_version = release_version
             new_url = release["html_url"]

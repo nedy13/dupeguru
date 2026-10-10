@@ -9,6 +9,7 @@ import os
 import os.path as op
 import compileall
 import shutil
+import subprocess
 import json
 from argparse import ArgumentParser
 import platform
@@ -39,10 +40,10 @@ def parse_args():
 
 def check_loc_doc():
     if not op.exists(LOCALE_DIR):
-        print('Locale files are missing. Have you run "build.py --loc"?')
+        print('Locale files are missing. Have you run "builder.py --loc"?')
     # include help files if they are built otherwise exit as they should be included?
     if not op.exists(HELP_DIR):
-        print('Help files are missing. Have you run "build.py --doc"?')
+        print('Help files are missing. Have you run "builder.py --doc"?')
     return op.exists(LOCALE_DIR) and op.exists(HELP_DIR)
 
 
@@ -116,19 +117,6 @@ def package_debian():
         package_debian_distribution(distribution)
 
 
-def package_arch():
-    # For now, package_arch() will only copy the source files into build/. It copies less packages
-    # than package_debian because there are more python packages available in Arch (so we don't
-    # need to include them).
-    print("Packaging for Arch")
-    srcpath = op.join("build", "dupeguru-arch")
-    packages = ["hscommon", "core", "qt"]
-    copy_files_to_package(srcpath, packages, with_so=True)
-    shutil.copy(op.join("images", "dgse_logo_128.png"), srcpath)
-    debopts = json.load(open(op.join("pkg", "arch", "dupeguru.json")))
-    filereplace(op.join("pkg", "arch", "dupeguru.desktop"), op.join(srcpath, "dupeguru.desktop"), **debopts)
-
-
 def package_source_txz():
     print("Creating git archive")
     app_version = get_module_version("core")
@@ -180,6 +168,7 @@ def package_windows():
             "--icon=images/dgse_logo.ico",
             "--add-data={0};locale".format(LOCALE_DIR),
             "--add-data={0};help".format(HELP_DIR),
+            "--add-data=images;images",
             "--version-file=win_version_info.txt",
             "--paths=C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\ucrt\\DLLs\\{0}".format(arch),
             ENTRY_SCRIPT,
@@ -187,12 +176,22 @@ def package_windows():
     )
     # remove version info file
     os.remove("win_version_info.txt")
-    # Call NSIS (TODO update to not use hardcoded path)
-    cmd = (
-        '"C:\\Program Files (x86)\\NSIS\\Bin\\makensis.exe" '
-        "/DVERSIONMAJOR={0} /DVERSIONMINOR={1} /DVERSIONPATCH={2} /DBITS={3} setup.nsi"
-    )
-    print_and_do(cmd.format(version_array[0], version_array[1], version_array[2], bits))
+    # Call NSIS (uses makensis from PATH, falls back to the default install locations)
+    nsis_dir = op.join(os.environ.get("ProgramFiles(x86)", "C:\\Program Files (x86)"), "NSIS")
+    candidates = [shutil.which("makensis"), op.join(nsis_dir, "makensis.exe"), op.join(nsis_dir, "Bin", "makensis.exe")]
+    makensis = next((c for c in candidates if c and op.exists(c)), None)
+    if makensis is None:
+        sys.exit("makensis not found, install NSIS to build the installer")
+    cmd = [
+        makensis,
+        "/DVERSIONMAJOR={0}".format(version_array[0]),
+        "/DVERSIONMINOR={0}".format(version_array[1]),
+        "/DVERSIONPATCH={0}".format(version_array[2]),
+        "/DBITS={0}".format(bits),
+        "setup.nsi",
+    ]
+    print(" ".join(cmd))
+    subprocess.check_call(cmd)
 
 
 def package_macos():
@@ -213,6 +212,7 @@ def package_macos():
             "--osx-bundle-identifier=com.hardcoded-software.dupeguru",
             "--add-data={0}:locale".format(LOCALE_DIR),
             "--add-data={0}:help".format(HELP_DIR),
+            "--add-data=images:images",
             "{0}".format(ENTRY_SCRIPT),
         ]
     )
@@ -230,12 +230,8 @@ def main():
     elif sys.platform == "darwin":
         package_macos()
     else:
-        if not args.arch_pkg:
-            distname = distro.id()
-        else:
-            distname = "arch"
-        if distname == "arch":
-            package_arch()
+        if args.arch_pkg or distro.id() == "arch":
+            print("Arch Linux packages are built with makepkg, see pkg/arch/PKGBUILD")
         else:
             package_debian()
 

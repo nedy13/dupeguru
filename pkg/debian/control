@@ -5,12 +5,12 @@ Maintainer: Virgil Dupras <hsoft@hardcoded.net>, Eugene San (eugenesan) <eugenes
 Build-Depends: debhelper (>= 7), python3-dev, python3-setuptools
 Standards-Version: 3.9.2
 Homepage: https://dupeguru.voltaicideas.net
-Vcs-Browser: https://github.com/arsenetar/dupeguru
-Vcs-Git: https://github.com/arsenetar/dupeguru.git
+Vcs-Browser: https://github.com/nedy13/dupeguru
+Vcs-Git: https://github.com/nedy13/dupeguru.git
 
 Package: {pkgname}
 Architecture: {arch}
-Depends: ${shlibs:Depends}, python3 (>=3.7), python3 (<<3.12), python3-pyqt5, python3-mutagen, python3-semantic-version
+Depends: ${shlibs:Depends}, python3 (>=3.7), python3-pyside6.qtcore, python3-pyside6.qtgui, python3-pyside6.qtwidgets, python3-mutagen, python3-semantic-version
 Provides: dupeguru-se, dupeguru-me, dupeguru-pe
 Replaces: dupeguru-se, dupeguru-me, dupeguru-pe
 Conflicts: dupeguru-se, dupeguru-me, dupeguru-pe
