@@ -10,7 +10,7 @@ import os.path as op
 import gc
 import multiprocessing
 
-from PySide6.QtCore import QDir
+from PySide6.QtCore import QCoreApplication, QDir, QEvent
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 
@@ -78,6 +78,11 @@ def main():
     dgapp = DupeGuru()
     install_excepthook("https://github.com/nedy13/dupeguru/issues")
     result = app.exec()
+    # Let Qt delete the windows in order while the application still exists. When the Python garbage
+    # collector destroys the widget trees instead, PySide6 crashes (e.g. with a populated folder tree).
+    for widget in QApplication.topLevelWidgets():
+        widget.deleteLater()
+    QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
     # I was getting weird crashes when quitting under Windows, and manually deleting main app
     # references with gc.collect() in between seems to fix the problem.
     del dgapp

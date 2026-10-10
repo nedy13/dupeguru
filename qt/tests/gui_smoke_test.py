@@ -130,3 +130,64 @@ def test_dialogs(dgapp):
     ErrorReportDialog(None, "https://example.invalid", "traceback").show()
     process_events(0.2)
     assert not errors, errors
+
+
+QUIT_DRIVER = """
+import sys
+from xml.etree import ElementTree as ET
+
+root_path, folder = sys.argv[1], sys.argv[2]
+sys.path.insert(0, root_path)
+from PySide6.QtCore import QCoreApplication, QStandardPaths, QTimer
+from PySide6.QtWidgets import QApplication
+
+import run
+from core import __appname__
+
+# Folders with states, saved by a previous session, are loaded on start
+QCoreApplication.setOrganizationName("Hardcoded Software")
+QCoreApplication.setApplicationName(__appname__)
+appdata = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppDataLocation)
+import os
+
+os.makedirs(appdata, exist_ok=True)
+xml_root = ET.Element("directories")
+ET.SubElement(xml_root, "root_directory").set("path", folder)
+for index, name in enumerate(sorted(os.listdir(folder))):
+    state = ET.SubElement(xml_root, "state")
+    state.set("path", os.path.join(folder, name))
+    state.set("value", str(index % 3))
+ET.ElementTree(xml_root).write(os.path.join(appdata, "last_directories.xml"))
+
+
+class ClosingApplication(QApplication):
+    def exec(self):
+        # Close the main window like clicking X does
+        QTimer.singleShot(1000, lambda: [w.close() for w in QApplication.topLevelWidgets() if w.isVisible()])
+        return super().exec()
+
+
+run.QApplication = ClosingApplication
+sys.exit(run.main())
+"""
+
+
+def test_quit_with_saved_folders(tmp_path):
+    # Runs the real run.main() from start to shutdown with saved folders. Quitting crashed in PySide6 when
+    # the garbage collector destroyed the folder tree; that was only reproducible with a real user's
+    # folder list, so this covers the shutdown path but is not a reproduction of that crash.
+    import subprocess
+    import sys
+
+    folder = tmp_path / "folders"
+    for name in ("a", "b", "c", "d", "e", "f"):
+        (folder / name / "sub").mkdir(parents=True)
+    driver = tmp_path / "quit_driver.py"
+    driver.write_text(QUIT_DRIVER)
+    env = dict(os.environ, HOME=str(tmp_path / "home"), XDG_CONFIG_HOME=str(tmp_path / "home" / ".config"))
+    env["XDG_DATA_HOME"] = str(tmp_path / "home" / ".local" / "share")
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    proc = subprocess.run(
+        [sys.executable, str(driver), root_path, str(folder)], env=env, capture_output=True, text=True, timeout=120
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
