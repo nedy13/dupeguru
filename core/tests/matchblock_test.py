@@ -59,13 +59,17 @@ def test_unreadable_pictures_are_skipped(tmp_path, parallel):
     assert len(blocks) == 58
 
 
-def test_cached_pictures_are_not_recomputed(tmp_path):
+def test_cached_pictures_are_not_recomputed(tmp_path, monkeypatch):
     pictures = make_pictures(tmp_path, 60)
     prepare(tmp_path, pictures, "db", parallel=True)
-    # Corrupt the files: blocks from the cache must be used instead of decoding them again
-    for picture in pictures:
-        picture.path.write_bytes(b"broken")
-    names, _, _ = prepare(tmp_path, [FakePhoto(p.path) for p in pictures], "db", parallel=True)
+
+    # The files are unchanged, so their blocks must come from the cache instead of being decoded again.
+    # Sequential, so that the patch applies (worker processes would import the original class).
+    def fail(self, block_count_per_side, orientation):
+        raise OSError("decoded again")
+
+    monkeypatch.setattr(FakePhoto, "_plat_get_blocks", fail)
+    names, _, _ = prepare(tmp_path, [FakePhoto(p.path) for p in pictures], "db", parallel=False)
     assert len(names) == 60
 
 
