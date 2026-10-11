@@ -28,7 +28,7 @@ def files_of(tmp_path):
 
 
 def relative(f, tmp_path):
-    return str(f.path.relative_to(tmp_path))
+    return f.path.relative_to(tmp_path).as_posix()
 
 
 def pairs(matches, tmp_path):

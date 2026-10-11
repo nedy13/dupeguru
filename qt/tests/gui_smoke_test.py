@@ -455,7 +455,7 @@ def test_relative_path_scan(dgapp, tmp_path):
     app.model.directories.set_state(Path(ref), DirectoryState.REFERENCE)
     run_scan(app)
     assert [g.ref.path for g in app.model.results.groups] == [ref / "2015" / "clip.mts"]
-    assert sorted(str(f.path.relative_to(normal)) for f in app.model.missing_in_reference) == [
+    assert sorted(f.path.relative_to(normal).as_posix() for f in app.model.missing_in_reference) == [
         "2016/clip.mts",
         "touched.jpg",
     ]
