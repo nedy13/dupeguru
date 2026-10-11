@@ -1,4 +1,4 @@
-=== 4.4.0 (2026-10-10)
+=== 4.4.0 (2026-10-11)
 * Add "Exact Picture (ignore metadata)" scan type in picture mode: pictures with identical pixels match,
   whatever their EXIF, IPTC or XMP metadata
 * Add "Relative Path and Size" scan type in standard mode: files match when they have the same path below their
