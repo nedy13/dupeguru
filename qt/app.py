@@ -208,6 +208,8 @@ class DupeGuru(QObject):
         self.model.options["include_exists_check"] = self.prefs.include_exists_check
         self.model.options["rehash_ignore_mtime"] = self.prefs.rehash_ignore_mtime
         self.model.options["scan_workers"] = self.prefs.scan_workers
+        self.model.options["compare_mtime"] = self.prefs.compare_mtime
+        self.model.options["mtime_tolerance"] = self.prefs.mtime_tolerance
 
         if self.details_dialog:
             self.details_dialog.update_options()

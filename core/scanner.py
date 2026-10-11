@@ -13,7 +13,7 @@ from hscommon.jobprogress import job
 from hscommon.util import dedupe, rem_file_ext, get_file_ext
 from hscommon.trans import tr
 
-from core import engine, missing
+from core import engine, matchpath, missing
 
 # It's quite ugly to have scan types from all editions all put in the same class, but because there's
 # there will be some nasty bugs popping up (ScanType is used in core when in should exclusively be
@@ -27,6 +27,7 @@ class ScanType:
     TAG = 3
     FOLDERS = 4
     CONTENTS = 5
+    RELATIVEPATH = 6
 
     # PE
     FUZZYBLOCK = 10
@@ -80,6 +81,9 @@ class Scanner:
         self.missing_in_reference = None
 
     def _getmatches(self, files, j):
+        if self.scan_type == ScanType.RELATIVEPATH:
+            tolerance = self.mtime_tolerance if self.compare_mtime else None
+            return matchpath.getmatches(self._files_to_compare(files), self.root_folders, tolerance, j)
         if (
             self.size_threshold
             or self.large_size_threshold
@@ -177,7 +181,8 @@ class Scanner:
             matches = [m for m in matches if m.first.path not in toremove or m.second.path not in toremove]
         if not self.mix_file_kind:
             matches = [m for m in matches if get_file_ext(m.first.name) == get_file_ext(m.second.name)]
-        if self.include_exists_check:
+        # The relative path scan lists the files seconds before, checking them again costs much on network drives
+        if self.include_exists_check and self.scan_type != ScanType.RELATIVEPATH:
             matches = [m for m in matches if m.first.exists() and m.second.exists()]
         # Contents already handles ref checks, other scan types might not catch during scan
         if self.scan_type != ScanType.CONTENTS:
@@ -226,3 +231,7 @@ class Scanner:
     big_file_size_threshold = 0
     word_weighting = False
     include_exists_check = True
+    # Relative path scan: the scanned folders, and whether the modification times must match within a tolerance
+    root_folders = ()
+    compare_mtime = False
+    mtime_tolerance = 2

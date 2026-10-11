@@ -164,6 +164,8 @@ class Preferences(PreferencesBase):
         self.remove_empty_folders = get("RemoveEmptyFolders", self.remove_empty_folders)
         self.rehash_ignore_mtime = get("RehashIgnoreMTime", self.rehash_ignore_mtime)
         self.scan_workers = get("ScanWorkers", self.scan_workers)
+        self.compare_mtime = get("CompareMTime", self.compare_mtime)
+        self.mtime_tolerance = get("MTimeTolerance", self.mtime_tolerance)
         self.include_exists_check = get("IncludeExistsCheck", self.include_exists_check)
         self.debug_mode = get("DebugMode", self.debug_mode)
         self.profile_scan = get("ProfileScan", self.profile_scan)
@@ -237,6 +239,9 @@ class Preferences(PreferencesBase):
         self.remove_empty_folders = False
         self.rehash_ignore_mtime = False
         self.scan_workers = 0  # 0: automatic, 1: single-threaded
+        # Relative path scan, the tolerance is in seconds
+        self.compare_mtime = False
+        self.mtime_tolerance = 2
         self.include_exists_check = True
         self.debug_mode = False
         self.profile_scan = False
@@ -292,6 +297,8 @@ class Preferences(PreferencesBase):
         set_("RemoveEmptyFolders", self.remove_empty_folders)
         set_("RehashIgnoreMTime", self.rehash_ignore_mtime)
         set_("ScanWorkers", self.scan_workers)
+        set_("CompareMTime", self.compare_mtime)
+        set_("MTimeTolerance", self.mtime_tolerance)
         set_("IncludeExistsCheck", self.include_exists_check)
         set_("DebugMode", self.debug_mode)
         set_("ProfileScan", self.profile_scan)

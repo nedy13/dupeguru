@@ -16,4 +16,5 @@ class ScannerSE(ScannerBase):
             ScanOption(ScanType.FILENAME, tr("Filename")),
             ScanOption(ScanType.CONTENTS, tr("Contents")),
             ScanOption(ScanType.FOLDERS, tr("Folders")),
+            ScanOption(ScanType.RELATIVEPATH, tr("Relative Path and Size")),
         ]

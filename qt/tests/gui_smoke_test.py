@@ -419,3 +419,44 @@ def test_quit_with_saved_folders(tmp_path):
         [sys.executable, str(driver), root_path, str(folder)], env=env, capture_output=True, text=True, timeout=120
     )
     assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
+def test_relative_path_scan(dgapp, tmp_path):
+    import os
+    from pathlib import Path
+
+    from core.app import AppMode
+    from core.directories import DirectoryState
+    from core.scanner import ScanType
+    from qt.se.preferences_dialog import PreferencesDialog
+
+    app, errors = dgapp
+    ref, normal = tmp_path / "ref", tmp_path / "normal"
+    for folder, name, mtime in (
+        (ref, "2015/clip.mts", 1_000_000_000),
+        (normal, "2015/clip.mts", 1_000_000_001),
+        (normal, "2016/clip.mts", 1_000_000_000),
+        (ref, "touched.jpg", 1_000_000_000),
+        (normal, "touched.jpg", 1_500_000_000),
+    ):
+        (folder / name).parent.mkdir(parents=True, exist_ok=True)
+        (folder / name).write_bytes(b"x" * 20000)
+        os.utime(folder / name, (mtime, mtime))
+    app.directories_dialog.appModeButtonSelected(0)
+    app.prefs.set_scan_type(AppMode.STANDARD, ScanType.RELATIVEPATH)
+    dialog = PreferencesDialog(app.directories_dialog, app)
+    dialog.load()
+    assert dialog.compareMTimeBox.isEnabled() and dialog.mtimeToleranceSpinBox.value() == 2
+    dialog.compareMTimeBox.setChecked(True)
+    dialog.save()
+    app._update_options()
+    app.model.add_directory(str(ref))
+    app.model.add_directory(str(normal))
+    app.model.directories.set_state(Path(ref), DirectoryState.REFERENCE)
+    run_scan(app)
+    assert [g.ref.path for g in app.model.results.groups] == [ref / "2015" / "clip.mts"]
+    assert sorted(str(f.path.relative_to(normal)) for f in app.model.missing_in_reference) == [
+        "2016/clip.mts",
+        "touched.jpg",
+    ]
+    assert not errors, errors

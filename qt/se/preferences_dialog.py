@@ -97,6 +97,23 @@ class PreferencesDialog(PreferencesDialogBase):
             self.widget,
         )
         self.verticalLayout_4.addWidget(self.ignoreHardlinkMatches)
+        self.mtimeHLayout = QHBoxLayout()
+        self._setupAddCheckbox(
+            "compareMTimeBox",
+            tr("Relative path scan: also compare modification times, tolerance"),
+            self.widget,
+        )
+        self.compareMTimeBox.setToolTip(
+            tr("Copying can set the modification time anew, leave this off to compare path and size only.")
+        )
+        self.mtimeHLayout.addWidget(self.compareMTimeBox)
+        self.mtimeToleranceSpinBox = QSpinBox(self.widget)
+        self.mtimeToleranceSpinBox.setSizePolicy(size_policy)
+        self.mtimeToleranceSpinBox.setRange(0, 1000000)
+        self.mtimeHLayout.addWidget(self.mtimeToleranceSpinBox)
+        self.mtimeHLayout.addWidget(QLabel(tr("seconds"), self.widget))
+        self.mtimeHLayout.addItem(QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum))
+        self.verticalLayout_4.addLayout(self.mtimeHLayout)
         self.widgetsVLayout.addWidget(self.widget)
         self._setupBottomPart()
 
@@ -109,6 +126,8 @@ class PreferencesDialog(PreferencesDialogBase):
         self.sizeSaturationSpinBox.setValue(prefs.large_file_threshold)
         setchecked(self.bigFilePartialHashesBox, prefs.big_file_partial_hashes)
         self.bigSizeThresholdSpinBox.setValue(prefs.big_file_size_threshold)
+        setchecked(self.compareMTimeBox, prefs.compare_mtime)
+        self.mtimeToleranceSpinBox.setValue(prefs.mtime_tolerance)
 
         # Update UI state based on selected scan type
         scan_type = prefs.get_scan_type(AppMode.STANDARD)
@@ -116,6 +135,12 @@ class PreferencesDialog(PreferencesDialogBase):
         self.filterHardnessSlider.setEnabled(word_based)
         self.matchSimilarBox.setEnabled(word_based)
         self.wordWeightingBox.setEnabled(word_based)
+        path_based = scan_type == ScanType.RELATIVEPATH
+        self.compareMTimeBox.setEnabled(path_based)
+        self.mtimeToleranceSpinBox.setEnabled(path_based)
+        # Path and size are compared, never the contents
+        self.bigFilePartialHashesBox.setEnabled(not path_based)
+        self.bigSizeThresholdSpinBox.setEnabled(not path_based)
 
     def _save(self, prefs: Preferences, ischecked: Callable[[QCheckBox], bool]) -> None:
         prefs.match_similar = ischecked(self.matchSimilarBox)
@@ -126,3 +151,5 @@ class PreferencesDialog(PreferencesDialogBase):
         prefs.large_file_threshold = self.sizeSaturationSpinBox.value()
         prefs.big_file_partial_hashes = ischecked(self.bigFilePartialHashesBox)
         prefs.big_file_size_threshold = self.bigSizeThresholdSpinBox.value()
+        prefs.compare_mtime = ischecked(self.compareMTimeBox)
+        prefs.mtime_tolerance = self.mtimeToleranceSpinBox.value()

@@ -865,6 +865,7 @@ class DupeGuru(Broadcaster):
                 setattr(scanner, k, v)
         if self.app_mode == AppMode.PICTURE:
             scanner.cache_path = self._get_picture_cache_path()
+        scanner.root_folders = list(self.directories)
         self.results.groups = []
         self.missing_in_reference = None
         self._recreate_result_table()
