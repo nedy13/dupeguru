@@ -10,7 +10,7 @@
 * Add "Files Missing in Reference": files of the normal folders without duplicate in the reference folders, with
   search, preview, CSV export and copy or move to the reference or another folder keeping the subfolders.
   Files are checked with a checkbox or the space key, also in the preview, which the arrow keys browse.
-* Migrate the UI from PyQt6 to PySide6
+* Migrate the UI from PyQt5 to PySide6 (Qt 6)
 * Fix corrupted icons caused by stripping lines from the generated Qt resource file
 * Fix result window crash when restoring its geometry
 * Fix crash when adding a folder (QFileDialog.DirectoryOnly no longer exists in Qt6)
