@@ -158,7 +158,9 @@ def test_reference_folders(tmp_path, monkeypatch):
 
     app, ref, normal, files = make_app_with_missing(tmp_path, monkeypatch)
     app.directories.set_state(normal / "2020", DirectoryState.REFERENCE)
-    assert missing.reference_folders(app.directories) == sorted([ref, normal / "2020"])
+    # Remembered from an earlier folder selection, not scanned anymore
+    app.directories.states[tmp_path / "old_ref"] = DirectoryState.REFERENCE
+    assert missing.reference_folders(app.directories) == [ref, normal / "2020"]
 
 
 def test_files_below_size_threshold_are_not_missing(tmp_path, no_hash_cache):

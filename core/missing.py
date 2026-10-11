@@ -50,12 +50,17 @@ def export_to_csv(files, dest):
 
 
 def reference_folders(directories):
-    """Folders in the Reference state: root folders and subfolders set to Reference."""
-    folders = [path for path in directories if directories.get_state(path) == DirectoryState.REFERENCE]
-    for path, state in directories.states.items():
-        if state == DirectoryState.REFERENCE and path not in folders:
-            folders.append(path)
-    return sorted(folders)
+    """Folders in the Reference state: root folders, then subfolders set to Reference.
+
+    The remembered states of folders outside the current folder selection are left out.
+    """
+    roots = [path for path in directories if directories.get_state(path) == DirectoryState.REFERENCE]
+    subfolders = [
+        path
+        for path, state in directories.states.items()
+        if state == DirectoryState.REFERENCE and path not in roots and path in directories
+    ]
+    return roots + sorted(subfolders)
 
 
 def destination_for(f, roots, destination):
