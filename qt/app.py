@@ -10,7 +10,7 @@ from typing import Type
 
 from PySide6.QtCore import QTimer, QObject, QUrl, Signal, Qt
 from PySide6.QtGui import QColor, QDesktopServices, QPalette
-from PySide6.QtWidgets import QApplication, QFileDialog, QDialog, QMessageBox, QStyleFactory, QToolTip
+from PySide6.QtWidgets import QApplication, QFileDialog, QDialog, QMessageBox, QStyleFactory, QToolTip, QWidget
 
 from hscommon.trans import trget
 from hscommon import desktop, plat
@@ -274,9 +274,8 @@ class DupeGuru(QObject):
     def confirm(
         self, title: str, msg: str, default_button: QMessageBox.StandardButton = QMessageBox.StandardButton.Yes
     ) -> bool:
-        active = QApplication.activeWindow()
         buttons = QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        answer = QMessageBox.question(active, title, msg, buttons, default_button)
+        answer = QMessageBox.question(self._message_parent(), title, msg, buttons, default_button)
         return answer == QMessageBox.StandardButton.Yes
 
     def invokeCustomCommand(self) -> None:
@@ -429,9 +428,19 @@ class DupeGuru(QObject):
     def show_missing_in_reference(self) -> None:
         self.missingInReferenceDialog.show()
 
+    def _message_parent(self) -> QWidget | None:
+        # Right after a job, its progress window is closed and no window is active yet: without a
+        # parent, the message would show in a corner of the screen instead of over the window
+        active = QApplication.activeWindow()
+        if active is not None:
+            return active
+        owner = self.progress_window.owner
+        if owner is not None and owner.isVisible():
+            return owner
+        return self.main_window or self.directories_dialog
+
     def show_message(self, msg: str) -> None:
-        window = QApplication.activeWindow()
-        QMessageBox.information(window, "", msg)
+        QMessageBox.information(self._message_parent(), "", msg)
 
     def ask_yes_no(self, prompt: str) -> bool:
         return self.confirm("", prompt)

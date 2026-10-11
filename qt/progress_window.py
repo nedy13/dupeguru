@@ -5,7 +5,7 @@
 # http://www.gnu.org/licenses/gpl-3.0.html
 
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtWidgets import QDialog, QMessageBox, QVBoxLayout, QLabel, QProgressBar, QPushButton
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QVBoxLayout, QLabel, QProgressBar, QPushButton
 
 from hscommon.trans import tr
 
@@ -14,6 +14,8 @@ class ProgressWindow:
     def __init__(self, parent, model):
         self._window = None
         self.parent = parent
+        # Window active when the job started, the progress and the messages after the job show over it
+        self.owner = None
         self.model = model
         model.view = self
         # We don't have access to QProgressDialog's labels directly, so we se the model label's view
@@ -37,7 +39,8 @@ class ProgressWindow:
 
     def show(self):
         flags = Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowSystemMenuHint
-        self._window = QDialog(self.parent, flags)
+        self.owner = QApplication.activeWindow() or self.parent
+        self._window = QDialog(self.owner, flags)
         self._setup_ui()
         self._window.setModal(True)
         self._timer = QTimer(self._window)

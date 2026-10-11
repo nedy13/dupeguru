@@ -210,7 +210,7 @@ def wait_for_job(app, start, timeout=60):
     process_events(0.2)
 
 
-def test_missing_in_reference_actions(dgapp, tmp_path):
+def test_missing_in_reference_actions(dgapp, tmp_path, monkeypatch):
     from pathlib import Path
 
     from core.directories import DirectoryState
@@ -254,7 +254,14 @@ def test_missing_in_reference_actions(dgapp, tmp_path):
 
     dialog.search_edit.clear()
     dialog.table.selectAll()
+    message_parents = []
+    monkeypatch.setattr(
+        QMessageBox, "information", staticmethod(lambda parent, *a, **k: message_parents.append(parent))
+    )
+    activate(dialog)
     wait_for_job(app, lambda: dialog.transfer_selected(copy=True, to_reference=True))
+    # The message after the job shows over the dialog, not in a corner of the screen
+    assert message_parents == [dialog]
     assert (ref / "2020" / "photo.png").exists()
     assert (ref / "2020" / "notes.txt").exists()
     assert (normal / "2020" / "photo.png").exists()
