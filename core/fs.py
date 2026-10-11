@@ -97,12 +97,18 @@ class OperationError(FSError):
     cls_message = "Operation on '{name}' failed."
 
 
+def has_table(conn, name: str) -> bool:
+    return bool(conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (name,)).fetchall())
+
+
 class FilesDB:
-    schema_version = 1
-    schema_version_description = "Changed from md5 to xxhash if available."
+    schema_version = 2
+    schema_version_description = "Added pixel_digest for exact picture scans."
 
     create_table_query = """CREATE TABLE IF NOT EXISTS files (path TEXT PRIMARY KEY, size INTEGER, mtime_ns INTEGER,
-        entry_dt DATETIME, digest BLOB, digest_partial BLOB, digest_samples BLOB)"""
+        entry_dt DATETIME, digest BLOB, digest_partial BLOB, digest_samples BLOB, pixel_digest BLOB)"""
+    # Upgrades keeping the cached digests, by version they upgrade from. Other versions start over.
+    upgrade_queries = {1: ["ALTER TABLE files ADD COLUMN pixel_digest BLOB"]}
     drop_table_query = "DROP TABLE IF EXISTS files;"
     select_query = "SELECT {key} FROM files WHERE path=:path AND size=:size and mtime_ns=:mtime_ns"
     select_query_ignore_mtime = "SELECT {key} FROM files WHERE path=:path AND size=:size"
@@ -137,7 +143,11 @@ class FilesDB:
             else:
                 conn.execute("CREATE TABLE schema_version (version int PRIMARY KEY, description TEXT)")
             if version != self.schema_version:
-                conn.execute(self.drop_table_query)
+                if version in self.upgrade_queries and has_table(conn, "files"):
+                    for query in self.upgrade_queries[version]:
+                        conn.execute(query)
+                else:
+                    conn.execute(self.drop_table_query)
                 conn.execute(
                     "INSERT OR REPLACE INTO schema_version VALUES (:version, :description)",
                     {"version": self.schema_version, "description": self.schema_version_description},

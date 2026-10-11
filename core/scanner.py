@@ -31,6 +31,7 @@ class ScanType:
     # PE
     FUZZYBLOCK = 10
     EXIFTIMESTAMP = 11
+    EXACTPICTURE = 12
 
 
 ScanOption = namedtuple("ScanOption", "scan_type label")

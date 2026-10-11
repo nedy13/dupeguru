@@ -37,6 +37,17 @@ class Photo(fs.File):
     def _plat_get_blocks(self, block_count_per_side, orientation):
         raise NotImplementedError()
 
+    def _plat_get_pixel_digest(self):
+        raise NotImplementedError()
+
+    def get_pixel_digest(self) -> bytes:
+        """Digest of the decoded picture, turned like its EXIF orientation says.
+
+        Metadata (EXIF, IPTC, XMP, comments, embedded thumbnails) has no influence: pictures with the
+        same size and the same value for every pixel have the same digest.
+        """
+        return self._plat_get_pixel_digest()
+
     def get_orientation(self):
         if not hasattr(self, "_cached_orientation"):
             try:

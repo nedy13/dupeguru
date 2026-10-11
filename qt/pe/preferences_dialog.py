@@ -67,6 +67,10 @@ show scrollbars to span the view around"
         scan_type = prefs.get_scan_type(AppMode.PICTURE)
         fuzzy_scan = scan_type == ScanType.FUZZYBLOCK
         self.filterHardnessSlider.setEnabled(fuzzy_scan)
+        # Exact pictures have the same size and are compared as they are displayed, turned by EXIF
+        exact_scan = scan_type == ScanType.EXACTPICTURE
+        self.matchScaledBox.setEnabled(not exact_scan)
+        self.matchRotatedBox.setEnabled(not exact_scan)
         setchecked(self.details_dialog_override_theme_icons, prefs.details_dialog_override_theme_icons)
         setchecked(self.details_dialog_viewers_show_scrollbars, prefs.details_dialog_viewers_show_scrollbars)
 

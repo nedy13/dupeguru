@@ -8,6 +8,8 @@ import logging
 
 from PySide6.QtGui import QImage, QImageReader, QTransform
 
+from core.fs import hasher
+
 from core.pe.photo import Photo as PhotoBase
 
 from qt.pe.block import getblocks
@@ -70,3 +72,19 @@ class File(PhotoBase):
                 t.rotate(270)
             image = image.transformed(t)
         return getblocks(image, block_count_per_side)
+
+    def _plat_get_pixel_digest(self):
+        reader = QImageReader(str(self.path))
+        reader.setAutoTransform(True)
+        image = reader.read()
+        if image.isNull():
+            raise OSError(f"Could not read picture '{self.path}': {reader.errorString()}")
+        # A fixed format makes the digest independent of how the file stores its pixels. Formats with
+        # more than 8 bits per channel keep their precision. Rows of both formats have no padding.
+        deep = image.depth() > 32 or image.format() == QImage.Format.Format_Grayscale16
+        pixel_format = QImage.Format.Format_RGBA64 if deep else QImage.Format.Format_RGBA8888
+        image = image.convertToFormat(pixel_format)
+        digest = hasher()
+        digest.update(f"{image.width()}x{image.height()}:{pixel_format.name}".encode())
+        digest.update(image.constBits())
+        return digest.digest()

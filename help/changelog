@@ -1,4 +1,6 @@
 === 4.4.0 (2026-10-10)
+* Add "Exact Picture (ignore metadata)" scan type in picture mode: pictures with identical pixels match,
+  whatever their EXIF, IPTC or XMP metadata
 * Analyze pictures in parallel worker processes, about 10x faster on a 24 core CPU
 * Hash files on several threads in contents scans, about 6x faster on NVMe drives
 * Add "Parallel scan workers" to the Advanced preferences (automatic, 1 = single-threaded, or a maximum)

@@ -8,7 +8,7 @@ from hscommon.trans import tr
 
 from core.scanner import Scanner, ScanType, ScanOption
 
-from core.pe import matchblock, matchexif
+from core.pe import matchblock, matchexact, matchexif
 
 
 class ScannerPE(Scanner):
@@ -21,6 +21,7 @@ class ScannerPE(Scanner):
         return [
             ScanOption(ScanType.FUZZYBLOCK, tr("Contents")),
             ScanOption(ScanType.EXIFTIMESTAMP, tr("EXIF Timestamp")),
+            ScanOption(ScanType.EXACTPICTURE, tr("Exact Picture (ignore metadata)")),
         ]
 
     def _files_to_compare(self, files):
@@ -39,5 +40,7 @@ class ScannerPE(Scanner):
             )
         elif self.scan_type == ScanType.EXIFTIMESTAMP:
             return matchexif.getmatches(files, self.match_scaled, j)
+        elif self.scan_type == ScanType.EXACTPICTURE:
+            return matchexact.getmatches(files, j)
         else:
             raise ValueError("Invalid scan type")
