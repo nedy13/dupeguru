@@ -147,11 +147,35 @@ jobs:
         run: python builder.py --clean
       - name: Package
         run: python package.py
-      - name: Upload installer
+      - name: Package portable zip
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $version = (Select-String -Path core/__init__.py -Pattern '^__version__ = "(.*)"').Matches[0].Groups[1].Value
+          # A settings.ini next to the executable keeps settings, data and cache in the program folder
+          $portable = "build/portable/dupeGuruX"
+          New-Item -ItemType Directory -Force $portable | Out-Null
+          Copy-Item -Recurse dist/dupegurux-win64/* $portable
+          New-Item -ItemType File "$portable/settings.ini" | Out-Null
+          Compress-Archive -Path $portable -DestinationPath "dist/dupeGuruX_win64_portable_$version.zip"
+      - name: Start portable zip
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          Expand-Archive (Get-Item dist/dupeGuruX_win64_portable_*.zip) -DestinationPath build/portable-test
+          $app = Start-Process build/portable-test/dupeGuruX/dupegurux-win64.exe -PassThru
+          Start-Sleep -Seconds 20
+          if ($app.HasExited) { throw "dupeGuruX exited with $($app.ExitCode)" }
+          Stop-Process -Id $app.Id
+          # Portable mode writes its data next to the executable instead of AppData
+          if (-not (Test-Path build/portable-test/dupeGuruX/data/debug.log)) { throw "Portable mode is not active" }
+      - name: Upload installer and portable zip
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: package-windows
-          path: dist/*.exe
+          path: |
+            dist/*.exe
+            dist/*.zip
           if-no-files-found: error
   package-macos:
     needs: [test]

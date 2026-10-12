@@ -97,6 +97,11 @@ def set_accel_keys(menu):
         action.setText(newtext)
 
 
+def is_portable() -> bool:
+    # A settings.ini next to the executable keeps settings, data and cache in the program folder
+    return op.isfile(op.join(executable_folder(), "settings.ini"))
+
+
 def get_appdata(portable: bool = False) -> str:
     if portable:
         return op.join(executable_folder(), "data")
@@ -114,7 +119,7 @@ def setup_qt_logging(level=logging.WARNING, log_to_stdout=False):
     # Under Qt, we log in "debug.log" in appdata. Moreover, when under cx_freeze, we have a
     # problem because sys.stdout and sys.stderr are None, so we need to replace them with a
     # wrapper that logs with the logging module.
-    appdata = get_appdata()
+    appdata = get_appdata(is_portable())
     if not op.exists(appdata):
         os.makedirs(appdata)
     # Setup logging
@@ -176,7 +181,7 @@ def migrate_from_former_name() -> None:
     former files are copied, not moved, so that dupeGuru keeps working. Portable installations keep their
     files next to the executable and need no migration.
     """
-    if op.isfile(op.join(executable_folder(), "settings.ini")):
+    if is_portable():
         return
     new_settings, new_data = _settings_and_data_paths()
     if op.exists(new_settings) or op.exists(new_data):

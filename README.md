@@ -20,8 +20,10 @@ The settings and data of dupeGuru are taken over when dupeGuruX starts for the f
 results (`.dupeguru`) and folder lists (`.dupegurudirs`) keep their file format.
 
 ## Download
-Prebuilt packages for Windows (installer), macOS (app bundle), Debian/Ubuntu (`.deb`) and Arch Linux
-are attached to the [GitHub releases](https://github.com/nedy13/dupeguru/releases).
+Prebuilt packages for Windows (installer and portable zip), macOS (app bundle), Debian/Ubuntu (`.deb`) and
+Arch Linux are attached to the [GitHub releases](https://github.com/nedy13/dupeguru/releases). The portable zip
+needs no installation and keeps its settings and data in its own folder, as long as the `settings.ini` next
+to the executable is there.
 
 ## Contents of this folder
 

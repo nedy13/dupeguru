@@ -170,11 +170,25 @@ Where they're located depends on your platform:
 
 * Linux: ``~/.local/share/Hardcoded Software/dupeGuruX``
 * Mac OS X: ``~/Library/Application Support/dupeGuruX``
+* Windows: ``%APPDATA%\Hardcoded Software\dupeGuruX``
 
 Preferences are stored elsewhere:
 
 * Linux: ``~/.config/Hardcoded Software/dupeGuruX.conf``
 * Mac OS X: In the built-in ``defaults`` system, as ``com.hardcoded-software.dupeGuruX``
+* Windows: ``settings.ini`` in the folder of the user files
+
+Can I run dupeGuruX without installing it?
+------------------------------------------
+
+On Windows, yes. Every release has a portable zip (``dupeGuruX_win64_portable_<version>.zip``) next to
+the installer. Extract it anywhere, for example on a USB stick, and start ``dupegurux-win64.exe``.
+It needs no administrator rights.
+
+The zip contains a ``settings.ini`` next to the executable. As long as this file is there, dupeGuruX
+runs in portable mode: it keeps its preferences in ``settings.ini`` and its user files (debug log,
+hash cache, folder lists) in the ``data`` folder next to the executable, and writes nothing to
+``%APPDATA%``. Delete ``settings.ini`` to use the user files of the installed version instead.
 
 .. _GitHub: https://github.com/nedy13/dupeguru
 .. _open an issue: https://github.com/arsenetar/dupeguru/wiki/issue-labels

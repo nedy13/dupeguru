@@ -108,4 +108,16 @@ Häufig gestellte Fragen
 
     Wenn dies alles fehlschlägt, beschreiben Sie das Problem auf `GitHub <https://github.com/nedy13/dupeguru>`_.
 
+.. topic:: Kann ich dupeGuruX ohne Installation nutzen?
+
+    Unter Windows ja. Jedes Release enthält neben dem Installer ein portables Zip
+    (``dupeGuruX_win64_portable_<Version>.zip``). Entpacken Sie es an einen beliebigen Ort, zum Beispiel
+    auf einen USB-Stick, und starten Sie ``dupegurux-win64.exe``. Administratorrechte sind nicht nötig.
+
+    Das Zip enthält eine ``settings.ini`` neben dem Programm. Solange diese Datei dort liegt, läuft
+    dupeGuruX im portablen Modus: Die Einstellungen stehen in der ``settings.ini``, die übrigen
+    Benutzerdateien (Debug-Log, Hash-Cache, Ordnerlisten) im Ordner ``data`` neben dem Programm, und
+    nichts wird nach ``%APPDATA%`` geschrieben. Löschen Sie die ``settings.ini``, um stattdessen die
+    Benutzerdateien der installierten Version zu nutzen.
+
 .. todo:: This FAQ qestion is outdated, see english version.

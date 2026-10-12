@@ -66,3 +66,11 @@ def test_portable_installation_is_left_alone(paths):
     (paths / "exe" / "settings.ini").write_text("")
     util.migrate_from_former_name()
     assert not (paths / "data" / "dupeGuruX").exists()
+
+
+def test_portable_mode_keeps_user_files_next_to_the_executable(tmp_path, monkeypatch):
+    monkeypatch.setattr(util, "executable_folder", lambda: str(tmp_path))
+    assert not util.is_portable()
+    (tmp_path / "settings.ini").write_text("")
+    assert util.is_portable()
+    assert util.get_appdata(util.is_portable()) == str(tmp_path / "data")
