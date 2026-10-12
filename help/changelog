@@ -1,3 +1,8 @@
+=== 4.4.3 (2026-10-12)
+* Add a portable Windows zip next to the installer: it needs no installation and keeps its settings and data
+  next to the executable, thanks to the settings.ini it contains
+* Fix the debug log of the portable mode being written to the user's AppData folder
+
 === 4.4.2 (2026-10-12)
 * Fix the hash cache slowing down contents scans: every digest was written to the disk on its own, so the hashing
   threads waited for the disk one after the other (hashing 3000 files took 26 s instead of 0.25 s)
