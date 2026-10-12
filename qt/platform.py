@@ -23,6 +23,9 @@ else:
         # For others our base path is ''.
         BASE_PATH = ""
 HELP_PATH = op.join(BASE_PATH, "help", "en")
+if not op.exists(op.join(HELP_PATH, "index.html")):
+    # Running from the source folder, where help/ holds the sources and the built help is in build/help
+    HELP_PATH = op.join(BASE_PATH, "build", "help", "en")
 
 if ISWINDOWS:
     INITIAL_FOLDER_IN_DIALOGS = "C:\\"
