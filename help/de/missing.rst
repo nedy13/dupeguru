@@ -7,7 +7,7 @@ Normalerweise wird dupeGuru genutzt, um Dateien zu finden, die doppelt vorhanden
 die Frage aber genau umgekehrt: Sie haben eine Sicherung, eine Fotosammlung auf einem NAS oder ein
 sortiertes Archiv und möchten wissen, ob alle Dateien von einem anderen Ort darin enthalten sind.
 Gesucht sind dann die Dateien, die **kein** Duplikat haben. Genau diese zeigt das Fenster
-**Files Missing in Reference**.
+**In der Referenz fehlende Dateien**.
 
 Einige typische Fälle:
 
@@ -16,9 +16,6 @@ Einige typische Fälle:
 * Sie haben eine Kopie eines Ordners auf einer anderen Festplatte und möchten prüfen, ob die Kopie
   vollständig ist.
 * Sie haben Bilder in eine neue Ordnerstruktur einsortiert und möchten die vergessenen finden.
-
-Die neuen Funktionen sind noch nicht ins Deutsche übersetzt. Die Oberfläche zeigt ihre Beschriftungen
-auf Englisch, deshalb sind sie hier ebenfalls auf Englisch angegeben.
 
 Funktionsweise
 --------------
@@ -51,12 +48,12 @@ Regeln:
 Die Wahl des passenden Scantyps ist der wichtigste Schritt. Einige Empfehlungen:
 
 * Um die Kopie eines Ordners zu prüfen (zum Beispiel eine Sicherung auf einem NAS), nutzen Sie
-  :ref:`Relative Path and Size <relative-path-scan>` im Standardmodus. Dieser Scantyp liest keine
+  :ref:`Relativer Pfad und Größe <relative-path-scan>` im Standardmodus. Dieser Scantyp liest keine
   Dateiinhalte und ist deshalb sehr schnell, auch über das Netzwerk.
 * Um sicherzugehen, dass auch die Inhalte gleich sind, nutzen Sie **Inhalt** im Standardmodus. Dieser
   Scan liest jede Datei, was bei großen Sammlungen eine Weile dauert.
 * Für Bilder, deren Metadaten (Stichwörter, Bewertungen, ...) an einem Ort bearbeitet wurden, am
-  anderen aber nicht, nutzen Sie :ref:`Exact Picture (ignore metadata) <exact-picture-scan>` im
+  anderen aber nicht, nutzen Sie :ref:`Exaktes Bild (Metadaten ignorieren) <exact-picture-scan>` im
   Bildmodus.
 * **Dateiname** ist für diese Aufgabe ungeeignet. Er vergleicht nur Namen, egal wo die Dateien
   liegen. Kameras vergeben Namen wie ``IMG_1234.JPG`` oder ``00001.MTS`` immer wieder, sodass eine
@@ -66,8 +63,8 @@ Das Fenster öffnen
 ------------------
 
 Ist mindestens ein Referenzordner im Scan, hat das Ergebnisfenster neben **Details** einen Knopf
-**Missing in Reference**. Seine Beschriftung zeigt, wie viele Dateien fehlen. Sie können das Fenster
-auch über das Menü **Ansicht** mit **Files Missing in Reference** öffnen.
+**Fehlt in Referenz**. Seine Beschriftung zeigt, wie viele Dateien fehlen. Sie können das Fenster
+auch über das Menü **Ansicht** mit **In der Referenz fehlende Dateien** öffnen.
 
 Findet der Scan überhaupt keine Duplikate, fehlen aber Dateien in der Referenz, fragt dupeGuru, ob
 Sie diese sehen möchten.
@@ -81,45 +78,45 @@ Die Liste durchsehen
 Die Liste zeigt Dateiname, Ordner, Größe und Änderungszeit jeder fehlenden Datei. Ein Klick auf eine
 Spaltenüberschrift sortiert die Liste.
 
-**Filter by name or folder:**
+**Nach Name oder Ordner filtern:**
     Zeigt nur die Dateien, deren Name oder Ordner den eingegebenen Text enthält. Groß- und
     Kleinschreibung spielen keine Rolle. Der Text über der Liste nennt die Zahl der angezeigten
     Dateien.
-**Preview:**
+**Vorschau:**
     Ist diese Box gewählt, zeigt die Auswahl einer Datei diese in einem Vorschaufenster, zusammen
     mit ihren Eigenschaften (Größe, Datumsangaben, Abmessungen und bei Fotos der EXIF-Zeitstempel
     und die Kamera). Das geht viel schneller, als jede Datei mit einer anderen Anwendung zu öffnen.
     Im Vorschaufenster wechseln die Pfeiltasten und Bild auf/Bild ab zur vorherigen oder nächsten
     Datei der Liste, die **Leertaste** hakt die aktuelle Datei an oder ab und **Escape** schließt
     das Fenster.
-**Open Selected with Default Application:**
+**Öffne Auswahl mit Standard-Anwendung:**
     Öffnet die ausgewählten Dateien mit der Anwendung, die ihrem Dateityp zugeordnet ist. Ein
     Doppelklick auf eine Datei macht dasselbe, oder zeigt sie in der Vorschau, wenn die Box
-    **Preview** gewählt ist.
-**Open Containing Folder of Selected:**
+    **Vorschau** gewählt ist.
+**Öffne den Über-Ordner der Auswahl:**
     Öffnet den Ordner, der die ausgewählten Dateien enthält.
 
 Dateien anhaken
 ---------------
 
 Jede Datei hat ein Kästchen zum Anhaken. Die angehakten Dateien sind die Dateien, mit denen
-**Copy / Move** und **Export to CSV** arbeiten. Sie haken eine Datei an, indem Sie auf ihr Kästchen
+**Kopieren / Verschieben** und **Als CSV exportieren** arbeiten. Sie haken eine Datei an, indem Sie auf ihr Kästchen
 klicken, oder indem Sie sie auswählen und die **Leertaste** drücken (auch im Vorschaufenster). Der
-Knopf **Check** hat ein Menü, um alle angezeigten Dateien anzuhaken, alle Haken zu entfernen oder
+Knopf **Anhaken** hat ein Menü, um alle angezeigten Dateien anzuhaken, alle Haken zu entfernen oder
 die Haken der angezeigten Dateien umzukehren. Zusammen mit dem Filter können Sie so zum Beispiel
 alle Dateien eines bestimmten Ordners mit wenigen Klicks anhaken.
 
-Ist keine Datei angehakt, arbeitet **Copy / Move** stattdessen mit den ausgewählten Dateien.
+Ist keine Datei angehakt, arbeitet **Kopieren / Verschieben** stattdessen mit den ausgewählten Dateien.
 
 Die fehlenden Dateien kopieren oder verschieben
 -----------------------------------------------
 
-Der Knopf **Copy / Move** bietet vier Aktionen:
+Der Knopf **Kopieren / Verschieben** bietet vier Aktionen:
 
-**Copy to Reference... / Move to Reference...:**
+**In die Referenz kopieren... / In die Referenz verschieben...:**
     Kopiert oder verschiebt die Dateien in einen Referenzordner. Sind mehrere Referenzordner in
     Ihrer Ordnerliste, werden Sie gefragt, welcher genutzt werden soll.
-**Copy to Folder... / Move to Folder...:**
+**In einen Ordner kopieren... / In einen Ordner verschieben...:**
     Kopiert oder verschiebt die Dateien in einen Ordner Ihrer Wahl.
 
 In jedem Fall legt dupeGuru die Unterordner der Datei unterhalb des Ordners, aus dem sie stammt,
@@ -141,6 +138,6 @@ verlassen.
 Die Liste exportieren
 ---------------------
 
-**Export to CSV** speichert die angehakten Dateien, oder alle angezeigten Dateien, wenn keine
+**Als CSV exportieren** speichert die angehakten Dateien, oder alle angezeigten Dateien, wenn keine
 angehakt ist, in eine CSV-Datei mit Name, Ordner, Größe und Änderungszeit. Diese Datei können Sie mit
 einer Tabellenkalkulation öffnen oder als Aufgabenliste nutzen.

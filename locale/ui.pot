@@ -1125,3 +1125,217 @@ msgstr ""
 #: qt\pe\preferences_dialog.py:24
 msgid "Match pictures of different rotations"
 msgstr ""
+
+#: qt/app.py:134 qt/missing_in_reference_dialog.py:54
+msgid "Files Missing in Reference"
+msgstr ""
+
+#: qt/file_preview_window.py:36 qt/missing_in_reference_dialog.py:76
+msgid "Filename"
+msgstr ""
+
+#: qt/file_preview_window.py:37 qt/missing_in_reference_dialog.py:76
+msgid "Folder"
+msgstr ""
+
+#: qt/file_preview_window.py:38
+msgid "Kind"
+msgstr ""
+
+#: qt/file_preview_window.py:39
+msgid "Size"
+msgstr ""
+
+#: qt/file_preview_window.py:40 qt/missing_in_reference_dialog.py:76
+msgid "Modification"
+msgstr ""
+
+#: qt/file_preview_window.py:44
+msgid "Creation"
+msgstr ""
+
+#: qt/file_preview_window.py:46
+msgid "Dimensions"
+msgstr ""
+
+#: qt/file_preview_window.py:53
+msgid "EXIF Timestamp"
+msgstr ""
+
+#: qt/file_preview_window.py:56
+msgid "Camera"
+msgstr ""
+
+#: qt/file_preview_window.py:72 qt/file_preview_window.py:149
+#: qt/missing_in_reference_dialog.py:67
+msgid "Preview"
+msgstr ""
+
+#: qt/file_preview_window.py:81
+msgid "Checked"
+msgstr ""
+
+#: qt/file_preview_window.py:87
+msgid "Arrow keys: previous/next, Space: check"
+msgstr ""
+
+#: qt/file_preview_window.py:122
+msgid "No preview available for this file"
+msgstr ""
+
+#: qt/file_preview_window.py:129
+msgid "Error"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:63
+msgid "Filter by name or folder"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:69
+msgid ""
+"Show the selected file with its attributes instead of opening the default "
+"application"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:76
+msgid "Size (KB)"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:91
+msgid "Check"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:94
+msgid "Check All Shown"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:95
+msgid "Uncheck All"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:96
+msgid "Invert Checks of Shown"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:102
+msgid "Copy / Move"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:103
+msgid "Works on the checked files, or the selected ones if none is checked"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:106
+msgid "Copy to Reference..."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:107
+msgid "Move to Reference..."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:108
+msgid "Copy to Folder..."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:109
+msgid "Move to Folder..."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:115 qt/missing_in_reference_dialog.py:329
+msgid "Export to CSV"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:183
+msgid ""
+"Scan with at least one folder set to the Reference state first. Files of the"
+" normal folders without a duplicate in the reference folders are listed "
+"here. Saved results don't contain this information."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:190
+msgid ""
+"%d files of the normal folders have no duplicate in the reference folders."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:192
+msgid "%d shown."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:194
+msgid "%d checked."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:321
+msgid "CSV Files (*.csv)"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:334
+msgid "There is no folder in the Reference state."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:339
+msgid "Reference folder:"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:345
+msgid "Check or select the files first."
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:350
+msgid "Select a directory to copy files to"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:350
+msgid "Select a directory to move files to"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:355
+msgid "Copy %d files to %s, keeping their subfolders?"
+msgstr ""
+
+#: qt/missing_in_reference_dialog.py:357
+msgid ""
+"Move %d files to %s, keeping their subfolders? They are removed from their "
+"current folder."
+msgstr ""
+
+#: qt/preferences_dialog.py:238
+msgid "Parallel scan workers:"
+msgstr ""
+
+#: qt/preferences_dialog.py:242
+msgid "Automatic"
+msgstr ""
+
+#: qt/preferences_dialog.py:244
+msgid ""
+"Number of files hashed and pictures analyzed at the same time. Automatic "
+"uses all CPUs, except on computers with two CPUs or less. 1 scans single-"
+"threaded."
+msgstr ""
+
+#: qt/result_window.py:331
+msgid "Missing in Reference"
+msgstr ""
+
+#: qt/result_window.py:334
+msgid "Scan with at least one folder in the Reference state"
+msgstr ""
+
+#: qt/result_window.py:336
+msgid "Files of the normal folders without duplicate in the reference folders"
+msgstr ""
+
+#: qt/se/preferences_dialog.py:103
+msgid "Relative path scan: also compare modification times, tolerance"
+msgstr ""
+
+#: qt/se/preferences_dialog.py:107
+msgid ""
+"Copying can set the modification time anew, leave this off to compare path "
+"and size only."
+msgstr ""
+
+#: qt/se/preferences_dialog.py:114
+msgid "seconds"
+msgstr ""

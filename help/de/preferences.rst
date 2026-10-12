@@ -1,9 +1,6 @@
 Einstellungen
 =============
 
-Einige neuere Einstellungen sind noch nicht ins Deutsche übersetzt. Die Oberfläche zeigt sie auf
-Englisch, deshalb sind sie hier ebenfalls auf Englisch angegeben.
-
 **Folgende Tags scannen:**
     Beim Scantyp **Tags** wählen Sie hier, welche Tags verglichen werden.
 
@@ -17,13 +14,13 @@ Englisch, deshalb sind sie hier ebenfalls auf Englisch angegeben.
     Ist diese Box gewählt, dürfen Bilder unterschiedlicher Abmessungen in derselben Duplikatgruppe
     sein.
 
-**Match pictures of different rotations:**
+**Gleiche unterschiedlich gedrehte Bilder ab:**
     Ist diese Box gewählt, dürfen unterschiedlich gedrehte Bilder in derselben Duplikatgruppe sein.
 
     Diese beiden Optionen gibt es nur für den Scan nach Bildblöcken. Der Scantyp
     :ref:`exact-picture-scan` findet nur Bilder mit denselben Pixeln.
 
-**Relative path scan: also compare modification times, tolerance:**
+**Scan nach relativem Pfad: auch Änderungszeiten vergleichen, Toleranz:**
     Nur für den Scantyp :ref:`relative-path-scan`. Ist diese Box gewählt, sind zwei Dateien mit
     gleichem Pfad und gleicher Größe nur dann Duplikate, wenn sich ihre Änderungszeiten höchstens um
     die angegebene Zahl von Sekunden unterscheiden. Die voreingestellte Toleranz von 2 Sekunden
@@ -94,14 +91,14 @@ Fortgeschritten
 Diese Einstellungen sind für erfahrene Benutzer oder sehr spezielle Situationen. Die meisten
 Benutzer müssen sie nicht ändern.
 
-**Include existence check after scan completion:**
+**Nach dem Scan prüfen, ob die Dateien noch existieren:**
     Prüft nach dem Scan, ob die Dateien jeder Übereinstimmung noch existieren, und lässt die aus,
     die inzwischen gelöscht oder verschoben wurden. Ein langer Inhalts-Scan kann Stunden dauern, und
     in dieser Zeit können Dateien verschwinden. Diese Prüfung muss jede Datei erneut ansehen, was auf
     Netzlaufwerken langsam ist. Beim Scantyp :ref:`relative-path-scan`, der die Dateien erst Sekunden
     vorher auflistet, findet sie nie statt.
 
-**Ignore difference in mtime when loading cached digests:**
+**Abweichende Änderungszeit beim Laden gespeicherter Hashes ignorieren:**
     Der Hash-Cache bewahrt den Hash jeder Datei zusammen mit ihrem Pfad, ihrer Größe und ihrer
     Änderungszeit auf. Normalerweise wird eine Datei, deren Änderungszeit sich geändert hat, erneut
     gelesen. Mit dieser Option wird ein gespeicherter Hash genutzt, solange Pfad und Größe gleich
@@ -110,9 +107,9 @@ Benutzer müssen sie nicht ändern.
 
 .. _scan-workers:
 
-**Parallel scan workers:**
+**Parallele Scan-Threads:**
     Wie viele Dateien gleichzeitig gehasht und wie viele Bilder gleichzeitig analysiert werden.
-    **Automatic** nutzt alle Prozessorkerne Ihres Computers zum Dekodieren und Analysieren der
+    **Automatisch** nutzt alle Prozessorkerne Ihres Computers zum Dekodieren und Analysieren der
     Bilder, und zum Hashen von Dateien etwas mehr gleichzeitige Lesevorgänge, als es Kerne gibt. Auf
     Computern mit zwei Kernen oder weniger scannt dupeGuru mit einem einzigen Thread. Stellen Sie
     **1** ein, um immer mit einem Thread zu scannen, zum Beispiel damit der Computer während eines

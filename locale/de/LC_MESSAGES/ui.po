@@ -1154,22 +1154,24 @@ msgid ""
 "These options are for advanced users or for very specific situations, most "
 "users should not have to modify these."
 msgstr ""
+"Diese Einstellungen sind für erfahrene Benutzer oder sehr spezielle "
+"Situationen, die meisten Benutzer müssen sie nicht ändern."
 
 #: qt\preferences_dialog.py:225
 msgid "Include existence check after scan completion"
-msgstr ""
+msgstr "Nach dem Scan prüfen, ob die Dateien noch existieren"
 
 #: qt\preferences_dialog.py:227
 msgid "Ignore difference in mtime when loading cached digests"
-msgstr ""
+msgstr "Abweichende Änderungszeit beim Laden gespeicherter Hashes ignorieren"
 
 #: qt\progress_window.py:64
 msgid "Cancel?"
-msgstr ""
+msgstr "Abbrechen?"
 
 #: qt\progress_window.py:65
 msgid "Are you sure you want to cancel? All progress will be lost."
-msgstr ""
+msgstr "Wirklich abbrechen? Der gesamte Fortschritt geht verloren."
 
 #: qt\exclude_list_dialog.py:161
 msgid ""
@@ -1177,7 +1179,240 @@ msgid ""
 "<li>2. Regular expressions with at least one path separator in them will be compared to the full path to the file.</li><br>Example: if you want to filter out .PNG files from the \"My Pictures\" directory only:<br><code>.*My\\sPictures\\\\.*\\.png</code><br><br>You can test the regular expression with the \"test string\" button after pasting a fake path in the test field:<br><code>C:\\\\User\\My Pictures\\test.png</code><br><br>\n"
 "Matching regular expressions will be highlighted.<br>If there is at least one highlight, the path or filename tested will be ignored during scans.<br><br>Directories and files starting with a period '.' are filtered out by default.<br><br>"
 msgstr ""
+"Diese regulären Ausdrücke (Python, Groß- und Kleinschreibung wird unterschieden) filtern beim Scan Dateien aus.<br>Ordner bekommen im Reiter Verzeichnisse außerdem den <strong>Standardzustand</strong> Ausgeschlossen, wenn ihr Name zu einem der ausgewählten regulären Ausdrücke passt.<br>Für jede gesammelte Datei wird zweimal geprüft, ob sie ganz ignoriert wird:<br><li>1. Reguläre Ausdrücke ohne Pfadtrenner werden nur mit dem Dateinamen verglichen.</li>\n"
+"<li>2. Reguläre Ausdrücke mit mindestens einem Pfadtrenner werden mit dem vollständigen Pfad der Datei verglichen.</li><br>Beispiel: Um nur im Ordner \"My Pictures\" .PNG-Dateien auszufiltern:<br><code>.*My\\sPictures\\\\.*\\.png</code><br><br>Sie können den regulären Ausdruck mit dem Knopf \"test string\" testen, nachdem Sie einen erfundenen Pfad in das Testfeld eingefügt haben:<br><code>C:\\\\User\\My Pictures\\test.png</code><br><br>\n"
+"Passende reguläre Ausdrücke werden hervorgehoben.<br>Gibt es mindestens eine Hervorhebung, wird der getestete Pfad oder Dateiname beim Scan ignoriert.<br><br>Ordner und Dateien, die mit einem Punkt '.' beginnen, werden standardmäßig ausgefiltert.<br><br>"
 
 #: qt\pe\preferences_dialog.py:24
 msgid "Match pictures of different rotations"
+msgstr "Gleiche unterschiedlich gedrehte Bilder ab"
+
+#: qt/app.py:134 qt/missing_in_reference_dialog.py:54
+msgid "Files Missing in Reference"
+msgstr "In der Referenz fehlende Dateien"
+
+#: qt/file_preview_window.py:36 qt/missing_in_reference_dialog.py:76
+msgid "Filename"
+msgstr "Dateiname"
+
+#: qt/file_preview_window.py:37 qt/missing_in_reference_dialog.py:76
+msgid "Folder"
+msgstr "Ordner"
+
+#: qt/file_preview_window.py:38
+msgid "Kind"
+msgstr "Typ"
+
+#: qt/file_preview_window.py:39
+msgid "Size"
+msgstr "Größe"
+
+#: qt/file_preview_window.py:40 qt/missing_in_reference_dialog.py:76
+msgid "Modification"
+msgstr "Geändert"
+
+#: qt/file_preview_window.py:44
+msgid "Creation"
+msgstr "Erstellt"
+
+#: qt/file_preview_window.py:46
+msgid "Dimensions"
+msgstr "Auflösung"
+
+#: qt/file_preview_window.py:53
+msgid "EXIF Timestamp"
+msgstr "EXIF Zeitstempel"
+
+#: qt/file_preview_window.py:56
+msgid "Camera"
+msgstr "Kamera"
+
+#: qt/file_preview_window.py:72 qt/file_preview_window.py:149
+#: qt/missing_in_reference_dialog.py:67
+msgid "Preview"
+msgstr "Vorschau"
+
+#: qt/file_preview_window.py:81
+msgid "Checked"
+msgstr "Angehakt"
+
+#: qt/file_preview_window.py:87
+msgid "Arrow keys: previous/next, Space: check"
+msgstr "Pfeiltasten: vorherige/nächste, Leertaste: anhaken"
+
+#: qt/file_preview_window.py:122
+msgid "No preview available for this file"
+msgstr "Für diese Datei ist keine Vorschau verfügbar"
+
+#: qt/file_preview_window.py:129
+msgid "Error"
+msgstr "Fehler"
+
+#: qt/missing_in_reference_dialog.py:63
+msgid "Filter by name or folder"
+msgstr "Nach Name oder Ordner filtern"
+
+#: qt/missing_in_reference_dialog.py:69
+msgid ""
+"Show the selected file with its attributes instead of opening the default "
+"application"
 msgstr ""
+"Die ausgewählte Datei mit ihren Eigenschaften zeigen, statt sie mit der "
+"Standard-Anwendung zu öffnen"
+
+#: qt/missing_in_reference_dialog.py:76
+msgid "Size (KB)"
+msgstr "Größe (KB)"
+
+#: qt/missing_in_reference_dialog.py:91
+msgid "Check"
+msgstr "Anhaken"
+
+#: qt/missing_in_reference_dialog.py:94
+msgid "Check All Shown"
+msgstr "Alle angezeigten anhaken"
+
+#: qt/missing_in_reference_dialog.py:95
+msgid "Uncheck All"
+msgstr "Alle Haken entfernen"
+
+#: qt/missing_in_reference_dialog.py:96
+msgid "Invert Checks of Shown"
+msgstr "Haken der angezeigten umkehren"
+
+#: qt/missing_in_reference_dialog.py:102
+msgid "Copy / Move"
+msgstr "Kopieren / Verschieben"
+
+#: qt/missing_in_reference_dialog.py:103
+msgid "Works on the checked files, or the selected ones if none is checked"
+msgstr ""
+"Gilt für die angehakten Dateien, oder für die ausgewählten, wenn keine "
+"angehakt ist"
+
+#: qt/missing_in_reference_dialog.py:106
+msgid "Copy to Reference..."
+msgstr "In die Referenz kopieren..."
+
+#: qt/missing_in_reference_dialog.py:107
+msgid "Move to Reference..."
+msgstr "In die Referenz verschieben..."
+
+#: qt/missing_in_reference_dialog.py:108
+msgid "Copy to Folder..."
+msgstr "In einen Ordner kopieren..."
+
+#: qt/missing_in_reference_dialog.py:109
+msgid "Move to Folder..."
+msgstr "In einen Ordner verschieben..."
+
+#: qt/missing_in_reference_dialog.py:115 qt/missing_in_reference_dialog.py:329
+msgid "Export to CSV"
+msgstr "Als CSV exportieren"
+
+#: qt/missing_in_reference_dialog.py:183
+msgid ""
+"Scan with at least one folder set to the Reference state first. Files of the"
+" normal folders without a duplicate in the reference folders are listed "
+"here. Saved results don't contain this information."
+msgstr ""
+"Scannen Sie zuerst mit mindestens einem Ordner im Zustand Referenz. Hier "
+"werden die Dateien der normalen Ordner aufgelistet, die kein Duplikat in den"
+" Referenzordnern haben. Gespeicherte Ergebnisse enthalten diese Information "
+"nicht."
+
+#: qt/missing_in_reference_dialog.py:190
+msgid ""
+"%d files of the normal folders have no duplicate in the reference folders."
+msgstr ""
+"%d Dateien der normalen Ordner haben kein Duplikat in den Referenzordnern."
+
+#: qt/missing_in_reference_dialog.py:192
+msgid "%d shown."
+msgstr "%d angezeigt."
+
+#: qt/missing_in_reference_dialog.py:194
+msgid "%d checked."
+msgstr "%d angehakt."
+
+#: qt/missing_in_reference_dialog.py:321
+msgid "CSV Files (*.csv)"
+msgstr "CSV-Dateien (*.csv)"
+
+#: qt/missing_in_reference_dialog.py:334
+msgid "There is no folder in the Reference state."
+msgstr "Es gibt keinen Ordner im Zustand Referenz."
+
+#: qt/missing_in_reference_dialog.py:339
+msgid "Reference folder:"
+msgstr "Referenzordner:"
+
+#: qt/missing_in_reference_dialog.py:345
+msgid "Check or select the files first."
+msgstr "Haken Sie die Dateien zuerst an oder wählen Sie sie aus."
+
+#: qt/missing_in_reference_dialog.py:350
+msgid "Select a directory to copy files to"
+msgstr "Wählen Sie einen Ordner, in den die Dateien kopiert werden"
+
+#: qt/missing_in_reference_dialog.py:350
+msgid "Select a directory to move files to"
+msgstr "Wählen Sie einen Ordner, in den die Dateien verschoben werden"
+
+#: qt/missing_in_reference_dialog.py:355
+msgid "Copy %d files to %s, keeping their subfolders?"
+msgstr "%d Dateien mitsamt ihren Unterordnern nach %s kopieren?"
+
+#: qt/missing_in_reference_dialog.py:357
+msgid ""
+"Move %d files to %s, keeping their subfolders? They are removed from their "
+"current folder."
+msgstr ""
+"%d Dateien mitsamt ihren Unterordnern nach %s verschieben? Sie werden aus "
+"ihrem bisherigen Ordner entfernt."
+
+#: qt/preferences_dialog.py:238
+msgid "Parallel scan workers:"
+msgstr "Parallele Scan-Threads:"
+
+#: qt/preferences_dialog.py:242
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: qt/preferences_dialog.py:244
+msgid ""
+"Number of files hashed and pictures analyzed at the same time. Automatic "
+"uses all CPUs, except on computers with two CPUs or less. 1 scans single-"
+"threaded."
+msgstr ""
+"Anzahl der Dateien und Bilder, die gleichzeitig gehasht bzw. analysiert "
+"werden. Automatisch nutzt alle Prozessorkerne, außer auf Computern mit zwei "
+"Kernen oder weniger. 1 scannt mit einem Thread."
+
+#: qt/result_window.py:331
+msgid "Missing in Reference"
+msgstr "Fehlt in Referenz"
+
+#: qt/result_window.py:334
+msgid "Scan with at least one folder in the Reference state"
+msgstr "Scannen Sie mit mindestens einem Ordner im Zustand Referenz"
+
+#: qt/result_window.py:336
+msgid "Files of the normal folders without duplicate in the reference folders"
+msgstr "Dateien der normalen Ordner ohne Duplikat in den Referenzordnern"
+
+#: qt/se/preferences_dialog.py:103
+msgid "Relative path scan: also compare modification times, tolerance"
+msgstr "Scan nach relativem Pfad: auch Änderungszeiten vergleichen, Toleranz"
+
+#: qt/se/preferences_dialog.py:107
+msgid ""
+"Copying can set the modification time anew, leave this off to compare path "
+"and size only."
+msgstr ""
+"Kopieren kann die Änderungszeit neu setzen, lassen Sie dies aus, um nur Pfad"
+" und Größe zu vergleichen."
+
+#: qt/se/preferences_dialog.py:114
+msgid "seconds"
+msgstr "Sekunden"

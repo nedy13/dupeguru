@@ -12,9 +12,6 @@ Daneben gibt es einige spezialisierte Scantypen: :ref:`relative-path-scan` im St
 Dateien vergleicht, ohne sie zu lesen, sowie **EXIF Zeitstempel** und :ref:`exact-picture-scan` im
 Bildmodus.
 
-Die neuen Scantypen sind noch nicht ins Deutsche übersetzt. Die Oberfläche zeigt ihre Namen auf
-Englisch, deshalb sind sie hier ebenfalls auf Englisch angegeben.
-
 .. _worded-scan:
 
 Wortbasierte Scans
@@ -140,8 +137,8 @@ In diesem Modus erhalten wir Ordner statt Dateien als Ergebnisse.
 
 .. _relative-path-scan:
 
-Relative Path and Size
-----------------------
+Relativer Pfad und Größe
+------------------------
 
 Dieser Scantyp im Standardmodus ist für eine Aufgabe gemacht: die Kopie eines Ordners mit ihrem
 Original zu vergleichen, zum Beispiel eine Sicherung auf einem NAS. Zwei Dateien sind Duplikate, wenn
@@ -222,8 +219,8 @@ Scantyp also auf Falschpositive.
 
 .. _exact-picture-scan:
 
-Exact Picture (ignore metadata)
--------------------------------
+Exaktes Bild (Metadaten ignorieren)
+-----------------------------------
 
 Fotoprogramme schreiben Stichwörter, Bewertungen, Beschreibungen oder den Autor oft in die Bilddatei
 selbst (als EXIF-, IPTC- oder XMP-Metadaten). Danach ist die Datei nicht mehr dieselbe, ein
@@ -252,7 +249,7 @@ Bilder, die nicht dekodiert werden können, bleiben beim Scan außen vor und hab
 Duplikat.
 
 Die :ref:`Filterempfindlichkeit <filter-hardness>` und die Einstellungen "Gleiche Bilder mit
-unterschiedlicher Auflösung ab" und "Match pictures of different rotations" werden bei diesem Scan
+unterschiedlicher Auflösung ab" und "Gleiche unterschiedlich gedrehte Bilder ab" werden bei diesem Scan
 ignoriert.
 
 .. _Levenshtein-Distanz: https://de.wikipedia.org/wiki/Levenshtein-Distanz
