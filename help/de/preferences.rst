@@ -1,63 +1,124 @@
 Einstellungen
 =============
 
-.. only:: edition_se
+Einige neuere Einstellungen sind noch nicht ins Deutsche übersetzt. Die Oberfläche zeigt sie auf
+Englisch, deshalb sind sie hier ebenfalls auf Englisch angegeben.
 
-    **Scan Typ:** Diese Option bestimmt nach welcher Eigenschaft die Dateien in einem Duplikate Scan verglichen werden. Wenn Sie **Dateiname** auswählen, wird dupeGuru jeden Dateinamen Wort für Wort vergleichen und, abhängig von den unteren Einstellungen, feststellen ob genügend Wörter übereinstimmen, um 2 Dateien als Duplikate zu betrachten. Wenn Sie **Inhalt** wählen, werden nur Dateien mit dem exakt gleichen Inhalt zusammenpassen.
+**Folgende Tags scannen:**
+    Beim Scantyp **Tags** wählen Sie hier, welche Tags verglichen werden.
 
-    Der **Ordner** Scan Typ ist etwas speziell. Wird er ausgewählt, scannt dupeGuru nach doppelten Ordnern anstelle von Dateien. Um festzustellen ob 2 Ordner identisch sind, werden alle Datein im Ordner gescannt und wenn die Inhalte aller Dateien der Ordner übereinstimmen, werden die Ordner als Duplikate erkannt.
+**Wortgewichtung:**
+    Siehe :ref:`word-weighting`.
 
-    **Filterempfindlichkeit:** Wenn Sie den **Dateiname** Scan Typ wählen, bestimmt diese Option wie ähnlich 2 Dateinamen für dupeGuru sein müssen, um Duplikate zu sein. Ist die Empfindlichkeit zum Beispiel 80, müssen 80% der Worte der 2 Dateinamen übereinstimmen. Um den Übereinstimmungsanteil herauszufinden, zählt dupeGuru zuerst die Gesamtzahl der Wörter **beider** Dateinamen, dann werden die gleichen Wörter gezählt (jedes Wort zählt als 2) und durch die Gesamtzahl der Wörter dividiert. Ist das Resultat größer oder gleich der Filterempfindlichkeit, haben wir ein Duplikat. Zum Beispiel, "a b c d" und "c d e" haben einen Übereinstimmungsanteil von 57 (4 gleiche Wörter, insgesamt 7 Wörter).
+**Gleiche ähnliche Wörter ab:**
+    Siehe :ref:`similarity-matching`.
 
-.. only:: edition_me
+**Gleiche Bilder mit unterschiedlicher Auflösung ab:**
+    Ist diese Box gewählt, dürfen Bilder unterschiedlicher Abmessungen in derselben Duplikatgruppe
+    sein.
 
-    **Scan Typ:** Diese Option bestimmt nach welcher Eigenschaft die Dateien in einem Duplikate Scan verglichen werden. Die Beschaffenheit des Duplikate Scans hängt hauptsächlich davon ab, was Sie für diese Option auswählen.
+**Match pictures of different rotations:**
+    Ist diese Box gewählt, dürfen unterschiedlich gedrehte Bilder in derselben Duplikatgruppe sein.
 
-    * **Dateiname:** Der Dateiname jedes Stücks wird in einzelne Wörter zerlegt und verglichen, um den Übereinstimmungsanteil zu berechnen. Ist das Resultat größer oder gleich der **Filterempfindlichkeit** (siehe unten für mehr Details), wird dupeGuru die beiden Stücke als Duplikate erkennen.
-    * **Dateiname - Felder:** Wie **Dateiname**, außer das, nachdem der Dateiname in Wörter geteilt wurde, diese Wörter in Felder gruppiert werden. Der Feldseparator ist " - ". Der endgültige Übereinstimmungsanteil ist der kleinste Übereinstimmungssatz zwischen den Feldern. Also, "Ein Künstler - Der Titel" und "Ein Künstler - Anderer Titel" hätte eine Übereinstimmung von 50 (Bei einem **Dateiname** Scan wäre es 75).
-    * **Dateiname - Felder (keine Reihenfolge):** Wie **Dateiname - Felder**, außer das die Feldreihenfolge keine Rolle spielt. Also, "Ein Künstler - Der Titel" und "Der Titel - Ein Künstler" hätte eine Übereinstimmung von 100 anstelle von 0.
-    * **Tags:** Diese Methode liest die Tags (Metadaten) jedes Stücks und vergleicht ihre Werte. Es wird, wie in **Dateiname - Felder**, die niedrigste Übereinstimmung als endgültiger Übereinstimmungsanteil betrachtet.
-    * **Inhalt:** Diese Scanmethode nutzt den Inhalt des Stücks, um Duplikate zu erkennen. Damit 2 Stücke mit dieser Methode gleich sind, müssen sie **exakt den selben Inhalt** haben.
-    * **Audioinhalt:** Das selbe wie Inhalt, aber nur der Audioinhalt wird verglichen (ohne Metadaten).
+    Diese beiden Optionen gibt es nur für den Scan nach Bildblöcken. Der Scantyp
+    :ref:`exact-picture-scan` findet nur Bilder mit denselben Pixeln.
 
-    **Filterempfindlichkeit:** Wenn Sie den **Dateiname** Scan Typ wählen, bestimmt diese Option wie ähnlich 2 Dateinamen für dupeGuru sein müssen, um Duplikate zu sein. Ist die Empfindlichkeit zum Beispiel 80, müssen 80% der Worte der 2 Dateinamen übereinstimmen. Um den Übereinstimmungsanteil herauszufinden, zählt dupeGuru zuerst die Gesamtzahl der Wörter **beider** Dateinamen, dann werden die gleichen Wörter gezählt (jedes Wort zählt als 2) und durch die Gesamtzahl der Wörter dividiert. Ist das Resultat größer oder gleich der Filterempfindlichkeit, haben wir ein Duplikat. Zum Beispiel, "a b c d" und "c d e" haben einen Übereinstimmungsanteil von 57% (4 gleiche Wörter, insgesamt 7 Wörter).
+**Relative path scan: also compare modification times, tolerance:**
+    Nur für den Scantyp :ref:`relative-path-scan`. Ist diese Box gewählt, sind zwei Dateien mit
+    gleichem Pfad und gleicher Größe nur dann Duplikate, wenn sich ihre Änderungszeiten höchstens um
+    die angegebene Zahl von Sekunden unterscheiden. Die voreingestellte Toleranz von 2 Sekunden
+    deckt Laufwerke ab, die die Zeit nicht genau speichern (FAT, exFAT, manche Netzlaufwerke).
+    Standardmäßig ist die Option aus, weil das Kopieren einer Datei oft ihre Änderungszeit ändert,
+    Einzelheiten unter :ref:`relative-path-scan`.
 
-    **Tags zu scannen:** Bei der Nutzung des **Tags** Scan Typs, können Sie wählen welche Tags verglichen werden sollen.
+.. _filter-hardness:
 
-.. only:: edition_se or edition_me
+**Filter Empfindlichkeit:**
+    Die Schwelle, ab der zwei Dateien als Duplikate gelten. Ein niedrigerer Wert ergibt mehr
+    Duplikate. Was die Schwelle bedeutet, hängt vom Scantyp ab (siehe :doc:`scan`). Sie gilt nur für
+    :ref:`wortbasierte Scans <worded-scan>` und :ref:`Bildblöcke <picture-blocks-scan>`.
 
-    **Wortgewichtung:** Wenn Sie den **Dateiname** Scan Type nutzen, ändert diese Option leicht die Berechnung der Übereinstimmung. Mit Wortgewichtung hat jedes Wort nicht mehr den Wert 1 in der Duplikatezählung und der Gesamtwortzahl, sondern einen Wert der sich aus der Gesamtzahl der Buchstaben des Wortes ergibt. Mit Wortgewichtung hätte "ab cde fghi" und "ab cde fghij" eine Übereinstimmung von 53% (Gesamt 19 Buchstaben, 10 gleiche Buchstaben (4 für "ab" und 6 für "cde")).
+**Dateitypen dürfen gemischt werden:**
+    Ist diese Box gewählt, dürfen Duplikatgruppen Dateien mit unterschiedlichen Dateiendungen
+    enthalten. Ist sie es nicht, dann eben nicht!
 
-    **Ähnliche Wörter gleich** Wird diese Option angeschaltet, zählen ähnliche Wörter als Übereinstimmung. Zum Beispiel hätte mit dieser Option "The White Stripes" und "The White Stripe" eine Übereinstimmung von 100 anstelle von 0. **Warnung:** Nutzen Sie diese Option mit Vorsicht. Es ist wahrscheinlich, das sie eine hohe Anzahl an Falschpositiven erhalten. Wie auch immer, Sie werden Duplikate finden, die Sie sonst nie gefunden hätten. Der Suchdurchlauf wird außerdem mit dieser Option etwas länger dauern.
+**Ignoriere Duplikate mit Hardlinks auf dieselbe Datei:**
+    Ist diese Option aktiviert, prüft dupeGuru, ob Duplikate auf denselben `Inode`_ verweisen. Ist
+    das der Fall, gelten sie nicht als Duplikate. (Nur für macOS und Linux)
 
-.. only:: edition_pe
+**Nutze reguläre Ausdrücke beim Filtern:**
+    Ist diese Box gewählt, behandelt die Filterfunktion Ihre Eingabe als **regulären Ausdruck**. Sie
+    zu erklären, würde den Rahmen dieser Dokumentation sprengen. Ein guter Einstieg ist
+    `regular-expressions.info`_.
 
-    **Scan Typ:** Diese option bestimmt, welcher Scan Typ bei Ihren Bildern angewendet wird. Der **Inhalte** Scan Typ vergleicht den Inhalt der Bilder auf eine ungenaue Art und Weise (so werden nicht nur exakte Duplikate gefunden, sondern auch Ähnliche). Der **EXIF Zeitstempel** Scan Typ schaut auf die EXIF Metadaten der Bilder (wenn vorhanden) und erkennt Bilder die den Selben haben. Er ist viel schneller als der Inhalte Scan. **Warnung:** Veränderte Bilder behalten oft den selben EXIF Zeitstempel, also achten Sie auf Falschpositive bei der Nutzung dieses Scans.
+**Entferne leere Ordner beim Löschen oder Verschieben:**
+    Ist diese Option aktiviert, wird ein Ordner gelöscht, wenn er nach dem Löschen oder Verschieben
+    einer Datei leer ist.
 
-    **Filterempfindlichkeit:** *Nur Inhalte Scan.* Je höher diese Einstellung, desto strenger ist der Filter (Mit anderen Worten, desto weniger Ergebnisse erhalten Sie). Die meisten Bilder der selben Qualität stimmen zu 100% überein, selbst wenn das Format anders ist (PNG und JPG zum Beispiel). Wie auch immer, wenn ein PNG mit einem JPG niederiger Qualität übereinstimmen soll, muss die Filterempfindlichkeit kleiner als 100 sein. Die Voreinstellung, 95, ist eine gute Wahl.
+**Kopieren und Verschieben:**
+    Bestimmt, wie sich die Aktionen Kopieren und Verschieben (im Menü Aktionen) verhalten.
 
-    **Bilder unterschiedlicher Abmessung gleich:** Wird diese Box gewählt, dürfen Bilder unterschiedlicher Abmessung in einer Duplikategruppe sein..
+* **Direkt ins Ziel:** Alle Dateien landen direkt im gewählten Ziel, ohne dass der Quellpfad
+  nachgebildet wird.
+* **Relativen Pfad neu erstellen:** Der Pfad der Quelldatei wird im Zielordner nachgebildet, bis zum
+  Ordner, der in der Ordnerliste ausgewählt ist. Haben Sie zum Beispiel ``/Users/foobar/SomeFolder``
+  zur Ordnerliste hinzugefügt und verschieben ``/Users/foobar/SomeFolder/SubFolder/SomeFile.ext``
+  nach ``/Users/foobar/MyDestination``, ist das endgültige Ziel der Datei
+  ``/Users/foobar/MyDestination/SubFolder`` (``SomeFolder`` wurde vom Quellpfad abgetrennt).
+* **Absoluten Pfad neu erstellen:** Der Pfad der Quelldatei wird im Zielordner vollständig
+  nachgebildet. Verschieben Sie zum Beispiel ``/Users/foobar/SomeFolder/SubFolder/SomeFile.ext``
+  nach ``/Users/foobar/MyDestination``, ist das endgültige Ziel der Datei
+  ``/Users/foobar/MyDestination/Users/foobar/SomeFolder/SubFolder``.
 
-**Dateitypen dürfen gemischt werden:** Wird diese Box gewählt, dürfen Duplikategruppen Bilder mit unterschiedlichen Dateierweiterungen enthalten.
+In allen Fällen löst dupeGuru Namenskonflikte, indem es dem Dateinamen eine Nummer voranstellt, wenn
+der Name im Ziel bereits existiert.
 
-**Ignoriere Duplikate die mit derselben Datei verlinkt sind:** Ist diese Option aktiviert, wird dupeGuru überprüfen ob Duplikate auf den selben `inode <http://en.wikipedia.org/wiki/Inode>`_ verweisen. Wenn sie es tun, werden sie nicht als Duplikat erkannt. (Nur für OS X und Linux)
+**Eigener Befehl:**
+    Diese Einstellung bestimmt den Befehl, der durch "Eigenen Befehl ausführen" aufgerufen wird. So
+    können Sie jede externe Anwendung starten. Das ist zum Beispiel nützlich, wenn Sie ein gutes
+    Vergleichsprogramm (diff) installiert haben.
 
-**Nutze reguläre Ausdrücke beim Filtern:** Ist diese Option aktiviert, wird die Filterfunktion Ihre Filteranfrage als **regulären Ausdruck** interpretieren. Sie zu erklären ist außerhalb des Aufgabenbereiches dieser Dokumentation. Ein guter Platz zum Starten ist `regular-expressions.info <http://www.regular-expressions.info>`_.
+Der Befehl hat dasselbe Format wie in einer Kommandozeile, mit zwei Platzhaltern: **%d** und **%r**.
+Sie werden durch den Pfad des ausgewählten Duplikats (%d) und den Pfad seiner Referenzdatei (%r)
+ersetzt.
 
-**Entferne leere Ordner nach dem Löschen oder Verschieben:** Ist diese Option aktiviert, werden Ordner gelöscht nachdem eine Datei gelöscht oder verschoben wurde und der Ordner leer ist.
-
-**Copy and Move:** Determines how the Copy and Move operations (in the Action menu) will behave.
-
-* **Zum Ziel:** Alle Dateien werden direkt in das ausgwählte Verzeichnis gesendet, ohne zu versuchen den Quellpfad wiederherzustellen
-* **Relativen Pfad neu erstellen:** Der Pfad der Quelldatei wird im Zielverzeichnis wiederhergestellt bis zur Wurzelauswahl im Verzeichnis Panel. Zum Beispiel, wenn Sie ``/Users/foobar/SomeFolder`` zu ihrem Verzeichnis Panel hinzufügen und ``/Users/foobar/SomeFolder/SubFolder/SomeFile.ext`` zu dem Ziel ``/Users/foobar/MyDestination`` verschieben, wird das endgültige Ziel der Datei ``/Users/foobar/MyDestination/SubFolder`` sein (``SomeFolder`` wurde vom Pfad der Quelldatei im endgültigen Ziel abgetrennt.).
-* **Absoluten Pfad neu erstellen:** Der Pfad der Quelldatei wird im Zielverzeichnis vollständig wiederhergestellt. Zum Beispiel, wenn Sie ``/Users/foobar/SomeFolder/SubFolder/SomeFile.ext`` zu dem Ziel ``/Users/foobar/MyDestination`` verschieben, wird das endgültige Ziel der Datei ``/Users/foobar/MyDestination/Users/foobar/SomeFolder/SubFolder`` sein.
-
-Auf jeden Fall behandelt dupeGuru Namenskonflikte indem es dem Ziel-Dateinamen eine Nummer voranstellt, wenn der Dateiname bereits im Zielverzeichnis existiert.
-
-**Eigener Befehl:** Diese Einstellung bestimmt den Befehl der durch "Führe eigenen Befehl aus" ausgeführt wird. Sie können jede externe Anwendung durch diese Aktion aufrufen. Dies ist zum Beispiel hilfreich, wenn Sie eine gute diff-Anwendung installiert haben.
-
-Das Format des Befehls ist das Selbe wie in einer Befehlszeile, außer das 2 Platzhalter vorhanden sind: **%d** und **%r**. Diese Platzhalter werden durch den Pfad des markierten Duplikates (%d) und dem Pfad der Duplikatereferenz ersetzt (%r).
-
-Wenn der Pfad Ihrer ausführbaren Datei Leerzeichen enthält, so schließen sie ihn bitte mit "" Zeichen ein. Sie sollten auch Platzhalter mit den Zitatzeichen einschließen, denn es ist möglich, das die Pfade der Duplikate und Referenzen ebenfalls Leerzeichen enthalten. Hier ist ein Beispiel eines eigenen Befehls::
+Enthält der Pfad Ihres Programms Leerzeichen, setzen Sie ihn in Anführungszeichen "". Auch die
+Platzhalter sollten Sie in Anführungszeichen setzen, denn die Pfade der Duplikate und Referenzen
+können ebenfalls Leerzeichen enthalten. Hier ein Beispiel::
 
     "C:\Program Files\SuperDiffProg\SuperDiffProg.exe" "%d" "%r"
+
+Fortgeschritten
+---------------
+
+Diese Einstellungen sind für erfahrene Benutzer oder sehr spezielle Situationen. Die meisten
+Benutzer müssen sie nicht ändern.
+
+**Include existence check after scan completion:**
+    Prüft nach dem Scan, ob die Dateien jeder Übereinstimmung noch existieren, und lässt die aus,
+    die inzwischen gelöscht oder verschoben wurden. Ein langer Inhalts-Scan kann Stunden dauern, und
+    in dieser Zeit können Dateien verschwinden. Diese Prüfung muss jede Datei erneut ansehen, was auf
+    Netzlaufwerken langsam ist. Beim Scantyp :ref:`relative-path-scan`, der die Dateien erst Sekunden
+    vorher auflistet, findet sie nie statt.
+
+**Ignore difference in mtime when loading cached digests:**
+    Der Hash-Cache bewahrt den Hash jeder Datei zusammen mit ihrem Pfad, ihrer Größe und ihrer
+    Änderungszeit auf. Normalerweise wird eine Datei, deren Änderungszeit sich geändert hat, erneut
+    gelesen. Mit dieser Option wird ein gespeicherter Hash genutzt, solange Pfad und Größe gleich
+    sind. Nutzen Sie sie nur, wenn Sie wissen, dass sich der Inhalt nicht geändert hat, zum Beispiel
+    nachdem ein Programm Dateien neue Änderungszeiten gegeben hat, ohne sie zu verändern.
+
+.. _scan-workers:
+
+**Parallel scan workers:**
+    Wie viele Dateien gleichzeitig gehasht und wie viele Bilder gleichzeitig analysiert werden.
+    **Automatic** nutzt alle Prozessorkerne Ihres Computers zum Dekodieren und Analysieren der
+    Bilder, und zum Hashen von Dateien etwas mehr gleichzeitige Lesevorgänge, als es Kerne gibt. Auf
+    Computern mit zwei Kernen oder weniger scannt dupeGuru mit einem einzigen Thread. Stellen Sie
+    **1** ein, um immer mit einem Thread zu scannen, zum Beispiel damit der Computer während eines
+    langen Scans gut bedienbar bleibt, oder eine Zahl, um höchstens so viele gleichzeitig zu nutzen.
+    Viele gleichzeitige Lesevorgänge sind auf SSDs am schnellsten; auf einer einzelnen Festplatte
+    kann eine kleine Zahl schneller sein.
+
+.. _Inode: https://de.wikipedia.org/wiki/Inode
+.. _regular-expressions.info: http://www.regular-expressions.info

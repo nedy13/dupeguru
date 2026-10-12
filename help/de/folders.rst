@@ -18,6 +18,9 @@ Jeder Ordner kann in einem von 3 Zuständen sein:
 
 Der Standardzustand eines Ordners ist natürlich **Normal**. Sie können den **Referenz** Zustand für Ordner nutzen, in denen auf keinen Fall eine Datei gelöscht werden soll.
 
-Wenn sie einen Zustand für ein Verzeichnis setzen, erben alle Unterordner automatisch diesen Zustand, es sei denn Sie ändern den Zustand der Unterordner explizit.
+Referenzordner haben noch einen zweiten Nutzen: Nach einem Scan mit mindestens einem Referenzordner
+listet dupeGuru die Dateien der normalen Ordner auf, die kein Duplikat in den Referenzordnern haben.
+So erfahren Sie zum Beispiel, welche Fotos Ihres Handys noch nicht in Ihrer Fotosammlung sind. Siehe
+:doc:`missing`.
 
-.. todo:: Add iPhoto/Aperture/iTunes libraries notes
+Wenn sie einen Zustand für ein Verzeichnis setzen, erben alle Unterordner automatisch diesen Zustand, es sei denn Sie ändern den Zustand der Unterordner explizit.

@@ -12,6 +12,7 @@ from PySide6.QtCore import QTimer, QObject, QUrl, Signal, Qt
 from PySide6.QtGui import QColor, QDesktopServices, QPalette
 from PySide6.QtWidgets import QApplication, QFileDialog, QDialog, QMessageBox, QStyleFactory, QToolTip, QWidget
 
+from hscommon import trans
 from hscommon.trans import trget
 from hscommon import desktop, plat
 
@@ -402,10 +403,20 @@ class DupeGuru(QObject):
     def showAboutBoxTriggered(self) -> None:
         self.about_box.show()
 
+    @staticmethod
+    def _help_index_path() -> str | None:
+        """index.html of the help in the language of the UI, the English help if there is none."""
+        help_folder = op.dirname(platform.HELP_PATH)
+        for lang in (trans.installed_lang, "en"):
+            if lang:
+                path = op.abspath(op.join(help_folder, lang, "index.html"))
+                if op.exists(path):
+                    return path
+        return None
+
     def showHelpTriggered(self) -> None:
-        base_path = platform.HELP_PATH
-        help_path = op.abspath(op.join(base_path, "index.html"))
-        if op.exists(help_path):
+        help_path = self._help_index_path()
+        if help_path is not None:
             url = QUrl.fromLocalFile(help_path)
         else:
             url = QUrl("https://dupeguru.voltaicideas.net/help/en/")

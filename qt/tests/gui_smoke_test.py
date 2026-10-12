@@ -460,3 +460,19 @@ def test_relative_path_scan(dgapp, tmp_path):
         "touched.jpg",
     ]
     assert not errors, errors
+
+
+def test_help_follows_ui_language(dgapp, monkeypatch):
+    from hscommon import trans
+    from qt import platform
+
+    app, errors = dgapp
+    help_folder = os.path.dirname(platform.HELP_PATH)
+    if not os.path.exists(os.path.join(help_folder, "de", "index.html")):
+        pytest.skip("help not built")
+    monkeypatch.setattr(trans, "installed_lang", "de")
+    assert app._help_index_path() == os.path.abspath(os.path.join(help_folder, "de", "index.html"))
+    # No help in that language: the English one
+    monkeypatch.setattr(trans, "installed_lang", "xx")
+    assert app._help_index_path() == os.path.abspath(os.path.join(help_folder, "en", "index.html"))
+    assert not errors, errors
