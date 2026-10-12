@@ -3,7 +3,7 @@ The scanning process
 
 .. contents::
 
-dupeGuru has 3 basic ways of scanning: :ref:`worded-scan` and :ref:`contents-scan` and
+dupeGuruX has 3 basic ways of scanning: :ref:`worded-scan` and :ref:`contents-scan` and
 :ref:`picture blocks <picture-blocks-scan>`. The first two types are for the Standard and Music
 modes, the last is for the Picture mode. The scanning process is configured through the
 :doc:`Preference pane <preferences>`.
@@ -31,7 +31,7 @@ by nothing) and all words lowercased. For example, the string "This guy's song(r
 Once this is done, the scanning dance begins. Finding duplicates is only a matter of finding how
 many words in common two given strings have. If the :ref:`filter hardness <filter-hardness>` is,
 for example, ``80``, it means that 80% of the words of two strings must match. To determine the
-matching percentage, dupeGuru first counts the total number of words in **both** strings, then count
+matching percentage, dupeGuruX first counts the total number of words in **both** strings, then count
 the number of words matching (every word matching count as 2), and then divide the number of words
 matching by the total number of words. If the result is higher or equal than the filter hardness,
 we have a duplicate match. For example, "a b c d" and "c d e" have a matching percentage of 57
@@ -112,7 +112,7 @@ having the same MD5 hash *and* the same size by accident is still very, very sma
 
 The :ref:`filter hardness <filter-hardness>` preference is ignored in this scan.
 
-Reading files is what takes time in this scan, and dupeGuru reads several files at the same time.
+Reading files is what takes time in this scan, and dupeGuruX reads several files at the same time.
 On fast drives (SSDs, and NVMe drives in particular), this makes the scan several times faster. On
 a hard disk, where reading many files at once makes the disk head jump back and forth, it helps less.
 See :ref:`scan-workers`.
@@ -128,7 +128,7 @@ instead of trying to find duplicate files, it tries to find duplicate folders.
 A folder is duplicate to another if all files it contains have the same
 contents as the other folder's file.
 
-This scan is, of course, recursive and subfolders are checked. dupeGuru keeps only the biggest
+This scan is, of course, recursive and subfolders are checked. dupeGuruX keeps only the biggest
 fishes. Therefore, if two folders that are considered as matching contain subfolders, these
 subfolders will not be included in the final results.
 
@@ -172,7 +172,7 @@ The :ref:`filter hardness <filter-hardness>` preference is ignored in this scan.
 Picture blocks
 --------------
 
-dupeGuru Picture mode stands apart of its two friends. Its scan types are completely different.
+dupeGuruX Picture mode stands apart of its two friends. Its scan types are completely different.
 The first one is its "Contents" scan, which is a bit too generic, hence the name we use here,
 "Picture blocks".
 
@@ -202,7 +202,7 @@ analyzed in several processes, and so are the comparisons. On a computer with ma
 makes the scan many times faster. See :ref:`scan-workers`.
 
 This algorithm is very naive, but in the field, it works rather well. If you master a better
-algorithm and want to improve dupeGuru, by all means, let me know!
+algorithm and want to improve dupeGuruX, by all means, let me know!
 
 EXIF Timestamp
 --------------

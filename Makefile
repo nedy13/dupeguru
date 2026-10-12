@@ -43,7 +43,7 @@ vpath %.po $(localedirs)
 vpath %.mo $(localedirs)
 
 all: | env i18n modules qt/dg_rc.py
-	@echo "Build complete! You can run dupeGuru with 'make run'"
+	@echo "Build complete! You can run dupeGuruX with 'make run'"
 
 run:
 	$(VENV_PYTHON) run.py
@@ -93,26 +93,26 @@ normpo: | env
 	$(VENV_PYTHON) builder.py --normpo
 
 install: all pyc
-	mkdir -p ${DESTDIR}${PREFIX}/share/dupeguru
-	cp -rf ${packages} locale ${DESTDIR}${PREFIX}/share/dupeguru
-	cp -f run.py ${DESTDIR}${PREFIX}/share/dupeguru/run.py
-	chmod 755 ${DESTDIR}${PREFIX}/share/dupeguru/run.py
+	mkdir -p ${DESTDIR}${PREFIX}/share/dupegurux
+	cp -rf ${packages} locale ${DESTDIR}${PREFIX}/share/dupegurux
+	cp -f run.py ${DESTDIR}${PREFIX}/share/dupegurux/run.py
+	chmod 755 ${DESTDIR}${PREFIX}/share/dupegurux/run.py
 	mkdir -p ${DESTDIR}${PREFIX}/bin
-	ln -sf ${PREFIX}/share/dupeguru/run.py ${DESTDIR}${PREFIX}/bin/dupeguru
+	ln -sf ${PREFIX}/share/dupegurux/run.py ${DESTDIR}${PREFIX}/bin/dupegurux
 	mkdir -p ${DESTDIR}${PREFIX}/share/applications
-	cp -f pkg/dupeguru.desktop ${DESTDIR}${PREFIX}/share/applications
+	cp -f pkg/dupegurux.desktop ${DESTDIR}${PREFIX}/share/applications
 	mkdir -p ${DESTDIR}${PREFIX}/share/pixmaps
-	cp -f images/dgse_logo_128.png ${DESTDIR}${PREFIX}/share/pixmaps/dupeguru.png
+	cp -f images/dgse_logo_128.png ${DESTDIR}${PREFIX}/share/pixmaps/dupegurux.png
 
 installdocs: build/help
-	mkdir -p ${DESTDIR}${PREFIX}/share/dupeguru
-	cp -rf build/help ${DESTDIR}${PREFIX}/share/dupeguru
+	mkdir -p ${DESTDIR}${PREFIX}/share/dupegurux
+	cp -rf build/help ${DESTDIR}${PREFIX}/share/dupegurux
 
 uninstall:
-	rm -rf "${DESTDIR}${PREFIX}/share/dupeguru"
-	rm -f "${DESTDIR}${PREFIX}/bin/dupeguru"
-	rm -f "${DESTDIR}${PREFIX}/share/applications/dupeguru.desktop"
-	rm -f "${DESTDIR}${PREFIX}/share/pixmaps/dupeguru.png"
+	rm -rf "${DESTDIR}${PREFIX}/share/dupegurux"
+	rm -f "${DESTDIR}${PREFIX}/bin/dupegurux"
+	rm -f "${DESTDIR}${PREFIX}/share/applications/dupegurux.desktop"
+	rm -f "${DESTDIR}${PREFIX}/share/pixmaps/dupegurux.png"
 
 clean:
 	-rm -rf build

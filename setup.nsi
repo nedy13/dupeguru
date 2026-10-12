@@ -1,5 +1,5 @@
 ;==============================================================================
-; dupeGuru Installer Script for Windows via NSIS
+; dupeGuruX Installer Script for Windows via NSIS
 ;
 ; When calling makensis use the following:
 ; makensis /DVERSIONMAJOR=x /DVERSIONMINOR=x /DVERSIONPATCH=x /DBITS=x \
@@ -44,15 +44,15 @@ SetCompressor /SOLID lzma
 !verbose pop
 
 ; Application Specific Defines
-!define APPNAME "dupeGuru"
+!define APPNAME "dupeGuruX"
 !define COMPANYNAME "Hardcoded Software"
-!define DESCRIPTION "dupeGuru is a tool to find duplicate files on your computer."
+!define DESCRIPTION "dupeGuruX is a tool to find duplicate files on your computer."
 !define APPLICENSE "LICENSE"           ; License is not in build directory
 !define APPICON "images\dgse_logo.ico" ; nor is the icon
 !define DISTDIR "dist"
 !define HELPURL "https://github.com/nedy13/dupeguru/issues"
-!define UPDATEURL "https://dupeguru.voltaicideas.net/"
-!define ABOUTURL "https://dupeguru.voltaicideas.net/"
+!define UPDATEURL "https://github.com/nedy13/dupeguru/releases"
+!define ABOUTURL "https://github.com/nedy13/dupeguru"
 
 ; Static Defines
 !define UNINSTALLREGBASE "Software\Microsoft\Windows\CurrentVersion\Uninstall"

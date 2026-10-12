@@ -23,7 +23,7 @@ from hscommon.util import delete_if_empty, first, escape, nonone, allsame
 from hscommon.trans import tr
 from hscommon import desktop
 
-from core import se, me, pe
+from core import __appname__, se, me, pe
 from core.pe.photo import get_delta_dimensions
 from core.util import cmp_value, fix_surrogate_encoding
 from core import directories, results, export, fs, missing, prioritize, workers
@@ -129,7 +129,7 @@ class DupeGuru(Broadcaster):
     # select_dest_folder(prompt: str) --> str
     # select_dest_file(prompt: str, ext: str) --> str
 
-    NAME = PROMPT_NAME = "dupeGuru"
+    NAME = PROMPT_NAME = __appname__
 
     def __init__(self, view, portable=False):
         if view.get_default(DEBUG_MODE_PREFERENCE):
@@ -789,7 +789,7 @@ class DupeGuru(Broadcaster):
             d.rename(newname)
             return True
         except (IndexError, fs.FSError) as e:
-            logging.warning("dupeGuru Warning: %s" % str(e))
+            logging.warning("%s Warning: %s" % (self.NAME, str(e)))
         return False
 
     def reprioritize_groups(self, sort_key):

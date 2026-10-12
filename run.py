@@ -16,7 +16,7 @@ from PySide6.QtWidgets import QApplication
 
 from hscommon.trans import install_gettext_trans_under_qt
 from qt.error_report_dialog import install_excepthook
-from qt.util import setup_qt_logging, create_qsettings
+from qt.util import setup_qt_logging, create_qsettings, migrate_from_former_name
 from qt import dg_rc  # noqa: F401
 from qt.platform import BASE_PATH
 from core import __version__, __appname__
@@ -49,11 +49,12 @@ def setup_signals():
 
 def main():
     app = QApplication(sys.argv)
-    app.setDesktopFileName("dupeguru")
+    app.setDesktopFileName("dupegurux")
     QApplication.setOrganizationName("Hardcoded Software")
     QApplication.setApplicationName(__appname__)
     QApplication.setApplicationVersion(__version__)
     QDir.addSearchPath("images", op.join(BASE_PATH, "images"))
+    migrate_from_former_name()
     setup_qt_logging()
     settings = create_qsettings()
     lang = settings.value("Language")

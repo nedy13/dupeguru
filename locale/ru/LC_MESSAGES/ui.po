@@ -33,12 +33,12 @@ msgid "Clear Picture Cache"
 msgstr "Очистить кэш изображений"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "Справка dupeGuru"
+msgid "dupeGuruX Help"
+msgstr "Справка dupeGuruX"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "О dupeGuru"
+msgid "About dupeGuruX"
+msgstr "О dupeGuruX"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -204,8 +204,8 @@ msgid "All Files (*.*)"
 msgstr "Все файлы (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "Результаты dupeGuru (*. dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "Результаты dupeGuruX (*. dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -359,8 +359,8 @@ msgstr ""
 "Пользовательская команда (аргументы: %d для дубликата, %r для эталона):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
-msgstr "Новый язык будет загружен при следующем запуске dupeGuru."
+msgid "dupeGuruX has to restart for language changes to take effect."
+msgstr "Новый язык будет загружен при следующем запуске dupeGuruX."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
 msgid "Re-Prioritize duplicates"
@@ -585,20 +585,20 @@ msgid "Directories"
 msgstr "Каталоги"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "Настройки dupeGuru"
+msgid "dupeGuruX Preferences"
+msgstr "Настройки dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "Результаты dupeGuru "
+msgid "dupeGuruX Results"
+msgstr "Результаты dupeGuruX "
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "Вебсайт dupeGuru"
+msgid "dupeGuruX Website"
+msgstr "Вебсайт dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -637,8 +637,8 @@ msgid "Font Size:"
 msgstr "Размер шрифта:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "Скрыть dupeGuru"
+msgid "Hide dupeGuruX"
+msgstr "Скрыть dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -681,8 +681,8 @@ msgid "Quick Look"
 msgstr "Быстрый просмотр"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "Выйти из dupeGuru"
+msgid "Quit dupeGuruX"
+msgstr "Выйти из dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -753,16 +753,16 @@ msgid "Select a directories file to load"
 msgstr "Выберите файл каталогов для загрузки"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
-msgstr "Каталоги dupeGuru (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
+msgstr "Каталоги dupeGuruX (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
 msgid "Select a file to save your directories to"
 msgstr "Выберите файл для сохранения каталогов"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
-msgstr "Каталоги dupeGuru (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
+msgstr "Каталоги dupeGuruX (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44
 msgid "Add"
@@ -960,7 +960,7 @@ msgid ""
 "Some native dialogs have limited functionality."
 msgstr ""
 "При выборе файлов или папок для добавления в список сканирования будет "
-"использоваться диалоговое окно системы, а не встроенное в dupeGuru. "
+"использоваться диалоговое окно системы, а не встроенное в dupeGuruX. "
 "Некоторые системные диалоговые окна имеют ограниченную функциональность."
 
 #: qt\se\preferences_dialog.py:68

@@ -3,7 +3,7 @@ Files Missing in Reference
 
 .. contents::
 
-Usually, dupeGuru is used to find files that exist twice. Sometimes, the question is the other way
+Usually, dupeGuruX is used to find files that exist twice. Sometimes, the question is the other way
 around: you have a backup, a photo collection on a NAS or a sorted archive, and you want to know
 whether all files from another place are in it. These files are the ones that have **no**
 duplicate. This is what the **Files Missing in Reference** window shows.
@@ -35,7 +35,7 @@ with a file of a reference folder is **missing in reference**. A few rules apply
   file that is in the reference but slightly changed is listed. Matches removed by the ignore list
   or by the "Can mix file kind" option don't count either.
 * Files that aren't compared at all, because of the "Ignore files smaller than" and "Ignore files
-  larger than" preferences, are never listed. dupeGuru can't tell whether they are missing or not.
+  larger than" preferences, are never listed. dupeGuruX can't tell whether they are missing or not.
 * Files that can't be read (a corrupted picture, for example) can't have a duplicate, so they are
   listed as missing.
 
@@ -59,7 +59,7 @@ When there is at least one reference folder in the scan, the results window has 
 **Missing in Reference** button next to **Details**. Its label shows how many files are missing.
 You can also open the window through the **View** menu with **Files Missing in Reference**.
 
-When the scan finds no duplicates at all, but some files are missing in reference, dupeGuru asks
+When the scan finds no duplicates at all, but some files are missing in reference, dupeGuruX asks
 you whether you want to see them.
 
 The list is kept up to date: when you copy or move files from this window, they leave the list
@@ -108,10 +108,10 @@ The **Copy / Move** button has four actions:
 **Copy to Folder... / Move to Folder...:**
     Copy or move the files to a folder you choose.
 
-In all cases, dupeGuru re-creates the subfolders of the file below the folder it comes from. For
+In all cases, dupeGuruX re-creates the subfolders of the file below the folder it comes from. For
 example, if you scanned ``/home/me/Phone`` and the reference ``/mnt/nas/Photos``, the missing file
 ``/home/me/Phone/2024/Holidays/IMG_1234.JPG`` is copied to ``/mnt/nas/Photos/2024/Holidays/``.
-Before anything happens, dupeGuru tells you how many files go where and asks you to confirm.
+Before anything happens, dupeGuruX tells you how many files go where and asks you to confirm.
 
 Files are never overwritten. If a file with the same name already exists in the destination, the
 copy gets a number prepended to its name, such as ``[000] IMG_1234.JPG``. When moving, the

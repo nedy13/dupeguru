@@ -23,6 +23,7 @@ from qt.recent import Recent
 from qt.util import create_actions
 from qt.progress_window import ProgressWindow
 
+from core import __appname__
 from core.app import AppMode, DupeGuru as DupeGuruModel
 import core.pe.photo
 from qt import platform
@@ -48,7 +49,7 @@ tr = trget("ui")
 
 class DupeGuru(QObject):
     LOGO_NAME = "dgse_logo"
-    NAME = "dupeGuru"
+    NAME = __appname__
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -155,8 +156,8 @@ class DupeGuru(QObject):
                 tr("Exclusion Filters"),
                 self.excludeListTriggered,
             ),
-            ("actionShowHelp", "F1", "", tr("dupeGuru Help"), self.showHelpTriggered),
-            ("actionAbout", "", "", tr("About dupeGuru"), self.showAboutBoxTriggered),
+            ("actionShowHelp", "F1", "", tr("dupeGuruX Help"), self.showHelpTriggered),
+            ("actionAbout", "", "", tr("About dupeGuruX"), self.showAboutBoxTriggered),
             (
                 "actionOpenDebugLog",
                 "",
@@ -419,7 +420,7 @@ class DupeGuru(QObject):
         if help_path is not None:
             url = QUrl.fromLocalFile(help_path)
         else:
-            url = QUrl("https://dupeguru.voltaicideas.net/help/en/")
+            url = QUrl("https://github.com/nedy13/dupeguru/tree/master/help/en")
         QDesktopServices.openUrl(url)
 
     def handleSIGTERM(self) -> None:

@@ -8,6 +8,7 @@
 
 import sys
 import io
+import shutil
 import os.path as op
 import os
 import logging
@@ -17,7 +18,7 @@ from core.util import executable_folder
 from hscommon.util import first
 from hscommon.plat import ISWINDOWS
 
-from PySide6.QtCore import QStandardPaths, QSettings
+from PySide6.QtCore import QCoreApplication, QStandardPaths, QSettings
 from PySide6.QtGui import QPixmap, QIcon, QGuiApplication, QAction
 from PySide6.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QWidget
 
@@ -155,3 +156,42 @@ def create_qsettings() -> QSettings:
         settings = QSettings()
         settings.setValue("Portable", False)
     return settings
+
+
+# dupeGuruX was called dupeGuru before, its settings and data are taken over on the first start
+FORMER_APPNAME = "dupeGuru"
+
+
+def _settings_and_data_paths() -> tuple:
+    if ISWINDOWS:
+        data = QStandardPaths.standardLocations(QStandardPaths.StandardLocation.AppDataLocation)[0]
+        return op.join(data, "settings.ini"), data
+    return QSettings().fileName(), get_appdata()
+
+
+def migrate_from_former_name() -> None:
+    """Copy the settings and data of dupeGuru when dupeGuruX starts for the first time.
+
+    Must be called after the application name is set and before anything creates the new data folder. The
+    former files are copied, not moved, so that dupeGuru keeps working. Portable installations keep their
+    files next to the executable and need no migration.
+    """
+    if op.isfile(op.join(executable_folder(), "settings.ini")):
+        return
+    new_settings, new_data = _settings_and_data_paths()
+    if op.exists(new_settings) or op.exists(new_data):
+        return
+    appname = QCoreApplication.applicationName()
+    QCoreApplication.setApplicationName(FORMER_APPNAME)
+    try:
+        old_settings, old_data = _settings_and_data_paths()
+    finally:
+        QCoreApplication.setApplicationName(appname)
+    try:
+        if op.isdir(old_data) and old_data != new_data:
+            shutil.copytree(old_data, new_data)
+        if op.isfile(old_settings) and old_settings != new_settings:
+            os.makedirs(op.dirname(new_settings), exist_ok=True)
+            shutil.copy2(old_settings, new_settings)
+    except OSError:
+        logging.exception("Could not take over the settings of %s", FORMER_APPNAME)

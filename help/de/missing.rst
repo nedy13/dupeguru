@@ -3,7 +3,7 @@ In der Referenz fehlende Dateien
 
 .. contents::
 
-Normalerweise wird dupeGuru genutzt, um Dateien zu finden, die doppelt vorhanden sind. Manchmal ist
+Normalerweise wird dupeGuruX genutzt, um Dateien zu finden, die doppelt vorhanden sind. Manchmal ist
 die Frage aber genau umgekehrt: Sie haben eine Sicherung, eine Fotosammlung auf einem NAS oder ein
 sortiertes Archiv und möchten wissen, ob alle Dateien von einem anderen Ort darin enthalten sind.
 Gesucht sind dann die Dateien, die **kein** Duplikat haben. Genau diese zeigt das Fenster
@@ -40,7 +40,7 @@ Regeln:
   Übereinstimmungen, die durch die Ausnahme-Liste oder die Einstellung "Dateitypen dürfen gemischt
   werden" wegfallen, zählen ebenfalls nicht.
 * Dateien, die wegen der Einstellungen "Ignoriere Dateien kleiner als" und "Ignoriere Dateien größer
-  als" gar nicht verglichen werden, erscheinen nie in der Liste. dupeGuru kann nicht wissen, ob sie
+  als" gar nicht verglichen werden, erscheinen nie in der Liste. dupeGuruX kann nicht wissen, ob sie
   fehlen oder nicht.
 * Dateien, die nicht gelesen werden können (zum Beispiel ein beschädigtes Bild), können kein
   Duplikat haben und erscheinen deshalb als fehlend.
@@ -66,7 +66,7 @@ Ist mindestens ein Referenzordner im Scan, hat das Ergebnisfenster neben **Detai
 **Fehlt in Referenz**. Seine Beschriftung zeigt, wie viele Dateien fehlen. Sie können das Fenster
 auch über das Menü **Ansicht** mit **In der Referenz fehlende Dateien** öffnen.
 
-Findet der Scan überhaupt keine Duplikate, fehlen aber Dateien in der Referenz, fragt dupeGuru, ob
+Findet der Scan überhaupt keine Duplikate, fehlen aber Dateien in der Referenz, fragt dupeGuruX, ob
 Sie diese sehen möchten.
 
 Die Liste wird laufend aktualisiert: Kopieren oder verschieben Sie Dateien aus diesem Fenster,
@@ -119,10 +119,10 @@ Der Knopf **Kopieren / Verschieben** bietet vier Aktionen:
 **In einen Ordner kopieren... / In einen Ordner verschieben...:**
     Kopiert oder verschiebt die Dateien in einen Ordner Ihrer Wahl.
 
-In jedem Fall legt dupeGuru die Unterordner der Datei unterhalb des Ordners, aus dem sie stammt,
+In jedem Fall legt dupeGuruX die Unterordner der Datei unterhalb des Ordners, aus dem sie stammt,
 neu an. Haben Sie zum Beispiel ``/home/ich/Handy`` und die Referenz ``/mnt/nas/Fotos`` gescannt,
 wird die fehlende Datei ``/home/ich/Handy/2024/Urlaub/IMG_1234.JPG`` nach
-``/mnt/nas/Fotos/2024/Urlaub/`` kopiert. Bevor etwas passiert, nennt dupeGuru die Zahl der Dateien
+``/mnt/nas/Fotos/2024/Urlaub/`` kopiert. Bevor etwas passiert, nennt dupeGuruX die Zahl der Dateien
 und das Ziel und bittet Sie um Bestätigung.
 
 Dateien werden nie überschrieben. Gibt es im Ziel bereits eine Datei mit demselben Namen, bekommt die

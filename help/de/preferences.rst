@@ -40,7 +40,7 @@ Einstellungen
     enthalten. Ist sie es nicht, dann eben nicht!
 
 **Ignoriere Duplikate mit Hardlinks auf dieselbe Datei:**
-    Ist diese Option aktiviert, prüft dupeGuru, ob Duplikate auf denselben `Inode`_ verweisen. Ist
+    Ist diese Option aktiviert, prüft dupeGuruX, ob Duplikate auf denselben `Inode`_ verweisen. Ist
     das der Fall, gelten sie nicht als Duplikate. (Nur für macOS und Linux)
 
 **Nutze reguläre Ausdrücke beim Filtern:**
@@ -67,7 +67,7 @@ Einstellungen
   nach ``/Users/foobar/MyDestination``, ist das endgültige Ziel der Datei
   ``/Users/foobar/MyDestination/Users/foobar/SomeFolder/SubFolder``.
 
-In allen Fällen löst dupeGuru Namenskonflikte, indem es dem Dateinamen eine Nummer voranstellt, wenn
+In allen Fällen löst dupeGuruX Namenskonflikte, indem es dem Dateinamen eine Nummer voranstellt, wenn
 der Name im Ziel bereits existiert.
 
 **Eigener Befehl:**
@@ -111,7 +111,7 @@ Benutzer müssen sie nicht ändern.
     Wie viele Dateien gleichzeitig gehasht und wie viele Bilder gleichzeitig analysiert werden.
     **Automatisch** nutzt alle Prozessorkerne Ihres Computers zum Dekodieren und Analysieren der
     Bilder, und zum Hashen von Dateien etwas mehr gleichzeitige Lesevorgänge, als es Kerne gibt. Auf
-    Computern mit zwei Kernen oder weniger scannt dupeGuru mit einem einzigen Thread. Stellen Sie
+    Computern mit zwei Kernen oder weniger scannt dupeGuruX mit einem einzigen Thread. Stellen Sie
     **1** ein, um immer mit einem Thread zu scannen, zum Beispiel damit der Computer während eines
     langen Scans gut bedienbar bleibt, oder eine Zahl, um höchstens so viele gleichzeitig zu nutzen.
     Viele gleichzeitige Lesevorgänge sind auf SSDs am schnellsten; auf einer einzelnen Festplatte

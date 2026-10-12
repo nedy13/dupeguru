@@ -1,28 +1,34 @@
-# dupeGuru
+# dupeGuruX
 
-[dupeGuru][dupeguru] is a cross-platform (Linux, OS X, Windows) GUI tool to find duplicate files in
-a system. It is written mostly in Python 3 and uses [qt](https://www.qt.io/) for the UI.
+dupeGuruX is a cross-platform (Linux, macOS, Windows) GUI tool to find duplicate files in a system,
+and the files that are missing in a reference folder such as a backup. It is written mostly in
+Python 3 and uses [Qt 6][qt] through [PySide6][pyside6] for the UI.
 
-This is a fork of [arsenetar/dupeguru](https://github.com/arsenetar/dupeguru) that uses
-[PySide6][pyside6] instead of PyQt.
+dupeGuruX is a fork of [dupeGuru][dupeguru], created by Virgil Dupras and maintained by Andrew
+Senetar. As the development of dupeGuru seemed to have come to a halt, dupeGuruX modernizes it and
+adds new features:
+
+* A Qt 6 user interface with PySide6 instead of PyQt5, and support for current Python versions.
+* **Files Missing in Reference**: lists the files of the normal folders without duplicate in the
+  reference folders, with a preview, and copies or moves them into the reference.
+* New scan types: **Relative Path and Size** (checks a copy of a folder in seconds, also over the
+  network) and **Exact Picture (ignore metadata)**.
+* Parallel hashing and picture analysis.
+* Packages for Arch Linux, Debian/Ubuntu, Windows and macOS built by the CI.
+
+The settings and data of dupeGuru are taken over when dupeGuruX starts for the first time. Saved
+results (`.dupeguru`) and folder lists (`.dupegurudirs`) keep their file format.
 
 ## Download
 Prebuilt packages for Windows (installer), macOS (app bundle), Debian/Ubuntu (`.deb`) and Arch Linux
 are attached to the [GitHub releases](https://github.com/nedy13/dupeguru/releases).
 
-## Current status
-Still looking for additional help especially with regards to:
-* OSX maintenance: reproducing bugs, packaging verification.
-* Linux maintenance: reproducing bugs, maintaining PPA repository, Debian package, rpm package.
-* Translations: updating missing strings, transifex project at https://www.transifex.com/voltaicideas/dupeguru-1
-* Documentation: keeping it up-to-date.
-
 ## Contents of this folder
 
-This folder contains the source for dupeGuru. Its documentation is in `help`, but is also
-[available online][documentation] in its built form. Here's how this source tree is organized:
+This folder contains the source for dupeGuruX. Its documentation is in `help`. Here's how this
+source tree is organized:
 
-* core: Contains the core logic code for dupeGuru. It's Python code.
+* core: Contains the core logic code for dupeGuruX. It's Python code.
 * qt: UI code for the Qt toolkit. It's written in Python and uses PySide6.
 * images: Images used by the different UI codebases.
 * pkg: Skeleton files required to create different packages
@@ -30,7 +36,7 @@ This folder contains the source for dupeGuru. Its documentation is in `help`, bu
 * locale: .po files for localization.
 * hscommon: A collection of helpers used across HS applications.
 
-## How to build dupeGuru from source
+## How to build dupeGuruX from source
 
 ### Windows & macOS specific additional instructions
 For windows instructions see the [Windows Instructions](Windows.md).
@@ -52,7 +58,7 @@ On Windows and macOS PySide6 is installed from PyPI together with the other depe
 
 
 ### Building with Make
-dupeGuru comes with a makefile that can be used to build and run:
+dupeGuruX comes with a makefile that can be used to build and run:
 
     $ make && make run
 
@@ -60,7 +66,7 @@ dupeGuru comes with a makefile that can be used to build and run:
 All dependencies are declared in `pyproject.toml`. The editable install also compiles the C
 extension modules in place:
 
-    $ cd <dupeGuru directory>
+    $ cd <dupeGuruX directory>
     $ python3 -m venv --system-site-packages ./env
     $ source ./env/bin/activate
     $ pip install -e ".[build]"
@@ -74,11 +80,11 @@ tested on Debian 13 (trixie), which ships PySide6:
     $ sudo apt install build-essential debhelper dpkg-dev python3-dev python3-setuptools \
         python3-sphinx python3-polib python3-distro python3-send2trash python3-mutagen \
         python3-semantic-version python3-xxhash python3-pyside6.qtwidgets qt6-base-dev-tools
-    $ cd <dupeGuru directory>
+    $ cd <dupeGuruX directory>
     $ python3 builder.py --clean
     $ python3 package.py
 
-The package ends up in `build/dupeguru_<version>_amd64.deb`.
+The package ends up in `build/dupegurux_<version>_amd64.deb`.
 
 ### Generating Arch Linux package
 A `PKGBUILD` building the `master` branch of this fork lives in `pkg/arch`. Build it from that
@@ -103,9 +109,9 @@ run `tox`.
 You can also run automated tests without Tox. Install the development extras with
 `pip install -e ".[dev]"` inside your virtualenv and then run `pytest core hscommon`.
 
-[dupeguru]: https://dupeguru.voltaicideas.net/
+[dupeguru]: https://github.com/arsenetar/dupeguru
+[qt]: https://www.qt.io/
 [cross-toolkit]: http://www.hardcoded.net/articles/cross-toolkit-software
-[documentation]: http://dupeguru.voltaicideas.net/help/en/
 [python]: http://www.python.org/
 [pyside6]: https://doc.qt.io/qtforpython-6/
 [tox]: https://tox.readthedocs.org/en/latest/

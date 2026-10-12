@@ -22,8 +22,7 @@ msgstr "Beenden"
 msgid "Options"
 msgstr "Optionen"
 
-#: qt/app.py:83 qt/ignore_list_dialog.py:32
-#: cocoa/en.lproj/Localizable.strings:0
+#: qt/app.py:83 qt/ignore_list_dialog.py:32 cocoa/en.lproj/Localizable.strings:0
 msgid "Ignore List"
 msgstr "Ausnahme-Liste"
 
@@ -32,12 +31,12 @@ msgid "Clear Picture Cache"
 msgstr "Bilder-Cache leeren"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "dupeGuru Hilfe"
+msgid "dupeGuruX Help"
+msgstr "dupeGuruX Hilfe"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "Über dupeGuru"
+msgid "About dupeGuruX"
+msgstr "Über dupeGuruX"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -45,8 +44,7 @@ msgstr "Debug Log öffnen"
 
 #: qt/app.py:180 cocoa/en.lproj/Localizable.strings:0
 msgid "Do you really want to remove all your cached picture analysis?"
-msgstr ""
-"Möchten Sie wirklich alle zwischengespeicherten Bildanalysen entfernen?"
+msgstr "Möchten Sie wirklich alle zwischengespeicherten Bildanalysen entfernen?"
 
 #: qt/app.py:184
 msgid "Picture cache cleared."
@@ -66,8 +64,8 @@ msgstr "Verlinke gelöschte Dateien"
 
 #: qt/deletion_options.py:37 cocoa/en.lproj/Localizable.strings:0
 msgid ""
-"After having deleted a duplicate, place a link targeting the reference file "
-"to replace the deleted file."
+"After having deleted a duplicate, place a link targeting the reference file to"
+" replace the deleted file."
 msgstr ""
 "Doppelte Dateien werden gelöscht, an deren Stelle wird eine Verknüpfung auf "
 "die Referenz-Datei erstellt."
@@ -191,7 +189,7 @@ msgstr "Ungespeicherte Ergebnisse"
 #: qt/directories_dialog.py:231 cocoa/en.lproj/Localizable.strings:0
 msgid "You have unsaved results, do you really want to quit?"
 msgstr ""
-"Sie haben ungespeicherte Ergebnisse. Wollen Sie wirklich dupeGuru beenden?"
+"Sie haben ungespeicherte Ergebnisse. Wollen Sie wirklich dupeGuruX beenden?"
 
 #: qt/directories_dialog.py:239 cocoa/en.lproj/Localizable.strings:0
 msgid "Select a folder to add to the scanning list"
@@ -206,8 +204,8 @@ msgid "All Files (*.*)"
 msgstr "Alle Dateien (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "dupeGuru Suchergebnisse (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "dupeGuruX Suchergebnisse (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -246,8 +244,8 @@ msgstr "Liste leeren"
 msgid "Close"
 msgstr "Schließen"
 
-#: qt/me/details_dialog.py:18 qt/pe/details_dialog.py:24
-#: qt/result_window.py:56 qt/result_window.py:192 qt/se/details_dialog.py:18
+#: qt/me/details_dialog.py:18 qt/pe/details_dialog.py:24 qt/result_window.py:56
+#: qt/result_window.py:192 qt/se/details_dialog.py:18
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Details"
 msgstr "Details"
@@ -360,8 +358,8 @@ msgid "Custom Command (arguments: %d for dupe, %r for ref):"
 msgstr "Eigener Befehl (Variablen: %d für Duplikat, %r für Referenz):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
-msgstr "dupeGuru muss neustarten, um die Sprachänderung durchzuführen."
+msgid "dupeGuruX has to restart for language changes to take effect."
+msgstr "dupeGuruX muss neustarten, um die Sprachänderung durchzuführen."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
 msgid "Re-Prioritize duplicates"
@@ -369,12 +367,12 @@ msgstr "Re-priorisiere Duplikate"
 
 #: qt/prioritize_dialog.py:79 cocoa/en.lproj/Localizable.strings:0
 msgid ""
-"Add criteria to the right box and click OK to send the dupes that correspond"
-" the best to these criteria to their respective group's reference position. "
+"Add criteria to the right box and click OK to send the dupes that correspond "
+"the best to these criteria to their respective group's reference position. "
 "Read the help file for more information."
 msgstr ""
-"Fügen Sie Kriterien zur rechten Box hinzu. Klicken Sie OK, um die Duplikate,"
-" die diesen Kriterien am besten entsprechen, zur Referenzposition der "
+"Fügen Sie Kriterien zur rechten Box hinzu. Klicken Sie OK, um die Duplikate, "
+"die diesen Kriterien am besten entsprechen, zur Referenzposition der "
 "entsprechenden Gruppe zu senden. Lesen Sie die Hilfe für mehr Informationen."
 
 #: qt/problem_dialog.py:33 cocoa/en.lproj/Localizable.strings:0
@@ -383,13 +381,13 @@ msgstr "Probleme!"
 
 #: qt/problem_dialog.py:37 cocoa/en.lproj/Localizable.strings:0
 msgid ""
-"There were problems processing some (or all) of the files. The cause of "
-"these problems are described in the table below. Those files were not "
-"removed from your results."
+"There were problems processing some (or all) of the files. The cause of these "
+"problems are described in the table below. Those files were not removed from "
+"your results."
 msgstr ""
 "Es gab Probleme bei der Verarbeitung einiger (aller) Dateien. Der Ursache "
-"dieser Probleme ist unten genauer beschrieben. Diese Dateien wurden "
-"\"nicht\" aus Ihren Suchergebnissen entfernt."
+"dieser Probleme ist unten genauer beschrieben. Diese Dateien wurden \"nicht\" "
+"aus Ihren Suchergebnissen entfernt."
 
 #: qt/problem_dialog.py:56
 msgid "Reveal Selected"
@@ -585,20 +583,20 @@ msgid "Directories"
 msgstr "Verzeichnisse"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "dupeGuru Einstellungen"
+msgid "dupeGuruX Preferences"
+msgstr "dupeGuruX Einstellungen"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "dupeGuru Ergebnisse"
+msgid "dupeGuruX Results"
+msgstr "dupeGuruX Ergebnisse"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "dupeGuru Website"
+msgid "dupeGuruX Website"
+msgstr "dupeGuruX Website"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -637,8 +635,8 @@ msgid "Font Size:"
 msgstr "Schriftgröße:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "dupeGuru ausblenden"
+msgid "Hide dupeGuruX"
+msgstr "dupeGuruX ausblenden"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -681,8 +679,8 @@ msgid "Quick Look"
 msgstr "Quick Look"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "dupeGuru beenden"
+msgid "Quit dupeGuruX"
+msgstr "dupeGuruX beenden"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -753,18 +751,17 @@ msgid "Select a directories file to load"
 msgstr "Wählen Sie eine zu ladende Verzeichnisdatei aus"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
-msgstr "dupeGuru Verzeichnisse (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
+msgstr "dupeGuruX Verzeichnisse (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
 msgid "Select a file to save your directories to"
 msgstr ""
-"Wählen Sie eine Datei aus, in der Ihre Verzeichnisse gespeichert werden "
-"sollen"
+"Wählen Sie eine Datei aus, in der Ihre Verzeichnisse gespeichert werden sollen"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
-msgstr "dupeGuru Verzeichnisse (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
+msgstr "dupeGuruX Verzeichnisse (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44
 msgid "Add"
@@ -835,8 +832,7 @@ msgid "Override theme icons in viewer toolbar"
 msgstr "Überschreiben Sie Themensymbole in der Viewer-Symbolleiste"
 
 #: qt\pe\preferences_dialog.py:58
-msgid ""
-"Use our own internal icons instead of those provided by the theme engine"
+msgid "Use our own internal icons instead of those provided by the theme engine"
 msgstr ""
 "Verwenden Sie unsere eigenen internen Symbole anstelle der von der Theme "
 "Engine bereitgestellten"
@@ -847,8 +843,8 @@ msgstr "Bildlaufleisten in Bildbetrachtern anzeigen"
 
 #: qt\pe\preferences_dialog.py:68
 msgid ""
-"When the image displayed doesn't fit the viewport, show scrollbars to span "
-"the view around"
+"When the image displayed doesn't fit the viewport, show scrollbars to span the"
+" view around"
 msgstr ""
 "Wenn das angezeigte Bild nicht zum Ansichtsfenster passt, zeigen Sie "
 "Bildlaufleisten an, um die Ansicht zu überspannen"
@@ -897,8 +893,7 @@ msgstr ""
 #: qt\preferences_dialog.py:199
 msgid "The title bar can only be disabled while the window is docked"
 msgstr ""
-"Die Titelleiste kann nur deaktiviert werden, während das Fenster angedockt "
-"ist"
+"Die Titelleiste kann nur deaktiviert werden, während das Fenster angedockt ist"
 
 #: qt\preferences_dialog.py:202
 msgid "Vertical title bar"
@@ -979,8 +974,8 @@ msgstr "Zwischenspeicher leeren"
 
 #: qt\app.py:294
 msgid ""
-"Do you really want to clear the cache? This will remove all cached file "
-"hashes and picture analysis."
+"Do you really want to clear the cache? This will remove all cached file hashes"
+" and picture analysis."
 msgstr ""
 "Möchten Sie den Zwischenspeicher wirklich löschen? Dadurch werden alle "
 "zwischengespeicherten Datei-Prüfsummen und Bildanalysen entfernt."
@@ -1000,8 +995,8 @@ msgstr "Profil-Scanvorgang"
 #: qt\preferences_dialog.py:242
 msgid "Profile the scan operation and save logs for optimization."
 msgstr ""
-"Erstellen Sie ein Profil des Scanvorgangs und speichern Sie die Protokolle "
-"zur Optimierung."
+"Erstellen Sie ein Profil des Scanvorgangs und speichern Sie die Protokolle zur"
+" Optimierung."
 
 #: qt\preferences_dialog.py:246
 msgid "Logs located in: <a href=\"{}\">{}</a>"
@@ -1312,13 +1307,13 @@ msgstr "Als CSV exportieren"
 
 #: qt/missing_in_reference_dialog.py:183
 msgid ""
-"Scan with at least one folder set to the Reference state first. Files of the"
-" normal folders without a duplicate in the reference folders are listed "
-"here. Saved results don't contain this information."
+"Scan with at least one folder set to the Reference state first. Files of the "
+"normal folders without a duplicate in the reference folders are listed here. "
+"Saved results don't contain this information."
 msgstr ""
 "Scannen Sie zuerst mit mindestens einem Ordner im Zustand Referenz. Hier "
-"werden die Dateien der normalen Ordner aufgelistet, die kein Duplikat in den"
-" Referenzordnern haben. Gespeicherte Ergebnisse enthalten diese Information "
+"werden die Dateien der normalen Ordner aufgelistet, die kein Duplikat in den "
+"Referenzordnern haben. Gespeicherte Ergebnisse enthalten diese Information "
 "nicht."
 
 #: qt/missing_in_reference_dialog.py:190
@@ -1381,9 +1376,8 @@ msgstr "Automatisch"
 
 #: qt/preferences_dialog.py:244
 msgid ""
-"Number of files hashed and pictures analyzed at the same time. Automatic "
-"uses all CPUs, except on computers with two CPUs or less. 1 scans single-"
-"threaded."
+"Number of files hashed and pictures analyzed at the same time. Automatic uses "
+"all CPUs, except on computers with two CPUs or less. 1 scans single-threaded."
 msgstr ""
 "Anzahl der Dateien und Bilder, die gleichzeitig gehasht bzw. analysiert "
 "werden. Automatisch nutzt alle Prozessorkerne, außer auf Computern mit zwei "
@@ -1407,12 +1401,17 @@ msgstr "Scan nach relativem Pfad: auch Änderungszeiten vergleichen, Toleranz"
 
 #: qt/se/preferences_dialog.py:107
 msgid ""
-"Copying can set the modification time anew, leave this off to compare path "
-"and size only."
+"Copying can set the modification time anew, leave this off to compare path and"
+" size only."
 msgstr ""
-"Kopieren kann die Änderungszeit neu setzen, lassen Sie dies aus, um nur Pfad"
-" und Größe zu vergleichen."
+"Kopieren kann die Änderungszeit neu setzen, lassen Sie dies aus, um nur Pfad "
+"und Größe zu vergleichen."
 
 #: qt/se/preferences_dialog.py:114
 msgid "seconds"
 msgstr "Sekunden"
+
+#: qt/about_box.py:72
+msgid "Based on <a href=\"{}\">dupeGuru</a> by Virgil Dupras and Andrew Senetar"
+msgstr ""
+"Basiert auf <a href=\"{}\">dupeGuru</a> von Virgil Dupras und Andrew Senetar"

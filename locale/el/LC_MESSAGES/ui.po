@@ -30,12 +30,12 @@ msgid "Clear Picture Cache"
 msgstr "Εκκαθάριση μνήμης cache εικόνων"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "Βοήθεια για το dupeGuru"
+msgid "dupeGuruX Help"
+msgstr "Βοήθεια για το dupeGuruX"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "Σχετικά με το dupeGuru"
+msgid "About dupeGuruX"
+msgstr "Σχετικά με το dupeGuruX"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -205,8 +205,8 @@ msgid "All Files (*.*)"
 msgstr "Όλα τα αρχεία (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "Αποτελέσματα dupeGuru (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "Αποτελέσματα dupeGuruX (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -360,9 +360,9 @@ msgstr ""
 "Προσωποποιημένη εντολή (παράμετροι: %d για διπλότυπο, %r για αναφορά):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
+msgid "dupeGuruX has to restart for language changes to take effect."
 msgstr ""
-"Πρέπει να γίνει επανεκκίνηση του dupeGuru για να ισχύσουν οι αλλαγές "
+"Πρέπει να γίνει επανεκκίνηση του dupeGuruX για να ισχύσουν οι αλλαγές "
 "γλώσσας."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
@@ -589,20 +589,20 @@ msgid "Directories"
 msgstr "Φάκελοι"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "Προτιμήσεις dupeGuru"
+msgid "dupeGuruX Preferences"
+msgstr "Προτιμήσεις dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "Αποτελέσματα dupeGuru"
+msgid "dupeGuruX Results"
+msgstr "Αποτελέσματα dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "Ιστότοπος dupeGuru"
+msgid "dupeGuruX Website"
+msgstr "Ιστότοπος dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -641,8 +641,8 @@ msgid "Font Size:"
 msgstr "Μέγεθος γραμματοσειράς:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "Απόκρυψη dupeGuru"
+msgid "Hide dupeGuruX"
+msgstr "Απόκρυψη dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -685,8 +685,8 @@ msgid "Quick Look"
 msgstr "Γρήγηορη προβολή"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "Κλείσιμο dupeGuru"
+msgid "Quit dupeGuruX"
+msgstr "Κλείσιμο dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -757,7 +757,7 @@ msgid "Select a directories file to load"
 msgstr "Επιλέξτε ένα αρχείο καταλόγων για φόρτωση"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
 msgstr "καταλόγους του dupeguru (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
@@ -765,7 +765,7 @@ msgid "Select a file to save your directories to"
 msgstr "Επιλέξτε ένα αρχείο για να αποθηκεύσετε τους καταλόγους σας"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
 msgstr "καταλόγους του dupeguru (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44

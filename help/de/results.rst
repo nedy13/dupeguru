@@ -1,14 +1,14 @@
 Ergebnisse
 ==========
 
-Sobald dupeGuru den Duplikatescan beendet hat, werden die Ergebnisse in Form einer Duplikate-Gruppenliste gezeigt.
+Sobald dupeGuruX den Duplikatescan beendet hat, werden die Ergebnisse in Form einer Duplikate-Gruppenliste gezeigt.
 
 Über Duplikatgruppen
 --------------------
 
 Eine Duplikatgruppe ist eine Gruppe von übereinstimmenden Dateien. Jede Gruppe hat eine **Referenzdatei** und ein oder mehrere **Duplikate**. Die Referenzdatei ist die 1. Datei der Gruppe. Die Auswahlbox ist deaktiviert. Darunter befinden sich die eingerückten Duplikate.
 
-Sie können Duplikate markieren, aber niemals die Referenzdatei der Gruppe. Das ist eine Sicherheitsmaßnahme, die dupeGuru davon abhält nicht nur die Duplikate zu löschen, sondern auch die Referenzdatei. Sie wollen sicher nicht das das passiert, oder?
+Sie können Duplikate markieren, aber niemals die Referenzdatei der Gruppe. Das ist eine Sicherheitsmaßnahme, die dupeGuruX davon abhält nicht nur die Duplikate zu löschen, sondern auch die Referenzdatei. Sie wollen sicher nicht das das passiert, oder?
 
 Welche Dateien Referenz oder Duplikate sind hängt zuerst von ihrem Ordnerzustand ab. Eine Datei von einem Referenzordner ist immer Referenz einer Duplikatgruppe. Sind alle Dateien aus normalen Ordnern, bestimmt die Größe welche Datei die Referenz einer Gruppe sein wird. DupeGuru nimmt an, das Sie immer die größte Datei behalten wollen. Also übernimmt die größte Datei die Referenzposition.
 
@@ -26,7 +26,7 @@ Wenn Sie mehr Falschpositive als echte Duplikate haben (die Filterempfindlichkei
 Markierung und Auswahl
 ----------------------
 
-Ein **markiertes** Duplikat ist ein Duplikat, dessen kleine Box ein Häkchen hat. Ein **ausgewähltes** Duplikat ist hervorgehoben. Mehrfachauswahl wird in dupeGuru über den normalen Weg erreicht (Shift/Command/Steuerung Klick). Sie können die Markierung aller Duplikate umschalten, indem sie **Leertaste** drücken.
+Ein **markiertes** Duplikat ist ein Duplikat, dessen kleine Box ein Häkchen hat. Ein **ausgewähltes** Duplikat ist hervorgehoben. Mehrfachauswahl wird in dupeGuruX über den normalen Weg erreicht (Shift/Command/Steuerung Klick). Sie können die Markierung aller Duplikate umschalten, indem sie **Leertaste** drücken.
 
 .. todo:: Add "Non-numerical delta" information.
 
@@ -35,7 +35,7 @@ Nur Duplikate anzeigen
 
 Wird dieser Modus aktiviert, so werden ausschließlich Duplikate ohne ihre respektive Referenzdatei gezeigt. Sie können diese Liste auswählen, markieren und sortieren, ganz wie im normalen Modus.
 
-Die dupeGuru Ergebnisse werden, im normalen Modus, nach der **Referenzdatei** der Duplikatgruppen sortiert. Das bedeutet zum Beispiel, um alle Duplikate mit der "exe" Erweiterung zu markieren, können Sie nicht einfach die Ergebnisse nach "Typ" ordnen um alle exe Duplikate zu erhalten, denn eine Gruppe kann aus mehreren Typen (Dateiarten) bestehen. Hier kommt der Nur-Duplikate Modus ins Spiel. Um alle "exe" Duplikate zu markieren, müssen Sie nur:
+Die dupeGuruX Ergebnisse werden, im normalen Modus, nach der **Referenzdatei** der Duplikatgruppen sortiert. Das bedeutet zum Beispiel, um alle Duplikate mit der "exe" Erweiterung zu markieren, können Sie nicht einfach die Ergebnisse nach "Typ" ordnen um alle exe Duplikate zu erhalten, denn eine Gruppe kann aus mehreren Typen (Dateiarten) bestehen. Hier kommt der Nur-Duplikate Modus ins Spiel. Um alle "exe" Duplikate zu markieren, müssen Sie nur:
 
 * Nur Duplikate anzeigen aktivieren
 * Die "Typ" Spalte über das "Spalten" Menü hinzufügen

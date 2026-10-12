@@ -1,4 +1,4 @@
-Aide dupeGuru
+Aide dupeGuruX
 ===============
 
 .. only:: edition_se
@@ -7,15 +7,15 @@ Aide dupeGuru
 
 .. only:: edition_se or edition_me
 
-    dupeGuru est un outil pour trouver des doublons parmi vos fichiers. Il peut comparer soit les noms de fichiers, soit le contenu. Le comparateur de nom de fichier peut trouver des doublons même si les noms ne sont pas exactement pareils.
+    dupeGuruX est un outil pour trouver des doublons parmi vos fichiers. Il peut comparer soit les noms de fichiers, soit le contenu. Le comparateur de nom de fichier peut trouver des doublons même si les noms ne sont pas exactement pareils.
 
 .. only:: edition_pe
 
-    dupeGuru Picture Edition est un outil pour trouver des doublons parmi vos images. Non seulement il permet de trouver les doublons exactes, mais il est aussi capable de trouver les images ayant de légères différences, étant de format différent ou bien ayant une qualité différente.
+    dupeGuruX Picture Edition est un outil pour trouver des doublons parmi vos images. Non seulement il permet de trouver les doublons exactes, mais il est aussi capable de trouver les images ayant de légères différences, étant de format différent ou bien ayant une qualité différente.
 
-Bien que dupeGuru puisse être utilisé sans lire l'aide, une telle lecture vous permettra de bien comprendre comment l'application fonctionne. Pour un guide rapide pour une première utilisation, référez vous à la section :doc:`Démarrage Rapide <quick_start>`.
+Bien que dupeGuruX puisse être utilisé sans lire l'aide, une telle lecture vous permettra de bien comprendre comment l'application fonctionne. Pour un guide rapide pour une première utilisation, référez vous à la section :doc:`Démarrage Rapide <quick_start>`.
 
-C'est toujours une bonne idée de garder dupeGuru à jour. Vous pouvez télécharger la dernière version sur sa https://github.com/nedy13/dupeguru/releases.
+C'est toujours une bonne idée de garder dupeGuruX à jour. Vous pouvez télécharger la dernière version sur sa https://github.com/nedy13/dupeguru/releases.
 
 Contents:
 

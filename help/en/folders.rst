@@ -1,8 +1,8 @@
 Folder Selection
 ================
 
-The first window you see when you launch dupeGuru is the folder selection window. This windows
-contains the basic input dupeGuru needs to start a scan:
+The first window you see when you launch dupeGuruX is the folder selection window. This windows
+contains the basic input dupeGuruX needs to start a scan:
 
 * An Application Mode selection
 * A Scan Type selection
@@ -11,7 +11,7 @@ contains the basic input dupeGuru needs to start a scan:
 Application Mode
 ----------------
 
-dupeGuru had three main modes: Standard, Music and Picture.
+dupeGuruX had three main modes: Standard, Music and Picture.
 
 Standard is for any type of files. This makes this mode the most polyvalent, but it lacks
 specialized features other modes have.
@@ -66,7 +66,7 @@ Every folder can be in one of these 3 states:
 The default state of a folder is, of course, **Normal**. You can use **Reference** state for a
 folder if you want to be sure that you won't delete any file from it.
 
-Reference folders have a second use: after a scan with at least one reference folder, dupeGuru
+Reference folders have a second use: after a scan with at least one reference folder, dupeGuruX
 lists the files of the normal folders that have no duplicate in the reference folders. This tells
 you, for example, which photos of your phone are not in your photo collection yet. See
 :doc:`missing`.

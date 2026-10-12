@@ -1,7 +1,7 @@
 Résultats
 ==========
 
-Quand dupeGuru a terminé de scanner, la fenêtre de résultat apparaît avec la liste de groupes de doublons trouvés.
+Quand dupeGuruX a terminé de scanner, la fenêtre de résultat apparaît avec la liste de groupes de doublons trouvés.
 
 À propos des groupes de doublons
 ---------------------------------
@@ -10,7 +10,7 @@ Un groupe de doublons est un groupe de fichier dans lequel tous les fichiers son
 
 Les critères utilisés pour décider de quel fichier d'un groupe devient la référence sont multiples. Il y a d'abord les dossiers référence. Tout fichier provenant d'un dossier de type "Référence" ne peut être autre chose qu'une référence dans un groupe. Si il n'y a pas de fichiers provenant d'un dossier référence, alors le plus gros fichier est placé comme référence.
 
-Bien entendu, dans certains cas, il est possible que dupeGuru ne choisisse pas le bon fichier. Dans ce cas, sélectionnez un doublon à placer en position de référence, puis cliquez sur l'action **Transformer sélectionnés en références**.
+Bien entendu, dans certains cas, il est possible que dupeGuruX ne choisisse pas le bon fichier. Dans ce cas, sélectionnez un doublon à placer en position de référence, puis cliquez sur l'action **Transformer sélectionnés en références**.
 
 Vérifier les résultats
 ------------------------
@@ -24,7 +24,7 @@ Si vous avez plus de faux doublons que de vrais (si votre seuil de filtre est tr
 Marquer et sélectionner
 -----------------------
 
-Dans le vocabulaire de dupeGuru, il y a une nette différence entre sélectionner et marquer. Les fichiers **sélectionnés** sont ceux qui sont surlignés dans la liste. On peut sélectionner plusieurs fichiers à la fois en tenant Shift, Control ou Command lorsqu'on clique sur un fichier.
+Dans le vocabulaire de dupeGuruX, il y a une nette différence entre sélectionner et marquer. Les fichiers **sélectionnés** sont ceux qui sont surlignés dans la liste. On peut sélectionner plusieurs fichiers à la fois en tenant Shift, Control ou Command lorsqu'on clique sur un fichier.
 
 Les fichiers **marqués** sont ceux avec la petite boite cochée. Il est possible de marquer les fichiers sélectionnés en appuyant sur **espace**.
 
@@ -134,7 +134,7 @@ s'exécute. La plupart du temps, ces options n'ont pas a être activées.
 
   Sur OS X et Linux, cette fonction est supportée pleinement, mais sur Windows, c'est un peu
   compliqué. Windows XP ne le supporte pas, mais Vista oui. De plus, cette fonction ne peut être
-  utilisée que si dupeGuru roule avec les privilèges administratifs. Ouaip, Windows c'est la joie.
+  utilisée que si dupeGuruX roule avec les privilèges administratifs. Ouaip, Windows c'est la joie.
 
 * **Supprimer les fichiers directement:** Plutôt que d'envoyer les doublons à la corbeille,
   directement les supprimer. Utiliser cette option si vous avez de la difficulté à supprimer des

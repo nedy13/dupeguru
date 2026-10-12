@@ -1,9 +1,9 @@
 Ordnerauswahl
 ================
 
-Das erste Fenster das Sie sehen, wenn dupeGuru gestartet wird, ist das Ordnerauswahl Fenster. Dieses Fenster enthält die Liste der Ordner die durchsucht werden, wenn Sie **Scan** wählen.
+Das erste Fenster das Sie sehen, wenn dupeGuruX gestartet wird, ist das Ordnerauswahl Fenster. Dieses Fenster enthält die Liste der Ordner die durchsucht werden, wenn Sie **Scan** wählen.
 
-Das Fenster ist leicht zu bedienen. Wollen Sie einen Ordner hinzufügen, klicken Sie auf den **+** Knopf. Haben Sie bereits vorher Ordner hinzugefügt, erscheint ein Popup-Menü mit einer Liste der zuletzt hinzugefügten Ordner. Sie können einen davon auswählen, indem Sie darauf klicken. Wenn Sie auf den ersten Eintrag der Liste klicken, **Neuen Ordner hinzufügen...**, werden Sie nach einem Ordner zum Hinzufügen gefragt. Nutzen Sie dupeGuru zum ersten Mal, erscheint kein Menü und Sie werden direkt nach einem Ordner gefragt. Ein alternativer Weg zum Hinzufügen der Ordner ist, sie auf die Liste zu ziehen.
+Das Fenster ist leicht zu bedienen. Wollen Sie einen Ordner hinzufügen, klicken Sie auf den **+** Knopf. Haben Sie bereits vorher Ordner hinzugefügt, erscheint ein Popup-Menü mit einer Liste der zuletzt hinzugefügten Ordner. Sie können einen davon auswählen, indem Sie darauf klicken. Wenn Sie auf den ersten Eintrag der Liste klicken, **Neuen Ordner hinzufügen...**, werden Sie nach einem Ordner zum Hinzufügen gefragt. Nutzen Sie dupeGuruX zum ersten Mal, erscheint kein Menü und Sie werden direkt nach einem Ordner gefragt. Ein alternativer Weg zum Hinzufügen der Ordner ist, sie auf die Liste zu ziehen.
 
 Um einen Ordner zu entfernen, wählen Sie ihn aus und klicken auf **-**. Wenn Sie einen Unterordner auswählen, wird der ausgewählte Ordner in den **Ausgeschlossen** Zustand versetzt (siehe unten), anstatt entfernt zu werden.
 
@@ -19,7 +19,7 @@ Jeder Ordner kann in einem von 3 Zuständen sein:
 Der Standardzustand eines Ordners ist natürlich **Normal**. Sie können den **Referenz** Zustand für Ordner nutzen, in denen auf keinen Fall eine Datei gelöscht werden soll.
 
 Referenzordner haben noch einen zweiten Nutzen: Nach einem Scan mit mindestens einem Referenzordner
-listet dupeGuru die Dateien der normalen Ordner auf, die kein Duplikat in den Referenzordnern haben.
+listet dupeGuruX die Dateien der normalen Ordner auf, die kein Duplikat in den Referenzordnern haben.
 So erfahren Sie zum Beispiel, welche Fotos Ihres Handys noch nicht in Ihrer Fotosammlung sind. Siehe
 :doc:`missing`.
 

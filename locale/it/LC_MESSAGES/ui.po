@@ -32,12 +32,12 @@ msgid "Clear Picture Cache"
 msgstr "Cancella la cache delle immagini"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "Aiuto di dupeGuru"
+msgid "dupeGuruX Help"
+msgstr "Aiuto di dupeGuruX"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "Informazioni su dupeGuru"
+msgid "About dupeGuruX"
+msgstr "Informazioni su dupeGuruX"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -208,8 +208,8 @@ msgid "All Files (*.*)"
 msgstr "Tutti i file (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "Risultati dupeGuru (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "Risultati dupeGuruX (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -363,8 +363,8 @@ msgstr ""
 "Comando personalizzato (argomenti: %d per duplicare, %r per riferimento):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
-msgstr "Per cambiare lingua, dupeGuru deve riavviarsi."
+msgid "dupeGuruX has to restart for language changes to take effect."
+msgstr "Per cambiare lingua, dupeGuruX deve riavviarsi."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
 msgid "Re-Prioritize duplicates"
@@ -589,20 +589,20 @@ msgid "Directories"
 msgstr "Cartelle"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "Preferenze di dupeGuru"
+msgid "dupeGuruX Preferences"
+msgstr "Preferenze di dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "Risultati di dupeGuru"
+msgid "dupeGuruX Results"
+msgstr "Risultati di dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "Sito Web di dupeGuru"
+msgid "dupeGuruX Website"
+msgstr "Sito Web di dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -641,8 +641,8 @@ msgid "Font Size:"
 msgstr "Dimensione Carattere:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "Nascondi dupeGuru"
+msgid "Hide dupeGuruX"
+msgstr "Nascondi dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -685,8 +685,8 @@ msgid "Quick Look"
 msgstr "Sguardo rapido"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "Chiudi dupeGuru"
+msgid "Quit dupeGuruX"
+msgstr "Chiudi dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -757,16 +757,16 @@ msgid "Select a directories file to load"
 msgstr "Seleziona un file delle cartelle da caricare"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
-msgstr "cartelle di dupeGuru (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
+msgstr "cartelle di dupeGuruX (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
 msgid "Select a file to save your directories to"
 msgstr "Seleziona un file in cui salvare le cartelle"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
-msgstr "cartelle di dupeGuru (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
+msgstr "cartelle di dupeGuruX (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44
 msgid "Add"

@@ -1,4 +1,4 @@
-## How to build dupeGuru for macos
+## How to build dupeGuruX for macos
 These instructions are for the Qt version of the UI on macOS.
 
 *Note: The Cocoa UI of dupeGuru is hosted in a separate repo: https://github.com/arsenetar/dupeguru-cocoa and is no longer "supported".*
@@ -26,7 +26,7 @@ also need to install that via brew or with pyenv.
 
 ### With builder.py
 OSX comes with a version of python 3 by default in newer versions of OSX.
-    $ cd <dupeGuru directory>
+    $ cd <dupeGuruX directory>
     $ python3 -m venv ./env
     $ source ./env/bin/activate
     $ pip install -e ".[build]"
@@ -39,7 +39,7 @@ Run the following in the respective virtual environment.
 
     $ python package.py
 
-This will produce a dupeGuru.app in the dist folder.
+This will produce a dupeGuruX.app in the dist folder.
 
 ### Running tests
 The complete test suite can be run with tox just like on linux. NOTE: The development extras need to

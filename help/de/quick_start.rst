@@ -1,9 +1,9 @@
 Schnellstart
 ============
 
-Damit Sie sich schnell mit dupeGuru zurechtfinden, machen wir für den Anfang einen Standardscan mit den Voreinstellungen.
+Damit Sie sich schnell mit dupeGuruX zurechtfinden, machen wir für den Anfang einen Standardscan mit den Voreinstellungen.
 
-* dupeGuru starten.
+* dupeGuruX starten.
 * Zu scannende Ordner entweder mit drag & drop oder dem "+" Knopf auswählen.
 * Drücken Sie auf **Scan**.
 * Warten Sie bis der Scanvorgang fertig ist.

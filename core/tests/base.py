@@ -65,7 +65,7 @@ class ResultTable(ResultTableBase):
 
 
 class DupeGuru(DupeGuruBase):
-    NAME = "dupeGuru"
+    NAME = "dupeGuruX"
     METADATA_TO_READ = ["size"]
 
     def __init__(self):

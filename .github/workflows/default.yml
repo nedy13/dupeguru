@@ -116,18 +116,18 @@ jobs:
           python3 package.py
       - name: Install and start package
         run: |
-          apt-get install -y ./build/dupeguru_*_amd64.deb
+          apt-get install -y ./build/dupegurux_*_amd64.deb
           set +e
-          QT_QPA_PLATFORM=offscreen timeout 15 dupeguru
+          QT_QPA_PLATFORM=offscreen timeout 15 dupegurux
           status=$?
           set -e
           # 124 means the app was still running when the timeout stopped it
-          if [ "$status" -ne 124 ]; then echo "::error::dupeguru exited with $status"; exit 1; fi
+          if [ "$status" -ne 124 ]; then echo "::error::dupegurux exited with $status"; exit 1; fi
       - name: Upload package
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: package-debian
-          path: build/dupeguru_*_amd64.deb
+          path: build/dupegurux_*_amd64.deb
           if-no-files-found: error
   package-windows:
     needs: [test]
@@ -172,7 +172,7 @@ jobs:
         run: |
           python package.py
           version=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' core/__init__.py)
-          ditto -c -k --keepParent dist/dupeguru.app "dist/dupeGuru_macos_$(uname -m)_${version}.zip"
+          ditto -c -k --keepParent dist/dupeGuruX.app "dist/dupeGuruX_macos_$(uname -m)_${version}.zip"
       - name: Upload app
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:

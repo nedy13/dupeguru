@@ -31,12 +31,12 @@ msgid "Clear Picture Cache"
 msgstr "Fotoğraf Önbelleğini Temizle"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "dupeGuru Yardımı"
+msgid "dupeGuruX Help"
+msgstr "dupeGuruX Yardımı"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "dupeGuru Hakkında"
+msgid "About dupeGuruX"
+msgstr "dupeGuruX Hakkında"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -203,8 +203,8 @@ msgid "All Files (*.*)"
 msgstr "Tüm Dosyalar (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "dupeGuru Sonuçları (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "dupeGuruX Sonuçları (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -358,8 +358,8 @@ msgid "Custom Command (arguments: %d for dupe, %r for ref):"
 msgstr "Özel Komut (argümanlar: dupe için %d, ref için %r):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
-msgstr "Dil değişimlerinin gerçekleşmesi için dupeGuru yeniden başlamalıdır."
+msgid "dupeGuruX has to restart for language changes to take effect."
+msgstr "Dil değişimlerinin gerçekleşmesi için dupeGuruX yeniden başlamalıdır."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
 msgid "Re-Prioritize duplicates"
@@ -583,20 +583,20 @@ msgid "Directories"
 msgstr "Dizinler"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "dupeGuru Tercihleri"
+msgid "dupeGuruX Preferences"
+msgstr "dupeGuruX Tercihleri"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "dupeGuru Sonuçları"
+msgid "dupeGuruX Results"
+msgstr "dupeGuruX Sonuçları"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "dupeGuru Web Sitesi"
+msgid "dupeGuruX Website"
+msgstr "dupeGuruX Web Sitesi"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -635,8 +635,8 @@ msgid "Font Size:"
 msgstr "Yazı Tipi Boyutu:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "dupeGuru'yu Gizle"
+msgid "Hide dupeGuruX"
+msgstr "dupeGuruX'yu Gizle"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -679,8 +679,8 @@ msgid "Quick Look"
 msgstr "Hızlı Bakış"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "dupeGuru'dan Çık"
+msgid "Quit dupeGuruX"
+msgstr "dupeGuruX'dan Çık"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -751,16 +751,16 @@ msgid "Select a directories file to load"
 msgstr "Yüklenecek bir dizin dosyası seçin"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
-msgstr "dupeGuru Sonuçları  (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
+msgstr "dupeGuruX Sonuçları  (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
 msgid "Select a file to save your directories to"
 msgstr "Dizinlerinizi kaydetmek için bir dosya seçin"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
-msgstr "dupeGuru Dizinleri (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
+msgstr "dupeGuruX Dizinleri (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44
 msgid "Add"

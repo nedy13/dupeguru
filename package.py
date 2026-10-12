@@ -69,7 +69,7 @@ def copy_files_to_package(destpath, packages, with_so):
 def package_debian_distribution(distribution):
     app_version = get_module_version("core")
     version = "{}~{}".format(app_version, distribution)
-    destpath = op.join("build", "dupeguru-{}".format(version))
+    destpath = op.join("build", "dupegurux-{}".format(version))
     srcpath = op.join(destpath, "src")
     packages = ["hscommon", "core", "qt"]
     copy_files_to_package(srcpath, packages, with_so=False)
@@ -86,11 +86,11 @@ def package_debian_distribution(distribution):
     debdest = op.join(destpath, "debian")
     debskel = op.join("pkg", "debian")
     os.makedirs(debdest)
-    debopts = json.load(open(op.join(debskel, "dupeguru.json")))
+    debopts = json.load(open(op.join(debskel, "dupegurux.json")))
     for fn in ["copyright", "rules", "source"]:
         copy(op.join(debskel, fn), op.join(debdest, fn))
     filereplace(op.join(debskel, "control"), op.join(debdest, "control"), **debopts)
-    filereplace(op.join(debskel, "dupeguru.desktop"), op.join(debdest, "dupeguru.desktop"), **debopts)
+    filereplace(op.join(debskel, "dupegurux.desktop"), op.join(debdest, "dupegurux.desktop"), **debopts)
     changelogpath = op.join("help", "changelog")
     changelog_dest = op.join(debdest, "changelog")
     project_name = debopts["pkgname"]
@@ -115,7 +115,7 @@ def package_debian():
 def package_source_txz():
     print("Creating git archive")
     app_version = get_module_version("core")
-    name = "dupeguru-src-{}.tar".format(app_version)
+    name = "dupegurux-src-{}.tar".format(app_version)
     base_path = os.getcwd()
     build_path = op.join(base_path, "build")
     dest = op.join(build_path, name)
@@ -156,7 +156,7 @@ def package_windows():
     # UCRT dlls are included if the system has the windows kit installed
     PyInstaller.__main__.run(
         [
-            "--name=dupeguru-win{0}".format(bits),
+            "--name=dupegurux-win{0}".format(bits),
             "--windowed",
             "--noconfirm",
             "--icon=images/dgse_logo.ico",
@@ -198,11 +198,11 @@ def package_macos():
 
     PyInstaller.__main__.run(
         [
-            "--name=dupeguru",
+            "--name=dupeGuruX",
             "--windowed",
             "--noconfirm",
             "--icon=images/dupeguru.icns",
-            "--osx-bundle-identifier=com.hardcoded-software.dupeguru",
+            "--osx-bundle-identifier=io.github.nedy13.dupegurux",
             "--add-data={0}:locale".format(LOCALE_DIR),
             "--add-data={0}:help".format(HELP_DIR),
             "--add-data=images:images",
@@ -214,10 +214,10 @@ def package_macos():
 def main():
     args = parse_args()
     if args.src_pkg:
-        print("Creating source package for dupeGuru")
+        print("Creating source package for dupeGuruX")
         package_source_txz()
         return
-    print("Packaging dupeGuru with UI qt")
+    print("Packaging dupeGuruX with UI qt")
     if sys.platform == "win32":
         package_windows()
     elif sys.platform == "darwin":

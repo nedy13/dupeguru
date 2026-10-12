@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
-DEST := debian/dupeguru
-APPDIR := $(DEST)/usr/lib/dupeguru
+DEST := debian/dupegurux
+APPDIR := $(DEST)/usr/lib/dupegurux
 
 %:
 	dh $@
@@ -16,9 +16,9 @@ override_dh_auto_install:
 	cp -R src/. $(APPDIR)/
 	find $(APPDIR) -depth \( -name tests -o -name __pycache__ \) -type d -exec rm -rf {} +
 	chmod 755 $(APPDIR)/run.py
-	# Ship the bytecode so nothing is written into /usr/lib/dupeguru at runtime and removal leaves no files
-	python3 -m compileall -q -d /usr/lib/dupeguru $(APPDIR)
-	printf '#!/bin/sh\nexec /usr/bin/python3 /usr/lib/dupeguru/run.py "$$@"\n' > $(DEST)/usr/bin/dupeguru
-	chmod 755 $(DEST)/usr/bin/dupeguru
-	install -m 644 debian/dupeguru.desktop $(DEST)/usr/share/applications/dupeguru.desktop
-	install -m 644 src/images/dgse_logo_128.png $(DEST)/usr/share/icons/hicolor/128x128/apps/dupeguru.png
+	# Ship the bytecode so nothing is written into /usr/lib/dupegurux at runtime and removal leaves no files
+	python3 -m compileall -q -d /usr/lib/dupegurux $(APPDIR)
+	printf '#!/bin/sh\nexec /usr/bin/python3 /usr/lib/dupegurux/run.py "$$@"\n' > $(DEST)/usr/bin/dupegurux
+	chmod 755 $(DEST)/usr/bin/dupegurux
+	install -m 644 debian/dupegurux.desktop $(DEST)/usr/share/applications/dupegurux.desktop
+	install -m 644 src/images/dgse_logo_128.png $(DEST)/usr/share/icons/hicolor/128x128/apps/dupegurux.png

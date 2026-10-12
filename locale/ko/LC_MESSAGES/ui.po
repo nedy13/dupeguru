@@ -31,12 +31,12 @@ msgid "Clear Picture Cache"
 msgstr "사진 캐시 지우기"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
-msgstr "dupeGuru 도움말"
+msgid "dupeGuruX Help"
+msgstr "dupeGuruX 도움말"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
-msgstr "dupeGuru에 대하여"
+msgid "About dupeGuruX"
+msgstr "dupeGuruX에 대하여"
 
 #: qt/app.py:87
 msgid "Open Debug Log"
@@ -198,8 +198,8 @@ msgid "All Files (*.*)"
 msgstr "모든 파일 (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "dupeGuru 결과 (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "dupeGuruX 결과 (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -352,8 +352,8 @@ msgid "Custom Command (arguments: %d for dupe, %r for ref):"
 msgstr "사용자 지정 명령 (인수: %d 은 중복, %r 은 참조):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
-msgstr "언어 변경은 dupeGuru의 재시작이 필요합니다."
+msgid "dupeGuruX has to restart for language changes to take effect."
+msgstr "언어 변경은 dupeGuruX의 재시작이 필요합니다."
 
 #: qt/prioritize_dialog.py:75 cocoa/en.lproj/Localizable.strings:0
 msgid "Re-Prioritize duplicates"
@@ -575,20 +575,20 @@ msgid "Directories"
 msgstr "경로"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
-msgstr "dupeGuru 기본 설정"
+msgid "dupeGuruX Preferences"
+msgstr "dupeGuruX 기본 설정"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
-msgstr "dupeGuru 결과"
+msgid "dupeGuruX Results"
+msgstr "dupeGuruX 결과"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
-msgstr "dupeGuru 홈페이지"
+msgid "dupeGuruX Website"
+msgstr "dupeGuruX 홈페이지"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Edit"
@@ -627,8 +627,8 @@ msgid "Font Size:"
 msgstr "글꼴 크기 :"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
-msgstr "dupeGuru 숨기기"
+msgid "Hide dupeGuruX"
+msgstr "dupeGuruX 숨기기"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Hide Others"
@@ -671,8 +671,8 @@ msgid "Quick Look"
 msgstr "빠른보기"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
-msgstr "dupeGuru 종료"
+msgid "Quit dupeGuruX"
+msgstr "dupeGuruX 종료"
 
 #: cocoa/en.lproj/Localizable.strings:0
 msgid "Reset to Default"
@@ -743,7 +743,7 @@ msgid "Select a directories file to load"
 msgstr "불러올 경로를 선택하십시오"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
 msgstr "dupeguru 경로 파일 (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
@@ -751,7 +751,7 @@ msgid "Select a file to save your directories to"
 msgstr "경로를 저장할 파일을 선택하십시오"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
 msgstr "dupeguru 경로 파일 (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44

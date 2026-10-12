@@ -67,6 +67,16 @@ class AboutBox(QDialog):
         license_label.setText(tr("Licensed under GPLv3"))
         detail_layout.addWidget(license_label)
 
+        based_on_label = QLabel()
+        based_on_label.setText(
+            tr('Based on <a href="{}">dupeGuru</a> by Virgil Dupras and Andrew Senetar').format(
+                "https://github.com/arsenetar/dupeguru"
+            )
+        )
+        based_on_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+        based_on_label.setOpenExternalLinks(True)
+        detail_layout.addWidget(based_on_label)
+
         spacer_label = QLabel()
         spacer_label.setFont(font)
         detail_layout.addWidget(spacer_label)

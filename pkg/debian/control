@@ -12,12 +12,10 @@ Package: {pkgname}
 Architecture: {arch}
 Depends: ${shlibs:Depends}, ${misc:Depends}, python3 (>= 3.12), python3-pyside6.qtcore, python3-pyside6.qtgui,
  python3-pyside6.qtwidgets, python3-mutagen, python3-semantic-version, python3-send2trash, python3-xxhash
-Provides: dupeguru-se, dupeguru-me, dupeguru-pe
-Replaces: dupeguru-se, dupeguru-me, dupeguru-pe
-Conflicts: dupeguru-se, dupeguru-me, dupeguru-pe
 Description: Find duplicate files with various contents
- dupeGuru is a cross-platform GUI tool to find duplicate files in a system. It
+ dupeGuruX is a cross-platform GUI tool to find duplicate files in a system. It
  can scan filenames or contents, has a special mode for music files with tag
  comparison and one for pictures that finds similar, not only identical images.
  .
- This build uses PySide6 (Qt 6) for its user interface.
+ dupeGuruX is a fork of dupeGuru with a PySide6 (Qt 6) user interface. It can
+ also list the files that are missing in a reference folder, for example a backup.

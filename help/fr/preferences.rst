@@ -5,9 +5,9 @@ Préférences
 
     **Type de scan:** Cette option détermine quels aspects du fichier doit être comparé. Un scan par **Nom de fichier** compare les noms de fichiers mot-à-mot et, dépendant des autres préférences ci-dessous, déterminera si les noms se ressemblent assez pour être considérés comme doublons. Un scan par **Contenu** trouvera les doublons qui ont exactement le même contenu.
 
-    Le scan **Dossiers** est spécial. Si vous le sélectionnez, dupeGuru cherchera des doublons de *dossiers* plutôt que des doublons de fichiers. Pour déterminer si deux dossiers sont des doublons, dupeGuru regarde le contenu de tous les fichiers dans les dossiers, et si **tous** sont les mêmes, les dossiers sont considérés comme des doublons.
+    Le scan **Dossiers** est spécial. Si vous le sélectionnez, dupeGuruX cherchera des doublons de *dossiers* plutôt que des doublons de fichiers. Pour déterminer si deux dossiers sont des doublons, dupeGuruX regarde le contenu de tous les fichiers dans les dossiers, et si **tous** sont les mêmes, les dossiers sont considérés comme des doublons.
 
-    **Seuil du filtre:** Pour les scan de type **Nom de fichier**, cette option détermine le degré de similtude nécessaire afin de considérer deux noms comme doublons. Avec un seuil de 80, 80% des mots doivent être égaux. Pour déterminer ce pourcentage, dupeGuru compte le nombre de mots total des deux noms, puis compte le nombre de mots égaux, puis fait la division des deux. Un résultat égalisant ou dépassant le seuil sera considéré comme un doublon. Exemple: "a b c d" et "c d e" ont un pourcentage de 57 (4 mots égaux, 7 au total).
+    **Seuil du filtre:** Pour les scan de type **Nom de fichier**, cette option détermine le degré de similtude nécessaire afin de considérer deux noms comme doublons. Avec un seuil de 80, 80% des mots doivent être égaux. Pour déterminer ce pourcentage, dupeGuruX compte le nombre de mots total des deux noms, puis compte le nombre de mots égaux, puis fait la division des deux. Un résultat égalisant ou dépassant le seuil sera considéré comme un doublon. Exemple: "a b c d" et "c d e" ont un pourcentage de 57 (4 mots égaux, 7 au total).
 
 .. only:: edition_me
 
@@ -20,7 +20,7 @@ Préférences
     * **Contenu:** Compare le contenu des chansons. Seul un contenu exactement pareil sera considéré comme un doublon.
     * **Contenu audio:** Comme **Contenu**, excepté que les métadonnée no sont pas comparées, seulement le contenu audio lui même. Encore une fois, le contenu doit être exactement le même.
 
-    **Seuil du filtre:** Pour les scans basés sur le nom de fichier ou les tags, cette option détermine le degré de similtude nécessaire afin de considérer deux noms comme doublons. Avec un seuil de 80, 80% des mots doivent être égaux. Pour déterminer ce pourcentage, dupeGuru compte le nombre de mots total des deux noms, puis compte le nombre de mots égaux, puis fait la division des deux. Un résultat égalisant ou dépassant le seuil sera considéré comme un doublon. Exemple: "a b c d" et "c d e" ont un pourcentage de 57 (4 mots égaux, 7 au total).
+    **Seuil du filtre:** Pour les scans basés sur le nom de fichier ou les tags, cette option détermine le degré de similtude nécessaire afin de considérer deux noms comme doublons. Avec un seuil de 80, 80% des mots doivent être égaux. Pour déterminer ce pourcentage, dupeGuruX compte le nombre de mots total des deux noms, puis compte le nombre de mots égaux, puis fait la division des deux. Un résultat égalisant ou dépassant le seuil sera considéré comme un doublon. Exemple: "a b c d" et "c d e" ont un pourcentage de 57 (4 mots égaux, 7 au total).
 
     **Tags à scanner:** Pour les scans de type **Tags**, cette option détermine les tags qui seront comparés.
 
@@ -40,7 +40,7 @@ Préférences
 
 **Comparer les fichiers de différents types:** Sans cette option, seulement les fichiers du même type seront comparés.
 
-**Ignorer doublons avec hardlink vers le même fichier:** Avec cette option, dupeGuru vérifiera si les doublons pointent vers le même `inode <http://en.wikipedia.org/wiki/Inode>`_. Si oui, ils ne seront pas considérés comme doublons. (Seulement pour OS X et Linux)
+**Ignorer doublons avec hardlink vers le même fichier:** Avec cette option, dupeGuruX vérifiera si les doublons pointent vers le même `inode <http://en.wikipedia.org/wiki/Inode>`_. Si oui, ils ne seront pas considérés comme doublons. (Seulement pour OS X et Linux)
 
 **Utiliser les expressions régulières pour les filtres:** Avec cette option, les filtres appliqués aux résultats seront lus comme des `expressions régulières <http://www.regular-expressions.info>`_.
 
@@ -52,7 +52,7 @@ Préférences
 * **Re-créer chemins relatifs:** Le chemin du fichier relatif au dossier sélectionné dans la :doc:`sélection de dossier <folders>` sera re-créé. Par exemple, si vous ajoutez ``/Users/foobar/MonDossier`` lors de la sélection de dossier et que vous déplacez ``/Users/foobar/MonDossier/SousDossier/MonFichier.ext`` vers la destination ``/Users/foobar/MaDestination``, la destination finale du fichier sera ``/Users/foobar/MaDestination/SousDossier``.
 * **Re-créer chemins absolus:** Le chemin du fichier est re-créé dans son entièreté. Par exemple, si vous déplacez ``/Users/foobar/MonDossier/SousDossier/MonFichier.ext`` vers la destination  ``/Users/foobar/MaDestination``, la destination finale du fichier sera ``/Users/foobar/MaDestination/Users/foobar/MonDossier/SousDossier``.
 
-Dans tous les cas, dupeGuru résout les conflits de noms de fichier en ajoutant un numéro en face du nom.
+Dans tous les cas, dupeGuruX résout les conflits de noms de fichier en ajoutant un numéro en face du nom.
 
 **Commande personelle:** Cette option vous permet de définir une ligne de commande à appeler avec le fichier sélectionné (ainsi que sa référence) comme argument. Cette commande sera invoquée quand vous cliquerez sur **Invoquer commande personnalisée**. Cette command est utile si, par exemple, vous avez une application de comparaison visuelle de fichiers que vous aimez bien.
 

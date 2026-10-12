@@ -3,43 +3,43 @@ Foire aux questions
 
 .. contents::
 
-Qu'est-ce que dupeGuru?
+Qu'est-ce que dupeGuruX?
 ------------------------
 
 .. only:: edition_se
 
-    dupeGuru est un outil pour trouver des doublons parmi vos fichiers. Il peut comparer soit les
+    dupeGuruX est un outil pour trouver des doublons parmi vos fichiers. Il peut comparer soit les
     noms de fichiers, soit le contenu. Le comparateur de nom de fichier peut trouver des doublons
     même si les noms ne sont pas exactement pareils.
 
 .. only:: edition_me
 
-    dupeGuru Music Editon est un outil pour trouver des doublons parmi vos chansons. Il peut
+    dupeGuruX Music Editon est un outil pour trouver des doublons parmi vos chansons. Il peut
     comparer les noms de fichiers, les tags ou bien le contenu. Les comparaisons de nom de fichier
     ou de tags peuvent trouver des doublons même si les noms de sont pas exactement pareils.
 
 .. only:: edition_pe
 
-    dupeGuru Picture Edition est un outil pour trouver des doublons parmi vos images. Non seulement
+    dupeGuruX Picture Edition est un outil pour trouver des doublons parmi vos images. Non seulement
     il permet de trouver les doublons exactes, mais il est aussi capable de trouver les images ayant
     de légères différences, étant de format différent ou bien ayant une qualité différente.
 
 En quoi est-il mieux que les autres applications?
 -------------------------------------------------
 
-dupeGuru est hautement configurable. Vous pouvez changer les options de comparaison afin de trouver
+dupeGuruX est hautement configurable. Vous pouvez changer les options de comparaison afin de trouver
 exactement le type de doublons recherché. Plus de détails sur la
 :doc:`page de préférences <preferences>`.
 
-dupeGuru est-il sécuritaire?
-----------------------------
+dupeGuruX est-il sécuritaire?
+-----------------------------
 
-Oui. dupeGuru a été conçu afin d'être certain que vous conserviez toujours au moins une copie des
-doublons que vous trouvez. Il est aussi possible de configurer dupeGuru afin de déterminer certains
+Oui. dupeGuruX a été conçu afin d'être certain que vous conserviez toujours au moins une copie des
+doublons que vous trouvez. Il est aussi possible de configurer dupeGuruX afin de déterminer certains
 dossier à partir desquels aucun fichier ne sera effacé.
 
-Quelles sont les limitation démo de dupeGuru?
----------------------------------------------
+Quelles sont les limitation démo de dupeGuruX?
+----------------------------------------------
 
 En mode de démonstration, les actions sont limitées à 10 doublons par session. En mode `Fairware`_,
 il n'y a pas de limitation.
@@ -69,7 +69,7 @@ Lors de certaines comparaisons, il est impossible de correctement grouper les pa
 certaines paires doivent être retirées des résultats pour être certain de ne pas effacer de faux
 doublons. Example: Nous avons 3 fichiers, A, B et C. Nous les comparons en utilisant un petit seuil
 de filtre. La comparaison détermine que A est un double de B, A est un double C, mais que B n'est
-**pas** un double de C. dupeGuru a ici un problème. Il ne peut pas créer un groupe avec A, B et C.
+**pas** un double de C. dupeGuruX a ici un problème. Il ne peut pas créer un groupe avec A, B et C.
 Il décide donc de jeter C hors du groupe. C'est de là que vient la notice '(X hors-groupe)'.
 
 Cette notice veut dire que si jamais vous effacez tout les doubles contenus dans vos résultats et
@@ -145,10 +145,10 @@ afin de trier par dossier. Il sera alors facile de sélectionner tous les fichie
     * Cliquez sur **Tout Marquer** dans le menu Marquer.
     * Cliquez sur l'action **Retirer marqués des résultats**.
 
-J'essaie d'envoyer mes doublons à la corbeille, mais dupeGuru me dit que je ne peux pas. Pourquoi?
---------------------------------------------------------------------------------------------------
+J'essaie d'envoyer mes doublons à la corbeille, mais dupeGuruX me dit que je ne peux pas. Pourquoi?
+---------------------------------------------------------------------------------------------------
 
-La plupart du temps, la raison pour laquelle dupeGuru ne peut pas envoyer des fichiers à la
+La plupart du temps, la raison pour laquelle dupeGuruX ne peut pas envoyer des fichiers à la
 corbeille est un problème de permissions. Vous devez avoir une permission d'écrire dans les fichiers
 que vous voulez effacer. Si vous n'êtes pas familiers avec la ligne de commande, vous pouvez
 utiliser des outils comme `BatChmod`_ pour modifier vos permissions.
@@ -161,31 +161,31 @@ la corbeille. Dans certains cas, ça règle le problème.
 .. only:: edition_pe
 
     Si vous essayez d'effacer des photos dans iPhoto, alors la raison du problème est différente.
-    L'opération rate parce que dupeGuru ne peut pas communiquer avec iPhoto. Il faut garder à
+    L'opération rate parce que dupeGuruX ne peut pas communiquer avec iPhoto. Il faut garder à
     l'esprit qu'il ne faut pas toucher à iPhoto pendant l'opération parce que ça peut déranger la
-    communication entre dupeGuru et iPhoto. Aussi, quelque fois, dupeGuru ne peut pas trouver
+    communication entre dupeGuruX et iPhoto. Aussi, quelque fois, dupeGuruX ne peut pas trouver
     l'application iPhoto. Il faut mieux alors démarrer iPhoto avant l'opération.
 
 Dans le pire des cas, `contactez le support HS`_, on trouvera bien.
 
-Où sont les fichiers de configuration de dupeGuru?
---------------------------------------------------
+Où sont les fichiers de configuration de dupeGuruX?
+---------------------------------------------------
 
-Si, pour une raison ou une autre, vous voulez effacer ou modifier les fichiers générés par dupeGuru,
+Si, pour une raison ou une autre, vous voulez effacer ou modifier les fichiers générés par dupeGuruX,
 voici où ils sont:
 
-* Linux: ``~/.local/share/data/Hardcoded Software/dupeGuru``
-* Mac OS X: ``~/Library/Application Support/dupeGuru``
-* Windows: ``\Users\<username>\AppData\Local\Hardcoded Software\dupeGuru``
+* Linux: ``~/.local/share/data/Hardcoded Software/dupeGuruX``
+* Mac OS X: ``~/Library/Application Support/dupeGuruX``
+* Windows: ``\Users\<username>\AppData\Local\Hardcoded Software\dupeGuruX``
 
 Les fichiers de préférences sont ailleurs:
 
-* Linux: ``~/.config/Hardcoded Software/dupeGuru.conf``
+* Linux: ``~/.config/Hardcoded Software/dupeGuruX.conf``
 * Mac OS X: Dans le système ``defaults`` sous ``com.hardcoded-software.dupeguru``
-* Windows: Dans le Registre, sous ``HKEY_CURRENT_USER\Software\Hardcoded Software\dupeGuru``
+* Windows: Dans le Registre, sous ``HKEY_CURRENT_USER\Software\Hardcoded Software\dupeGuruX``
 
-Pour la Music Edition et Picture Edition, remplacer "dupeGuru" par "dupeGuru Music Edition" et
-"dupeGuru Picture Edition", respectivement.
+Pour la Music Edition et Picture Edition, remplacer "dupeGuruX" par "dupeGuruX Music Edition" et
+"dupeGuruX Picture Edition", respectivement.
 
 .. _Fairware: http://open.hardcoded.net/about/
 .. _BatChmod: http://www.lagentesoft.com/batchmod/index.html

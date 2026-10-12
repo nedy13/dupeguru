@@ -30,11 +30,11 @@ msgid "Clear Picture Cache"
 msgstr "Dọn dẹp bộ nhớ đệm của hình ảnh"
 
 #: qt/app.py:85 cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Help"
+msgid "dupeGuruX Help"
 msgstr "Trợ giúp"
 
 #: qt/app.py:86 cocoa/en.lproj/Localizable.strings:0
-msgid "About dupeGuru"
+msgid "About dupeGuruX"
 msgstr "Dịch bởi Phan Anh"
 
 #: qt/app.py:87
@@ -204,8 +204,8 @@ msgid "All Files (*.*)"
 msgstr "Tất cả tập tin (*.*)"
 
 #: qt/directories_dialog.py:267 qt/result_window.py:311
-msgid "dupeGuru Results (*.dupeguru)"
-msgstr "tập tin kết quả của dupeGuru (*.dupeguru)"
+msgid "dupeGuruX Results (*.dupeguru)"
+msgstr "tập tin kết quả của dupeGuruX (*.dupeguru)"
 
 #: qt/directories_dialog.py:278
 msgid "Start a new scan"
@@ -359,7 +359,7 @@ msgid "Custom Command (arguments: %d for dupe, %r for ref):"
 msgstr "Lệnh tùy chọn (đối số: %d cho trùng nhau, %r cho tham số):"
 
 #: qt/preferences_dialog.py:174
-msgid "dupeGuru has to restart for language changes to take effect."
+msgid "dupeGuruX has to restart for language changes to take effect."
 msgstr ""
 "dupeGure phải khởi động lại để việc thay đổi ngôn ngữ giao diện được áp "
 "dụng."
@@ -586,19 +586,19 @@ msgid "Directories"
 msgstr "Thư mục"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru"
-msgstr "dupeGuru"
+msgid "dupeGuruX"
+msgstr "dupeGuruX"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Preferences"
+msgid "dupeGuruX Preferences"
 msgstr "Tùy biến"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Results"
+msgid "dupeGuruX Results"
 msgstr "Kết quả"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "dupeGuru Website"
+msgid "dupeGuruX Website"
 msgstr "Website"
 
 #: cocoa/en.lproj/Localizable.strings:0
@@ -638,7 +638,7 @@ msgid "Font Size:"
 msgstr "Kích thước kiểu chữ:"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Hide dupeGuru"
+msgid "Hide dupeGuruX"
 msgstr "Ẩn chương trình"
 
 #: cocoa/en.lproj/Localizable.strings:0
@@ -682,7 +682,7 @@ msgid "Quick Look"
 msgstr "Xem sơ lược"
 
 #: cocoa/en.lproj/Localizable.strings:0
-msgid "Quit dupeGuru"
+msgid "Quit dupeGuruX"
 msgstr "Thoát chương trình"
 
 #: cocoa/en.lproj/Localizable.strings:0
@@ -754,16 +754,16 @@ msgid "Select a directories file to load"
 msgstr "Chọn một tập tin thư mục để tải"
 
 #: qt\directories_dialog.py:338
-msgid "dupeGuru Results (*.dupegurudirs)"
-msgstr "dupeGuru Thư mục (*.dupegurudirs)"
+msgid "dupeGuruX Results (*.dupegurudirs)"
+msgstr "dupeGuruX Thư mục (*.dupegurudirs)"
 
 #: qt\directories_dialog.py:347
 msgid "Select a file to save your directories to"
 msgstr "Chọn một tệp để lưu các thư mục của bạn vào"
 
 #: qt\directories_dialog.py:348
-msgid "dupeGuru Directories (*.dupegurudirs)"
-msgstr "dupeGuru Thư mục (*.dupegurudirs)"
+msgid "dupeGuruX Directories (*.dupegurudirs)"
+msgstr "dupeGuruX Thư mục (*.dupegurudirs)"
 
 #: qt\exclude_list_dialog.py:44
 msgid "Add"

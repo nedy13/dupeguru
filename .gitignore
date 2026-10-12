@@ -117,4 +117,5 @@ cocoa/autogen
 /pkg/arch/src/
 /pkg/arch/pkg/
 /pkg/arch/dupeguru/
+/pkg/arch/dupegurux/
 *.pkg.tar.*

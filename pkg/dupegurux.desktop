@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=dupeGuru
+Name=dupeGuruX
 Comment=Find duplicate files.
-Exec=dupeguru
-Icon=dupeguru
+Exec=dupegurux
+Icon=dupegurux
 Terminal=false
 Type=Application
 Categories=Utility;

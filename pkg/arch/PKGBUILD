@@ -4,19 +4,21 @@
 # Contributor: Virgil Dupras <hsoft@hardcoded.net>
 
 # Build from the pkg/arch directory: makepkg -si
-pkgname=dupeguru-git
-_pkgname=dupeguru
+pkgname=dupegurux-git
+_pkgname=dupegurux
 pkgver=4.3.1.r0.g0000000
 pkgrel=1
-pkgdesc="Find duplicate files with various contents, using perceptual diff for pictures (PySide6 fork)"
+pkgdesc="Find duplicate files and files missing in a backup, fork of dupeGuru with a PySide6 UI"
 arch=('x86_64')
 url="https://github.com/nedy13/dupeguru"
 license=('GPL-3.0-only')
 depends=('python' 'pyside6' 'python-send2trash' 'python-mutagen'
          'python-semantic-version' 'python-xxhash' 'glibc' 'hicolor-icon-theme')
 makedepends=('git' 'python-setuptools' 'python-sphinx' 'python-polib')
-provides=('dupeguru')
-conflicts=('dupeguru' 'dupeguru-se' 'dupeguru-pe' 'dupeguru-me')
+provides=('dupegurux')
+conflicts=('dupegurux')
+# dupeguru-git was the name of this package before the fork was renamed to dupeGuruX
+replaces=('dupeguru-git')
 options=('!debug')
 # Override with DUPEGURU_REPO=git+file:///path/to/checkout to build local commits without pushing,
 # DUPEGURU_REF=commit=<sha> or tag=<tag> selects another revision (used by CI)
@@ -68,6 +70,6 @@ exec /usr/bin/python3 /usr/lib/${_pkgname}/run.py "\$@"
 EOF
   chmod 755 "${pkgdir}/usr/bin/${_pkgname}"
 
-  install -Dm644 pkg/dupeguru.desktop "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+  install -Dm644 pkg/dupegurux.desktop "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
   install -Dm644 images/dgse_logo_128.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/${_pkgname}.png"
 }

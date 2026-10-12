@@ -3,7 +3,7 @@ Der Scanvorgang
 
 .. contents::
 
-dupeGuru hat 3 grundlegende Arten zu scannen: :ref:`worded-scan`, :ref:`contents-scan` und
+dupeGuruX hat 3 grundlegende Arten zu scannen: :ref:`worded-scan`, :ref:`contents-scan` und
 :ref:`Bildblöcke <picture-blocks-scan>`. Die ersten beiden sind für den Standard- und den Musikmodus,
 die letzte für den Bildmodus. Der Scanvorgang wird über die :doc:`Einstellungen <preferences>`
 konfiguriert.
@@ -31,7 +31,7 @@ Leerzeichen ersetzt, manche durch nichts) und alle Wörter kleingeschrieben. Die
 Danach beginnt der eigentliche Vergleich. Duplikate zu finden heißt nur noch herauszufinden, wie
 viele Wörter zwei Zeichenketten gemeinsam haben. Ist die :ref:`Filterempfindlichkeit
 <filter-hardness>` zum Beispiel ``80``, müssen 80% der Wörter zweier Zeichenketten übereinstimmen.
-Um den Übereinstimmungsanteil zu bestimmen, zählt dupeGuru zuerst die Gesamtzahl der Wörter
+Um den Übereinstimmungsanteil zu bestimmen, zählt dupeGuruX zuerst die Gesamtzahl der Wörter
 **beider** Zeichenketten, dann die übereinstimmenden Wörter (jedes zählt als 2), und teilt die Zahl
 der übereinstimmenden Wörter durch die Gesamtzahl. Ist das Ergebnis größer oder gleich der
 Filterempfindlichkeit, haben wir ein Duplikat. Zum Beispiel haben "a b c d" und "c d e" einen
@@ -114,7 +114,7 @@ verschwindend gering.
 
 Die :ref:`Filterempfindlichkeit <filter-hardness>` wird bei diesem Scan ignoriert.
 
-Das Lesen der Dateien braucht bei diesem Scan die meiste Zeit, und dupeGuru liest mehrere Dateien
+Das Lesen der Dateien braucht bei diesem Scan die meiste Zeit, und dupeGuruX liest mehrere Dateien
 gleichzeitig. Auf schnellen Laufwerken (SSDs, besonders NVMe-Laufwerke) macht das den Scan um ein
 Vielfaches schneller. Auf einer Festplatte, deren Lesekopf beim gleichzeitigen Lesen vieler Dateien
 hin und her springen muss, hilft es weniger. Siehe :ref:`scan-workers`.
@@ -129,7 +129,7 @@ Dies ist ein besonderer Inhalts-Scan. Er funktioniert wie ein normaler Inhalts-S
 statt doppelter Dateien nach doppelten Ordnern. Ein Ordner ist ein Duplikat eines anderen, wenn alle
 seine Dateien denselben Inhalt haben wie die Dateien des anderen Ordners.
 
-Dieser Scan ist natürlich rekursiv, Unterordner werden mitgeprüft. dupeGuru behält nur die größten
+Dieser Scan ist natürlich rekursiv, Unterordner werden mitgeprüft. dupeGuruX behält nur die größten
 Fische: Enthalten zwei übereinstimmende Ordner Unterordner, erscheinen diese Unterordner nicht
 zusätzlich in den Ergebnissen.
 
@@ -176,7 +176,7 @@ Die :ref:`Filterempfindlichkeit <filter-hardness>` wird bei diesem Scan ignorier
 Bildblöcke
 ----------
 
-Der Bildmodus von dupeGuru unterscheidet sich deutlich von seinen beiden Geschwistern. Seine
+Der Bildmodus von dupeGuruX unterscheidet sich deutlich von seinen beiden Geschwistern. Seine
 Scantypen sind völlig anders. Der erste ist sein Scan "Inhalt", was etwas zu allgemein ist, deshalb
 nennen wir ihn hier "Bildblöcke".
 
@@ -206,7 +206,7 @@ werden in mehreren Prozessen analysiert, und ebenso werden sie verglichen. Auf e
 vielen Kernen macht das den Scan um ein Vielfaches schneller. Siehe :ref:`scan-workers`.
 
 Dieser Algorithmus ist sehr einfach, funktioniert in der Praxis aber recht gut. Wenn Sie einen
-besseren Algorithmus kennen und dupeGuru verbessern möchten, melden Sie sich!
+besseren Algorithmus kennen und dupeGuruX verbessern möchten, melden Sie sich!
 
 EXIF Zeitstempel
 ----------------
