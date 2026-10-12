@@ -186,6 +186,10 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          sparse-checkout: help/changelog
+          sparse-checkout-cone-mode: false
       - uses: actions/download-artifact@v6
         with:
           pattern: package-*
@@ -195,5 +199,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The notes are the changelog section of the version, as most changes are not merged through pull requests
+          version="${GITHUB_REF_NAME#v}"
+          awk -v head="=== ${version} " 'index($0, head) == 1 {found = 1; next} /^=== / {found = 0} found' \
+            help/changelog > notes.md
+          if ! grep -q . notes.md; then echo "::error::No changelog section for ${version}"; exit 1; fi
           gh release create "${GITHUB_REF_NAME}" dist/* --repo "${GITHUB_REPOSITORY}" \
-            --title "${GITHUB_REF_NAME#v}" --generate-notes
+            --title "${version}" --notes-file notes.md --generate-notes

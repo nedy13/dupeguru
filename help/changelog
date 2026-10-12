@@ -1,3 +1,14 @@
+=== 4.4.1 (2026-10-12)
+* Rename the fork to dupeGuruX to avoid confusion with dupeGuru. The settings, folder lists, ignore list and hash
+  cache of dupeGuru are taken over on the first start. The command is now dupegurux, the Arch Linux package
+  dupegurux-git replaces dupeguru-git and dupeGuruX can be installed next to dupeGuru.
+* Translate the new texts of the UI into German
+* Document the new features in the help: files missing in reference, the "Relative Path and Size" and
+  "Exact Picture (ignore metadata)" scan types, parallel scanning and the hash cache (English and German)
+* Open the help in the language of the UI, and the built help when running from the source folder
+* Link the other languages of the help to the installed help instead of the old website
+* Take the release notes from the changelog
+
 === 4.4.0 (2026-10-11)
 * Add "Exact Picture (ignore metadata)" scan type in picture mode: pictures with identical pixels match,
   whatever their EXIF, IPTC or XMP metadata
