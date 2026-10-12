@@ -119,10 +119,13 @@ class FilesDB:
     """
 
     ignore_mtime = False
+    # Writes are committed in batches: committing every digest makes each hashed file wait for the disk
+    commit_every = 1000
 
     def __init__(self):
         self.conn = None
         self.lock = None
+        self._uncommitted = 0
 
     def connect(self, path: Union[AnyStr, os.PathLike]) -> None:
         if platform.startswith("gnu0"):
@@ -164,13 +167,14 @@ class FilesDB:
         size = stat.st_size
         mtime_ns = stat.st_mtime_ns
         try:
-            with self.conn as conn:
+            # The connection is shared by the hashing threads, sqlite3 fails on concurrent use of a connection
+            with self.lock:
                 if self.ignore_mtime:
-                    cursor = conn.execute(
+                    cursor = self.conn.execute(
                         self.select_query_ignore_mtime.format(key=key), {"path": str(path), "size": size}
                     )
                 else:
-                    cursor = conn.execute(
+                    cursor = self.conn.execute(
                         self.select_query.format(key=key),
                         {"path": str(path), "size": size, "mtime_ns": mtime_ns},
                     )
@@ -189,20 +193,28 @@ class FilesDB:
         size = stat.st_size
         mtime_ns = stat.st_mtime_ns
         try:
-            with self.lock, self.conn as conn:
-                conn.execute(
+            with self.lock:
+                self.conn.execute(
                     self.insert_query.format(key=key),
                     {"path": str(path), "size": size, "mtime_ns": mtime_ns, "value": value},
                 )
+                self._uncommitted += 1
+                if self._uncommitted >= self.commit_every:
+                    self._commit()
         except Exception as ex:
             logging.warning(f"Couldn't put {key} for {path} w/{size}, {mtime_ns}: {ex}")
 
+    def _commit(self) -> None:
+        self.conn.commit()
+        self._uncommitted = 0
+
     def commit(self) -> None:
         with self.lock:
-            self.conn.commit()
+            self._commit()
 
     def close(self) -> None:
         with self.lock:
+            self._commit()
             self.conn.close()
 
 

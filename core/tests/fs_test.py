@@ -6,7 +6,9 @@
 # which should be included with this package. The terms are also available at
 # http://www.gnu.org/licenses/gpl-3.0.html
 
+import sqlite3
 import typing
+from concurrent.futures import ThreadPoolExecutor
 from os import urandom
 
 from pathlib import Path
@@ -111,3 +113,57 @@ def test_has_file_attrs(tmpdir):
     b = fs.Folder(Path(str(tmpdir)))
     assert b.mtime > 0
     eq_(b.extension, "")
+
+
+def make_filesdb(tmp_path):
+    db = fs.FilesDB()
+    db.connect(tmp_path / "hash_cache.db")
+    return db
+
+
+def committed_rows(tmp_path):
+    # A second connection only sees what the hash cache committed
+    conn = sqlite3.connect(tmp_path / "hash_cache.db")
+    try:
+        return conn.execute("SELECT COUNT(*) FROM files").fetchone()[0]
+    finally:
+        conn.close()
+
+
+def test_filesdb_commits_in_batches(tmp_path, monkeypatch):
+    monkeypatch.setattr(fs.FilesDB, "commit_every", 3)
+    db = make_filesdb(tmp_path)
+    paths = []
+    for i in range(4):
+        path = tmp_path / f"file{i}"
+        path.write_bytes(b"x" * i)
+        paths.append(path)
+    for path in paths[:2]:
+        db.put(path, "digest", path.name.encode())
+    # Each digest is readable at once, but not written to the disk yet
+    assert db.get(paths[0], "digest") == b"file0"
+    assert committed_rows(tmp_path) == 0
+    db.put(paths[2], "digest", b"file2")
+    assert committed_rows(tmp_path) == 3
+    db.put(paths[3], "digest", b"file3")
+    db.close()
+    assert committed_rows(tmp_path) == 4
+
+
+def test_filesdb_concurrent_access(tmp_path, caplog):
+    db = make_filesdb(tmp_path)
+    paths = []
+    for i in range(200):
+        path = tmp_path / f"file{i}"
+        path.write_bytes(b"x")
+        paths.append(path)
+
+    def put_and_get(path):
+        db.put(path, "digest", path.name.encode())
+        return db.get(path, "digest")
+
+    with ThreadPoolExecutor(8) as executor:
+        results = list(executor.map(put_and_get, paths))
+    db.close()
+    assert results == [path.name.encode() for path in paths]
+    assert "Couldn't" not in caplog.text
