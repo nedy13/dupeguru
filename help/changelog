@@ -1,3 +1,9 @@
+=== 4.4.2 (2026-10-12)
+* Fix the hash cache slowing down contents scans: every digest was written to the disk on its own, so the hashing
+  threads waited for the disk one after the other (hashing 3000 files took 26 s instead of 0.25 s)
+* Fix cached digests being computed again because the hashing threads read the hash cache at the same time
+  ("bad parameter or other API misuse" in the debug log)
+
 === 4.4.1 (2026-10-12)
 * Rename the fork to dupeGuruX to avoid confusion with dupeGuru. The settings, folder lists, ignore list and hash
   cache of dupeGuru are taken over on the first start. The command is now dupegurux, the Arch Linux package
