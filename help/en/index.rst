@@ -31,6 +31,7 @@ Contents:
     preferences
     scan
     results
+    missing
     reprioritize
     faq
     developer/index

@@ -18,6 +18,16 @@ Preferences
     If you check this box, pictures of different rotations will be allowed in the same
     duplicate group.
 
+    These two options are only available for the picture blocks scan. The
+    :ref:`exact-picture-scan` scan type only matches pictures with the same pixels.
+
+**Relative path scan: also compare modification times, tolerance:**
+    Only available for the :ref:`relative-path-scan` scan type. When checked, two files with the
+    same path and size are only duplicates if their modification times differ by at most the given
+    number of seconds. The default tolerance of 2 seconds covers drives that don't store the time
+    precisely (FAT, exFAT, some network drives). It's off by default because copying a file often
+    changes its modification time, see :ref:`relative-path-scan` for details.
+
 .. _filter-hardness:
 
 **Filter Hardness:**
@@ -77,6 +87,35 @@ should also enclose placeholders in quotes because it's very possible that paths
 will contain spaces. Here's an example custom command::
 
     "C:\Program Files\SuperDiffProg\SuperDiffProg.exe" "%d" "%r"
+
+Advanced
+--------
+
+These options are for advanced users or for very specific situations. Most users should not have to
+modify them.
+
+**Include existence check after scan completion:**
+    After the scan, check that the files of every match still exist and leave out the ones that were
+    deleted or moved in the meantime. A long contents scan can take hours, and files can disappear
+    during that time. This check has to look at every file again, which is slow on network drives.
+    It's never done for the :ref:`relative-path-scan` scan type, which lists the files only seconds
+    before.
+
+**Ignore difference in mtime when loading cached digests:**
+    The hash cache keeps the hash of every file together with its path, size and modification time.
+    Normally, a file whose modification time changed is read again. With this option, a cached hash
+    is used as long as the path and size are the same. Only use it if you know the contents didn't
+    change, for example after a tool set new modification times on files it didn't modify.
+
+.. _scan-workers:
+
+**Parallel scan workers:**
+    How many files are hashed and pictures analyzed at the same time. **Automatic** uses all CPU
+    cores of your computer for decoding and analyzing pictures, and a few more reads than cores at
+    the same time for hashing files. On computers with two cores or less, it scans single-threaded.
+    Set it to **1** to always scan single-threaded, for example to keep the computer responsive
+    during a long scan, or to a number to use at most that many workers. Reading many files at the
+    same time is fastest on SSDs; on a single hard disk, a small number can be faster.
 
 .. _inode: http://en.wikipedia.org/wiki/Inode
 .. _regular-expressions.info: http://www.regular-expressions.info

@@ -8,6 +8,10 @@ dupeGuru has 3 basic ways of scanning: :ref:`worded-scan` and :ref:`contents-sca
 modes, the last is for the Picture mode. The scanning process is configured through the
 :doc:`Preference pane <preferences>`.
 
+Besides these, there are a few more specialized scan types: :ref:`relative-path-scan` in the
+Standard mode, which compares files without reading them, and **EXIF Timestamp** and
+:ref:`exact-picture-scan` in the Picture mode.
+
 .. _worded-scan:
 
 Worded scans
@@ -108,6 +112,14 @@ having the same MD5 hash *and* the same size by accident is still very, very sma
 
 The :ref:`filter hardness <filter-hardness>` preference is ignored in this scan.
 
+Reading files is what takes time in this scan, and dupeGuru reads several files at the same time.
+On fast drives (SSDs, and NVMe drives in particular), this makes the scan several times faster. On
+a hard disk, where reading many files at once makes the disk head jump back and forth, it helps less.
+See :ref:`scan-workers`.
+
+Hashes are kept in a cache (the "hash cache"). As long as a file has the same size and modification
+time, it isn't read again in the next scan.
+
 Folders
 ^^^^^^^
 
@@ -121,6 +133,39 @@ fishes. Therefore, if two folders that are considered as matching contain subfol
 subfolders will not be included in the final results.
 
 With this mode, we end up with folders as results instead of files.
+
+.. _relative-path-scan:
+
+Relative Path and Size
+----------------------
+
+This scan type, in Standard mode, is made for one task: checking a copy of a folder against its
+original, for example a backup on a NAS. Two files are duplicates when they have the same path
+below the folder they were found in, and the same size. No file is read, only the folders are
+listed, which makes this scan very fast, even over the network. Comparing two copies of a big
+photo collection (about 85,000 files each, one of them on a NAS) takes about as long as listing
+the folders, a few seconds.
+
+Let's say you added ``/mnt/nas/Photos`` and ``/home/me/Photos`` to your folder list. Then
+``/mnt/nas/Photos/2015/Holidays/IMG_1234.JPG`` and ``/home/me/Photos/2015/Holidays/IMG_1234.JPG``
+are duplicates if they have the same size. ``/home/me/Photos/2016/IMG_1234.JPG`` isn't, even if it
+has the same name and size, because it's in another folder. This means the folders you add to your
+folder list have to be at the same level in both copies: ``/mnt/nas/Photos`` and
+``/home/me/Photos`` work, ``/mnt/nas`` and ``/home/me/Photos`` don't, because the paths would then
+start with ``Photos/`` on one side only. Paths are compared exactly, case included.
+
+Optionally, the modification times can be compared too (see :doc:`preferences`), with a tolerance
+of a few seconds. Leave this option off unless you need it: the modification time of a copy often
+isn't the one of its original, even though the contents are the same. Some ways of copying set
+it to the time of the copy, FAT and exFAT drives (USB sticks, SD cards) only keep it to 2 seconds
+and in local time, which can shift it by an hour, and some network drives round it to the second.
+
+Used with a reference folder, this scan type is the fastest way to find the
+:doc:`files missing in a copy <missing>`. Of course, it doesn't tell you whether the contents of
+two files with the same path and size are really the same. If you need to be sure of that, use a
+:ref:`contents-scan` instead.
+
+The :ref:`filter hardness <filter-hardness>` preference is ignored in this scan.
 
 .. _picture-blocks-scan:
 
@@ -152,6 +197,10 @@ the fact of the matter is that, due to the fuzziness of the task, we still have 
 to every other, making the algorithm quadratic (if ``N`` is the number of pictures to compare, the
 number of comparisons to perform is ``N*N``).
 
+Both parts of the scan run on all the CPU cores of your computer at the same time: the pictures are
+analyzed in several processes, and so are the comparisons. On a computer with many cores, this
+makes the scan many times faster. See :ref:`scan-workers`.
+
 This algorithm is very naive, but in the field, it works rather well. If you master a better
 algorithm and want to improve dupeGuru, by all means, let me know!
 
@@ -163,6 +212,37 @@ tag. If the tag is the same for two pictures, they're considered duplicates.
 
 **Warning:** Modified pictures often keep the same EXIF timestamp, so watch out for false positives
 when you use that scan type.
+
+.. _exact-picture-scan:
+
+Exact Picture (ignore metadata)
+-------------------------------
+
+Photo applications often write keywords, ratings, captions or the author into the picture file
+itself (as EXIF, IPTC or XMP metadata). After that, the file is no longer the same, so a
+:ref:`contents-scan` doesn't find it anymore, although the picture didn't change at all. And
+:ref:`picture blocks <picture-blocks-scan>` are fuzzy: they find pictures that look alike, which
+isn't what you want when you need to know whether *this exact picture* is in your collection.
+
+This scan type compares the pictures themselves, pixel by pixel, and ignores everything else. We
+decode every picture, turn it like the camera recorded it in the EXIF orientation, and compute a
+hash of its dimensions and pixels. Two pictures with the same hash are duplicates. Thus:
+
+* A picture whose keywords, rating, comment, embedded thumbnail or any other metadata were
+  changed is a duplicate of the original.
+* A picture that was resized, cropped, rotated (in its pixels), edited or saved again as JPEG, even
+  with the same quality, is **not** a duplicate. JPEG compression changes pixels slightly every time
+  a picture is saved.
+
+Like the analysis of picture blocks, decoding the pictures is done in several processes at the
+same time (see :ref:`scan-workers`) and its result is kept in the hash cache, so the next scans of
+the same pictures are almost instant. Because pictures with the same hash are simply put together,
+there is no comparison phase: this scan is much faster than picture blocks for big collections.
+
+Pictures that can't be decoded are left out of the scan, so they never have a duplicate.
+
+The :ref:`filter hardness <filter-hardness>`, "Match pictures of different dimensions" and "Match
+pictures of different rotations" preferences are ignored in this scan.
 
 .. _Levenshtein distance: http://en.wikipedia.org/wiki/Levenshtein_distance
 .. _get_close_matches: http://docs.python.org/3/library/difflib.html#difflib.get_close_matches

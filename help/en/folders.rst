@@ -66,6 +66,11 @@ Every folder can be in one of these 3 states:
 The default state of a folder is, of course, **Normal**. You can use **Reference** state for a
 folder if you want to be sure that you won't delete any file from it.
 
+Reference folders have a second use: after a scan with at least one reference folder, dupeGuru
+lists the files of the normal folders that have no duplicate in the reference folders. This tells
+you, for example, which photos of your phone are not in your photo collection yet. See
+:doc:`missing`.
+
 When you set the state of a directory, all subfolders of this folder automatically inherit this
 state unless you explicitly set a subfolder's state.
 
