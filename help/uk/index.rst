@@ -3,7 +3,7 @@
 
 .. only:: edition_se
 
-    Цей документ також доступна на `французькому <http://dupeguru.voltaicideas.net/help/fr/>`__, `німецький <http://dupeguru.voltaicideas.net/help/de/>`__ і `Вірменський <http://dupeguru.voltaicideas.net/help/hy/>`__.
+    Цей документ також доступна на `французькому <../fr/index.html>`__, `німецький <../de/index.html>`__ і `Вірменський <../hy/index.html>`__.
 
 .. only:: edition_se or edition_me
 
@@ -15,7 +15,7 @@
 
 Хоча dupeGuru може бути легко використана без документації, читання цього файлу допоможе вам освоїти його. Якщо ви шукаєте керівництво для вашої першої дублювати сканування, ви можете поглянути на: :doc:`Quick Start <quick_start>`
 
-Це гарна ідея, щоб зберегти dupeGuru оновлено. Ви можете завантажити останню версію на своєму http://dupeguru.voltaicideas.net.
+Це гарна ідея, щоб зберегти dupeGuru оновлено. Ви можете завантажити останню версію на своєму https://github.com/nedy13/dupeguru/releases.
 
 Contents:
 

@@ -1,8 +1,13 @@
 dupeGuru Hilfe
 ==============
 
-Diese Hilfe gibt es auch auf `Englisch <http://dupeguru.voltaicideas.net/help/en>`__ und
-`Französisch <http://dupeguru.voltaicideas.net/help/fr>`__.
+Diese Hilfe gibt es auch in diesen Sprachen:
+
+* `Englisch <../en/index.html>`__
+* `Französisch <../fr/index.html>`__
+* `Armenisch <../hy/index.html>`__
+* `Russisch <../ru/index.html>`__
+* `Ukrainisch <../uk/index.html>`__
 
 dupeGuru ist ein Werkzeug zum Auffinden doppelter Dateien auf Ihrem Computer. Es hat drei Modi,
 Standard, Musik und Bild, und jeder Modus hat eigene Scantypen und kleine Besonderheiten.

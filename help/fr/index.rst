@@ -3,7 +3,7 @@ Aide dupeGuru
 
 .. only:: edition_se
 
-    Ce document est aussi disponible en `anglais <http://dupeguru.voltaicideas.net/help/en/>`__, en `allemand <http://dupeguru.voltaicideas.net/help/de/>`__ et en `arménien <http://dupeguru.voltaicideas.net/help/hy/>`__.
+    Ce document est aussi disponible en `anglais <../en/index.html>`__, en `allemand <../de/index.html>`__ et en `arménien <../hy/index.html>`__.
 
 .. only:: edition_se or edition_me
 
@@ -15,7 +15,7 @@ Aide dupeGuru
 
 Bien que dupeGuru puisse être utilisé sans lire l'aide, une telle lecture vous permettra de bien comprendre comment l'application fonctionne. Pour un guide rapide pour une première utilisation, référez vous à la section :doc:`Démarrage Rapide <quick_start>`.
 
-C'est toujours une bonne idée de garder dupeGuru à jour. Vous pouvez télécharger la dernière version sur sa http://dupeguru.voltaicideas.net.
+C'est toujours une bonne idée de garder dupeGuru à jour. Vous pouvez télécharger la dernière version sur sa https://github.com/nedy13/dupeguru/releases.
 
 Contents:
 

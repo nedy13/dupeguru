@@ -3,11 +3,11 @@ dupeGuru help
 
 This help document is also available in these languages:
 
-* `French <http://dupeguru.voltaicideas.net/help/fr>`__
-* `German <http://dupeguru.voltaicideas.net/help/de>`__
-* `Armenian <http://dupeguru.voltaicideas.net/help/hy>`__
-* `Russian <http://dupeguru.voltaicideas.net/help/ru>`__
-* `Ukrainian <http://dupeguru.voltaicideas.net/help/uk>`__
+* `French <../fr/index.html>`__
+* `German <../de/index.html>`__
+* `Armenian <../hy/index.html>`__
+* `Russian <../ru/index.html>`__
+* `Ukrainian <../uk/index.html>`__
 
 dupeGuru is a tool to find duplicate files on your computer. It has three
 modes, Standard, Music and Picture, with each mode having its own scan types
@@ -43,4 +43,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
-.. _homepage: https://dupeguru.voltaicideas.net/
+.. _homepage: https://github.com/nedy13/dupeguru/releases

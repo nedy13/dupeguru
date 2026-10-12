@@ -1,7 +1,7 @@
 ﻿dupeGuru help
 ===============
 
-Этот документ также доступна на `французском <http://dupeguru.voltaicideas.net/help/fr/>`__, `немецком <http://dupeguru.voltaicideas.net/help/de/>`__ и `армянский <http://dupeguru.voltaicideas.net/help/hy/>`__.
+Этот документ также доступна на `французском <../fr/index.html>`__, `немецком <../de/index.html>`__ и `армянский <../hy/index.html>`__.
 
 .. only:: edition_se or edition_me
 
@@ -13,7 +13,7 @@
 
 Хотя dupeGuru может быть легко использована без документации, чтение этого файла поможет вам освоить его. Если вы ищете руководство для вашей первой дублировать сканирования, вы можете взглянуть на раздел :doc:`Быстрый <quick_start>` Начало.
 
-Это хорошая идея, чтобы сохранить dupeGuru обновлен. Вы можете скачать последнюю версию на своей http://dupeguru.voltaicideas.net.
+Это хорошая идея, чтобы сохранить dupeGuru обновлен. Вы можете скачать последнюю версию на своей https://github.com/nedy13/dupeguru/releases.
 Содержание:
 
 .. toctree::
